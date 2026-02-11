@@ -2,20 +2,19 @@ import type { PlrBreakdown } from "../../domain/entities/PlrCalculation.ts";
 import { FenabanCalculator } from "./FenabanCalculator.ts";
 
 // Caixa: PLR Social (4% do lucro) + teto de 3 remuneracoes base
-const PLR_SOCIAL_VALOR_BASE = 3200.0;
+const PLR_SOCIAL_DEFAULT = 3200.0;
 const TETO_MULTIPLICADOR = 3;
 
 export class CaixaCalculator extends FenabanCalculator {
-  readonly multiplicador: number;
+  readonly valorPrograma: number;
 
-  constructor(multiplicador?: number) {
+  constructor(valorPrograma?: number) {
     super();
-    this.multiplicador = multiplicador ?? 1.0;
+    this.valorPrograma = valorPrograma ?? PLR_SOCIAL_DEFAULT;
   }
 
   override calculateProgramaComplementar(_salario: number): { value: number; name: string | null } {
-    const value = Math.round(PLR_SOCIAL_VALOR_BASE * this.multiplicador * 100) / 100;
-    return { value, name: `PLR Social (${this.multiplicador}x)` };
+    return { value: this.valorPrograma, name: "PLR Social (4% do lucro liquido)" };
   }
 
   override getBreakdown(salario: number, meses: number): PlrBreakdown {

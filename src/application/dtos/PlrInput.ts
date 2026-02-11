@@ -6,4 +6,5 @@ export interface PlrInput {
   mesesTrabalhados: number;
   incluirContribuicaoSindical: boolean;
   multiplicadorBanco?: number;
+  valorProgramaBanco?: number;
 }

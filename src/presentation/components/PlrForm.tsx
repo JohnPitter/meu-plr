@@ -18,7 +18,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   const [salario, setSalario] = useState<string>("");
   const [meses, setMeses] = useState<string>("12");
   const [sindical, setSindical] = useState(true);
-  const [multiplicador, setMultiplicador] = useState<string>("");
+  const [programaValue, setProgramaValue] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const selectedBank = bankId ? getBankInfo(bankId as BankId) : null;
@@ -27,13 +27,13 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     setBankId(newBankId);
     if (newBankId) {
       const bank = getBankInfo(newBankId as BankId);
-      if (bank.hasMultiplicador && bank.multiplicadorDefault != null) {
-        setMultiplicador(String(bank.multiplicadorDefault));
+      if (bank.programaInputType && bank.programaDefault != null) {
+        setProgramaValue(String(bank.programaDefault));
       } else {
-        setMultiplicador("");
+        setProgramaValue("");
       }
     } else {
-      setMultiplicador("");
+      setProgramaValue("");
     }
   }
 
@@ -48,10 +48,16 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
 
     let multiplicadorNum: number | undefined;
-    if (selectedBank?.hasMultiplicador && multiplicador) {
-      multiplicadorNum = parseFloat(multiplicador.replace(",", "."));
-      if (isNaN(multiplicadorNum) || multiplicadorNum < 0) {
-        newErrors.multiplicador = "Informe um multiplicador valido";
+    let valorProgramaNum: number | undefined;
+
+    if (selectedBank?.programaInputType && programaValue) {
+      const parsed = parseFloat(programaValue.replace(/\./g, "").replace(",", "."));
+      if (isNaN(parsed) || parsed < 0) {
+        newErrors.programa = "Informe um valor valido";
+      } else if (selectedBank.programaInputType === "multiplicador") {
+        multiplicadorNum = parsed;
+      } else {
+        valorProgramaNum = parsed;
       }
     }
 
@@ -67,6 +73,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
       mesesTrabalhados: mesesNum,
       incluirContribuicaoSindical: sindical,
       multiplicadorBanco: multiplicadorNum,
+      valorProgramaBanco: valorProgramaNum,
     });
   }
 
@@ -121,21 +128,21 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
             {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
           </div>
 
-          {selectedBank?.hasMultiplicador && (
+          {selectedBank?.programaInputType && (
             <div className="space-y-2">
-              <Label htmlFor="multiplicador">{selectedBank.multiplicadorLabel}</Label>
+              <Label htmlFor="programa">{selectedBank.programaLabel}</Label>
               <Input
-                id="multiplicador"
+                id="programa"
                 type="text"
                 inputMode="decimal"
-                placeholder={String(selectedBank.multiplicadorDefault ?? 1.0)}
-                value={multiplicador}
-                onChange={(e) => setMultiplicador(e.target.value)}
+                placeholder={String(selectedBank.programaDefault ?? "")}
+                value={programaValue}
+                onChange={(e) => setProgramaValue(e.target.value)}
               />
               <p className="text-xs text-muted-foreground">
-                Fator divulgado pelo banco para o programa {selectedBank.additionalProgramName}
+                {selectedBank.programaHint}
               </p>
-              {errors.multiplicador && <p className="text-xs text-destructive">{errors.multiplicador}</p>}
+              {errors.programa && <p className="text-xs text-destructive">{errors.programa}</p>}
             </div>
           )}
 

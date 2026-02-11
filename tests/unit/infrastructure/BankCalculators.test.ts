@@ -45,6 +45,12 @@ describe("BradescoCalculator", () => {
     expect(result.value).toBe(2800);
     expect(result.name).toContain("PLR Social");
   });
+
+  it("aceita valor customizado em R$", () => {
+    const calc = new BradescoCalculator(3500);
+    const result = calc.calculateProgramaComplementar(5000);
+    expect(result.value).toBe(3500);
+  });
 });
 
 describe("BbCalculator", () => {

@@ -8,18 +8,23 @@ import { BradescoCalculator } from "./BradescoCalculator.ts";
 import { BbCalculator } from "./BbCalculator.ts";
 import { CaixaCalculator } from "./CaixaCalculator.ts";
 
-export function createCalculator(bankId: BankId, multiplicador?: number): IPlrCalculator {
+export interface CalculatorOptions {
+  multiplicador?: number;
+  valorPrograma?: number;
+}
+
+export function createCalculator(bankId: BankId, options?: CalculatorOptions): IPlrCalculator {
   switch (bankId) {
     case BANKS.ITAU:
-      return new ItauCalculator(multiplicador);
+      return new ItauCalculator(options?.multiplicador);
     case BANKS.SANTANDER:
-      return new SantanderCalculator(multiplicador);
+      return new SantanderCalculator(options?.multiplicador);
     case BANKS.BRADESCO:
-      return new BradescoCalculator(multiplicador);
+      return new BradescoCalculator(options?.valorPrograma);
     case BANKS.BB:
-      return new BbCalculator(multiplicador);
+      return new BbCalculator(options?.valorPrograma);
     case BANKS.CAIXA:
-      return new CaixaCalculator(multiplicador);
+      return new CaixaCalculator(options?.valorPrograma);
     case BANKS.SAFRA:
       return new FenabanCalculator();
     default:

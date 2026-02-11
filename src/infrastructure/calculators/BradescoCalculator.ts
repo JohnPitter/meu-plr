@@ -2,18 +2,17 @@ import { FenabanCalculator } from "./FenabanCalculator.ts";
 
 // PLR Social Bradesco: 3% do lucro liquido distribuido linearmente
 // Valor estimado por funcionario (referencia 2024)
-const PLR_SOCIAL_VALOR_BASE = 2800.0;
+const PLR_SOCIAL_DEFAULT = 2800.0;
 
 export class BradescoCalculator extends FenabanCalculator {
-  readonly multiplicador: number;
+  readonly valorPrograma: number;
 
-  constructor(multiplicador?: number) {
+  constructor(valorPrograma?: number) {
     super();
-    this.multiplicador = multiplicador ?? 1.0;
+    this.valorPrograma = valorPrograma ?? PLR_SOCIAL_DEFAULT;
   }
 
   override calculateProgramaComplementar(_salario: number): { value: number; name: string | null } {
-    const value = Math.round(PLR_SOCIAL_VALOR_BASE * this.multiplicador * 100) / 100;
-    return { value, name: `PLR Social (${this.multiplicador}x)` };
+    return { value: this.valorPrograma, name: "PLR Social (3% do lucro liquido)" };
   }
 }
