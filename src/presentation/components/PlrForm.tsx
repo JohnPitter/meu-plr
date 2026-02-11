@@ -5,7 +5,7 @@ import { Input } from "./ui/input.tsx";
 import { Label } from "./ui/label.tsx";
 import { Select } from "./ui/select.tsx";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card.tsx";
-import { BANK_LIST } from "../../domain/value-objects/Bank.ts";
+import { BANK_LIST, getBankInfo } from "../../domain/value-objects/Bank.ts";
 import type { PlrInput } from "../../application/dtos/PlrInput.ts";
 import type { BankId } from "../../domain/value-objects/Bank.ts";
 
@@ -18,7 +18,24 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   const [salario, setSalario] = useState<string>("");
   const [meses, setMeses] = useState<string>("12");
   const [sindical, setSindical] = useState(true);
+  const [multiplicador, setMultiplicador] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const selectedBank = bankId ? getBankInfo(bankId as BankId) : null;
+
+  function handleBankChange(newBankId: string) {
+    setBankId(newBankId);
+    if (newBankId) {
+      const bank = getBankInfo(newBankId as BankId);
+      if (bank.hasMultiplicador && bank.multiplicadorDefault != null) {
+        setMultiplicador(String(bank.multiplicadorDefault));
+      } else {
+        setMultiplicador("");
+      }
+    } else {
+      setMultiplicador("");
+    }
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -29,6 +46,14 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     if (!salarioNum || salarioNum <= 0) newErrors.salario = "Informe um salario valido";
     const mesesNum = parseInt(meses, 10);
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
+
+    let multiplicadorNum: number | undefined;
+    if (selectedBank?.hasMultiplicador && multiplicador) {
+      multiplicadorNum = parseFloat(multiplicador.replace(",", "."));
+      if (isNaN(multiplicadorNum) || multiplicadorNum < 0) {
+        newErrors.multiplicador = "Informe um multiplicador valido";
+      }
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -41,6 +66,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
       salario: salarioNum,
       mesesTrabalhados: mesesNum,
       incluirContribuicaoSindical: sindical,
+      multiplicadorBanco: multiplicadorNum,
     });
   }
 
@@ -59,7 +85,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="bank">Banco</Label>
-            <Select id="bank" value={bankId} onChange={(e) => setBankId(e.target.value)}>
+            <Select id="bank" value={bankId} onChange={(e) => handleBankChange(e.target.value)}>
               <option value="">Selecione o banco</option>
               {BANK_LIST.map((bank) => (
                 <option key={bank.id} value={bank.id}>
@@ -94,6 +120,24 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
             </Select>
             {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
           </div>
+
+          {selectedBank?.hasMultiplicador && (
+            <div className="space-y-2">
+              <Label htmlFor="multiplicador">{selectedBank.multiplicadorLabel}</Label>
+              <Input
+                id="multiplicador"
+                type="text"
+                inputMode="decimal"
+                placeholder={String(selectedBank.multiplicadorDefault ?? 1.0)}
+                value={multiplicador}
+                onChange={(e) => setMultiplicador(e.target.value)}
+              />
+              <p className="text-xs text-muted-foreground">
+                Fator divulgado pelo banco para o programa {selectedBank.additionalProgramName}
+              </p>
+              {errors.multiplicador && <p className="text-xs text-destructive">{errors.multiplicador}</p>}
+            </div>
+          )}
 
           <div className="flex items-center gap-2">
             <input

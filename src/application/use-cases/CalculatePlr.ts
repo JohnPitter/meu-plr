@@ -11,12 +11,12 @@ import type { PlrResult } from "../dtos/PlrResult.ts";
 const CONTRIBUICAO_SINDICAL_RATE = 0.015;
 
 export class CalculatePlr {
-  readonly calculatorFactory: (bankId: BankId) => IPlrCalculator;
+  readonly calculatorFactory: (bankId: BankId, multiplicador?: number) => IPlrCalculator;
   readonly taxCalculator: ITaxCalculator;
   readonly logger: ILogger;
 
   constructor(
-    calculatorFactory: (bankId: BankId) => IPlrCalculator,
+    calculatorFactory: (bankId: BankId, multiplicador?: number) => IPlrCalculator,
     taxCalculator: ITaxCalculator,
     logger: ILogger,
   ) {
@@ -31,7 +31,7 @@ export class CalculatePlr {
     const salary = new Salary(input.salario);
     const period = new WorkPeriod(input.mesesTrabalhados);
     const bankInfo = getBankInfo(input.bankId);
-    const calculator = this.calculatorFactory(input.bankId);
+    const calculator = this.calculatorFactory(input.bankId, input.multiplicadorBanco);
 
     const breakdown = calculator.getBreakdown(salary.value, period.months);
 

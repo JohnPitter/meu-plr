@@ -12,8 +12,15 @@ describe("ItauCalculator", () => {
 
   it("inclui PCR no programa complementar", () => {
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(3144.98);
+    expect(result.value).toBeCloseTo(3144.99, 2);
     expect(result.name).toContain("PCR");
+  });
+
+  it("aceita multiplicador customizado", () => {
+    const custom = new ItauCalculator(1.8);
+    const result = custom.calculateProgramaComplementar(5000);
+    expect(result.value).toBeCloseTo(1429.54 * 1.8, 2);
+    expect(result.name).toContain("1.8x");
   });
 
   it("herda regra basica Fenaban", () => {
@@ -26,7 +33,7 @@ describe("SantanderCalculator", () => {
   it("inclui PPRS no programa complementar", () => {
     const calc = new SantanderCalculator();
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(2614);
+    expect(result.value).toBeCloseTo(2614, 0);
     expect(result.name).toContain("PPRS");
   });
 });

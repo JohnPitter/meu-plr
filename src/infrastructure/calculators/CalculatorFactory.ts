@@ -8,17 +8,21 @@ import { BradescoCalculator } from "./BradescoCalculator.ts";
 import { BbCalculator } from "./BbCalculator.ts";
 import { CaixaCalculator } from "./CaixaCalculator.ts";
 
-const calculators: Record<BankId, () => IPlrCalculator> = {
-  [BANKS.ITAU]: () => new ItauCalculator(),
-  [BANKS.SANTANDER]: () => new SantanderCalculator(),
-  [BANKS.BRADESCO]: () => new BradescoCalculator(),
-  [BANKS.BB]: () => new BbCalculator(),
-  [BANKS.CAIXA]: () => new CaixaCalculator(),
-  [BANKS.SAFRA]: () => new FenabanCalculator(),
-};
-
-export function createCalculator(bankId: BankId): IPlrCalculator {
-  const factory = calculators[bankId];
-  if (!factory) throw new InvalidBankError(bankId);
-  return factory();
+export function createCalculator(bankId: BankId, multiplicador?: number): IPlrCalculator {
+  switch (bankId) {
+    case BANKS.ITAU:
+      return new ItauCalculator(multiplicador);
+    case BANKS.SANTANDER:
+      return new SantanderCalculator(multiplicador);
+    case BANKS.BRADESCO:
+      return new BradescoCalculator(multiplicador);
+    case BANKS.BB:
+      return new BbCalculator(multiplicador);
+    case BANKS.CAIXA:
+      return new CaixaCalculator(multiplicador);
+    case BANKS.SAFRA:
+      return new FenabanCalculator();
+    default:
+      throw new InvalidBankError(bankId);
+  }
 }
