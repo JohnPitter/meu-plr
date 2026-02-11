@@ -27,10 +27,10 @@ Presentation (React components, hooks)
 - `dtos/PlrResult.ts` — Output DTO
 
 ### Infrastructure Layer
-- `calculators/FenabanCalculator.ts` — Generic FENABAN rule
-- `calculators/ItauCalculator.ts` — Itau (FENABAN + PCR)
-- `calculators/SantanderCalculator.ts` — Santander (FENABAN + PPRS)
-- `calculators/BradescoCalculator.ts` — Bradesco (FENABAN + PLR Social)
+- `calculators/FenabanCalculator.ts` — Generic FENABAN rule (with majoracao support)
+- `calculators/ItauCalculator.ts` — Itau (FENABAN + majoracao + PCR)
+- `calculators/SantanderCalculator.ts` — Santander (FENABAN + majoracao + PPRS)
+- `calculators/BradescoCalculator.ts` — Bradesco (FENABAN + majoracao + PRB)
 - `calculators/BbCalculator.ts` — BB (FENABAN + Modulo BB)
 - `calculators/CaixaCalculator.ts` — Caixa (FENABAN + PLR Social + 3x cap)
 - `calculators/CalculatorFactory.ts` — Factory pattern

@@ -5,7 +5,8 @@ import { Input } from "./ui/input.tsx";
 import { Label } from "./ui/label.tsx";
 import { Select } from "./ui/select.tsx";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card.tsx";
-import { BANK_LIST, getBankInfo } from "../../domain/value-objects/Bank.ts";
+import { BANK_LIST } from "../../domain/value-objects/Bank.ts";
+import { formatCurrencyInput, parseCurrencyInput } from "../lib/utils.ts";
 import type { PlrInput } from "../../application/dtos/PlrInput.ts";
 import type { BankId } from "../../domain/value-objects/Bank.ts";
 
@@ -18,23 +19,11 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   const [salario, setSalario] = useState<string>("");
   const [meses, setMeses] = useState<string>("12");
   const [sindical, setSindical] = useState(true);
-  const [programaValue, setProgramaValue] = useState<string>("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const selectedBank = bankId ? getBankInfo(bankId as BankId) : null;
-
-  function handleBankChange(newBankId: string) {
-    setBankId(newBankId);
-    if (newBankId) {
-      const bank = getBankInfo(newBankId as BankId);
-      if (bank.hasAdditionalProgram && bank.programaDefault != null) {
-        setProgramaValue(String(bank.programaDefault));
-      } else {
-        setProgramaValue("");
-      }
-    } else {
-      setProgramaValue("");
-    }
+  function handleSalarioChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value;
+    setSalario(formatCurrencyInput(raw));
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -42,21 +31,10 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     const newErrors: Record<string, string> = {};
 
     if (!bankId) newErrors.bankId = "Selecione um banco";
-    const salarioNum = parseFloat(salario.replace(/\./g, "").replace(",", "."));
+    const salarioNum = parseCurrencyInput(salario);
     if (!salarioNum || salarioNum <= 0) newErrors.salario = "Informe um salario valido";
     const mesesNum = parseInt(meses, 10);
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
-
-    let valorProgramaNum: number | undefined;
-
-    if (selectedBank?.hasAdditionalProgram && programaValue) {
-      const parsed = parseFloat(programaValue.replace(/\./g, "").replace(",", "."));
-      if (isNaN(parsed) || parsed < 0) {
-        newErrors.programa = "Informe um valor valido";
-      } else {
-        valorProgramaNum = parsed;
-      }
-    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -69,7 +47,6 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
       salario: salarioNum,
       mesesTrabalhados: mesesNum,
       incluirContribuicaoSindical: sindical,
-      valorProgramaBanco: valorProgramaNum,
     });
   }
 
@@ -88,7 +65,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="bank">Banco</Label>
-            <Select id="bank" value={bankId} onChange={(e) => handleBankChange(e.target.value)}>
+            <Select id="bank" value={bankId} onChange={(e) => setBankId(e.target.value)}>
               <option value="">Selecione o banco</option>
               {BANK_LIST.map((bank) => (
                 <option key={bank.id} value={bank.id}>
@@ -107,7 +84,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
               inputMode="decimal"
               placeholder="5.000,00"
               value={salario}
-              onChange={(e) => setSalario(e.target.value)}
+              onChange={handleSalarioChange}
             />
             {errors.salario && <p className="text-xs text-destructive">{errors.salario}</p>}
           </div>
@@ -117,30 +94,12 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
             <Select id="meses" value={meses} onChange={(e) => setMeses(e.target.value)}>
               {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                 <option key={m} value={m}>
-                  {m} {m === 1 ? "mes" : "meses"} ({m}/12 avos)
+                  {m} {m === 1 ? "mes" : "meses"}
                 </option>
               ))}
             </Select>
             {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
           </div>
-
-          {selectedBank?.hasAdditionalProgram && (
-            <div className="space-y-2">
-              <Label htmlFor="programa">{selectedBank.programaLabel}</Label>
-              <Input
-                id="programa"
-                type="text"
-                inputMode="decimal"
-                placeholder={String(selectedBank.programaDefault ?? "")}
-                value={programaValue}
-                onChange={(e) => setProgramaValue(e.target.value)}
-              />
-              <p className="text-xs text-muted-foreground">
-                {selectedBank.programaHint}
-              </p>
-              {errors.programa && <p className="text-xs text-destructive">{errors.programa}</p>}
-            </div>
-          )}
 
           <div className="flex items-center gap-2">
             <input

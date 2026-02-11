@@ -25,7 +25,7 @@ export function Layout({ children }: LayoutProps) {
       </header>
       <main className="mx-auto max-w-2xl px-4 py-8">{children}</main>
       <footer className="border-t py-6 text-center text-sm text-muted-foreground">
-        <p>Baseado na CCT FENABAN 2024/2025 - Sindicato dos Bancarios de SP</p>
+        <p>Baseado na CCT FENABAN 2024/2026 (exercicio 2025)</p>
         <p className="mt-1">Valores de referencia. Consulte seu holerite para valores exatos.</p>
       </footer>
     </div>
