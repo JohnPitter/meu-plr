@@ -2,18 +2,21 @@
 
 Calculadora de PLR (Participacao nos Lucros e Resultados) para bancarios que atuam no Brasil, baseada nas Convencoes Coletivas de Trabalho (CCTs) da FENABAN / Sindicato dos Bancarios de SP.
 
-| Item | Detail |
-|------|--------|
-| Stack | React 19 + TypeScript + Vite + Tailwind CSS 4 |
-| Architecture | Clean Architecture (Domain / Application / Infrastructure / Presentation) |
+[![CI](https://github.com/JohnPitter/meu-plr/actions/workflows/ci.yml/badge.svg)](https://github.com/JohnPitter/meu-plr/actions/workflows/ci.yml)
+
+| | |
+|---|---|
+| Stack | React 19, TypeScript 5.9, Vite 7, Tailwind CSS 4 |
+| Architecture | Clean Architecture |
 | Tests | 45 unit tests (Vitest) |
-| CI/CD | GitHub Actions (lint, test, build) |
+| CI/CD | GitHub Actions |
+| Deploy | GitHub Pages |
 | License | MIT |
 
-## Supported Banks
+## Banks
 
-| Bank | Additional Program |
-|------|-------------------|
+| Bank | Program |
+|---|---|
 | Itau Unibanco | PCR (Programa Complementar de Resultados) |
 | Santander | PPRS (Programa Proprio de Resultados) |
 | Bradesco | PLR Social (3% do lucro liquido) |
@@ -43,13 +46,13 @@ npm run dev
 ## Scripts
 
 | Command | Description |
-|---------|-------------|
+|---|---|
 | `npm run dev` | Start dev server |
 | `npm run build` | Production build |
 | `npm test` | Run tests |
 | `npm run lint` | Lint code |
 
-## Documentation
+## Docs
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [CCT Rules](docs/CCT-RULES.md)
