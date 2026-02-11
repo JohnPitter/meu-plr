@@ -1,20 +1,18 @@
 import { FenabanCalculator } from "./FenabanCalculator.ts";
 
-// PPRS - Programa Proprio de Resultados Santander
-// Valor base de referencia (multiplicado pelo fator de ROAE anunciado pelo banco)
-const PPRS_VALOR_BASE = 1188.18;
-const PPRS_MULTIPLICADOR_DEFAULT = 2.2;
+// PPRS - Programa Proprio de Resultados Santander (ACT 2025/2026)
+// Valor fixo igual para todos os empregados, baseado no ROAE
+const PPRS_DEFAULT = 3880.84;
 
 export class SantanderCalculator extends FenabanCalculator {
-  readonly multiplicador: number;
+  readonly valorPPRS: number;
 
-  constructor(multiplicador?: number) {
-    super();
-    this.multiplicador = multiplicador ?? PPRS_MULTIPLICADOR_DEFAULT;
+  constructor(valorPPRS?: number) {
+    super(true); // majoracao habilitada (banco lucrativo)
+    this.valorPPRS = valorPPRS ?? PPRS_DEFAULT;
   }
 
   override calculateProgramaComplementar(_salario: number): { value: number; name: string | null } {
-    const value = Math.round(PPRS_VALOR_BASE * this.multiplicador * 100) / 100;
-    return { value, name: `PPRS (${this.multiplicador}x)` };
+    return { value: this.valorPPRS, name: "PPRS (Programa Proprio de Resultados)" };
   }
 }

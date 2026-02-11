@@ -27,7 +27,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     setBankId(newBankId);
     if (newBankId) {
       const bank = getBankInfo(newBankId as BankId);
-      if (bank.programaInputType && bank.programaDefault != null) {
+      if (bank.hasAdditionalProgram && bank.programaDefault != null) {
         setProgramaValue(String(bank.programaDefault));
       } else {
         setProgramaValue("");
@@ -47,15 +47,12 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     const mesesNum = parseInt(meses, 10);
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
 
-    let multiplicadorNum: number | undefined;
     let valorProgramaNum: number | undefined;
 
-    if (selectedBank?.programaInputType && programaValue) {
+    if (selectedBank?.hasAdditionalProgram && programaValue) {
       const parsed = parseFloat(programaValue.replace(/\./g, "").replace(",", "."));
       if (isNaN(parsed) || parsed < 0) {
         newErrors.programa = "Informe um valor valido";
-      } else if (selectedBank.programaInputType === "multiplicador") {
-        multiplicadorNum = parsed;
       } else {
         valorProgramaNum = parsed;
       }
@@ -72,7 +69,6 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
       salario: salarioNum,
       mesesTrabalhados: mesesNum,
       incluirContribuicaoSindical: sindical,
-      multiplicadorBanco: multiplicadorNum,
       valorProgramaBanco: valorProgramaNum,
     });
   }
@@ -85,7 +81,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
           Calcular PLR
         </CardTitle>
         <CardDescription>
-          Informe seus dados para simular a PLR conforme a CCT FENABAN
+          Simule a PLR conforme a CCT FENABAN 2024/2026 (exercicio 2025)
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -128,7 +124,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
             {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
           </div>
 
-          {selectedBank?.programaInputType && (
+          {selectedBank?.hasAdditionalProgram && (
             <div className="space-y-2">
               <Label htmlFor="programa">{selectedBank.programaLabel}</Label>
               <Input

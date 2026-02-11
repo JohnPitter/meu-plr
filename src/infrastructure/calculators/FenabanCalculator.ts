@@ -1,19 +1,31 @@
 import type { PlrBreakdown } from "../../domain/entities/PlrCalculation.ts";
 import type { IPlrCalculator } from "../../domain/interfaces/IPlrCalculator.ts";
 
-// CCT FENABAN 2024/2025 — valores corrigidos 5,68%
+// CCT FENABAN 2024/2026 — exercicio 2025, reajuste 5,68% (INPC 5,05% + 0,6% real)
 const ANTECIPACAO_PERCENTUAL = 0.54;
-const ANTECIPACAO_VALOR_FIXO = 1517.72;
-const ANTECIPACAO_TETO = 8141.83;
+const ANTECIPACAO_VALOR_FIXO = 2119.75;
+const ANTECIPACAO_TETO = 11371.44;
 
 const EXERCICIO_PERCENTUAL = 0.90;
-const EXERCICIO_VALOR_FIXO = 3792.41;
-const EXERCICIO_TETO = 18098.98;
+const EXERCICIO_VALOR_FIXO = 3532.92;
+const EXERCICIO_TETO = 18952.40;
 
-const PARCELA_ADICIONAL_ANTECIPACAO = 2529.54;
-const PARCELA_ADICIONAL_EXERCICIO = 758.47;
+// Majoracao: aplica quando o total de regra basica pago pelo banco < 5% do lucro
+// Cada empregado recebe ate 2,2 salearios, limitado ao teto absoluto
+const MAJORACAO_MULTIPLICADOR = 2.2;
+const MAJORACAO_TETO = 41695.29;
+
+// Parcela adicional: 2,2% do lucro liquido distribuido linearmente entre empregados
+const PARCELA_ADICIONAL_ANTECIPACAO_TETO = 3668.29;
+const PARCELA_ADICIONAL_EXERCICIO_TETO = 7336.60;
 
 export class FenabanCalculator implements IPlrCalculator {
+  readonly majoracao: boolean;
+
+  constructor(majoracao = false) {
+    this.majoracao = majoracao;
+  }
+
   calculateAntecipacao(salario: number): { regraBasica: number; parcelaAdicional: number } {
     const regraBasica = Math.min(
       salario * ANTECIPACAO_PERCENTUAL + ANTECIPACAO_VALOR_FIXO,
@@ -21,18 +33,26 @@ export class FenabanCalculator implements IPlrCalculator {
     );
     return {
       regraBasica: Math.round(regraBasica * 100) / 100,
-      parcelaAdicional: PARCELA_ADICIONAL_ANTECIPACAO,
+      parcelaAdicional: PARCELA_ADICIONAL_ANTECIPACAO_TETO,
     };
   }
 
   calculateExercicio(salario: number): { regraBasica: number; parcelaAdicional: number } {
-    const regraBasica = Math.min(
+    const regraBasicaPadrao = Math.min(
       salario * EXERCICIO_PERCENTUAL + EXERCICIO_VALOR_FIXO,
       EXERCICIO_TETO,
     );
+
+    let regraBasica = regraBasicaPadrao;
+
+    if (this.majoracao) {
+      const majorada = Math.min(salario * MAJORACAO_MULTIPLICADOR, MAJORACAO_TETO);
+      regraBasica = Math.max(regraBasicaPadrao, majorada);
+    }
+
     return {
       regraBasica: Math.round(regraBasica * 100) / 100,
-      parcelaAdicional: PARCELA_ADICIONAL_EXERCICIO,
+      parcelaAdicional: PARCELA_ADICIONAL_EXERCICIO_TETO,
     };
   }
 

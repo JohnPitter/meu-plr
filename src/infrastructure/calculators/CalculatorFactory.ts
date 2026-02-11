@@ -9,16 +9,15 @@ import { BbCalculator } from "./BbCalculator.ts";
 import { CaixaCalculator } from "./CaixaCalculator.ts";
 
 export interface CalculatorOptions {
-  multiplicador?: number;
   valorPrograma?: number;
 }
 
 export function createCalculator(bankId: BankId, options?: CalculatorOptions): IPlrCalculator {
   switch (bankId) {
     case BANKS.ITAU:
-      return new ItauCalculator(options?.multiplicador);
+      return new ItauCalculator(options?.valorPrograma);
     case BANKS.SANTANDER:
-      return new SantanderCalculator(options?.multiplicador);
+      return new SantanderCalculator(options?.valorPrograma);
     case BANKS.BRADESCO:
       return new BradescoCalculator(options?.valorPrograma);
     case BANKS.BB:

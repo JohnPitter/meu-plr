@@ -33,7 +33,6 @@ export class CalculatePlr {
     const period = new WorkPeriod(input.mesesTrabalhados);
     const bankInfo = getBankInfo(input.bankId);
     const calculator = this.calculatorFactory(input.bankId, {
-      multiplicador: input.multiplicadorBanco,
       valorPrograma: input.valorProgramaBanco,
     });
 

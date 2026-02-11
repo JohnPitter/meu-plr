@@ -10,22 +10,28 @@ import { BANKS } from "../../../src/domain/value-objects/Bank";
 describe("ItauCalculator", () => {
   const calc = new ItauCalculator();
 
-  it("inclui PCR no programa complementar", () => {
+  it("inclui PCR no programa complementar (2o patamar default)", () => {
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBeCloseTo(3144.99, 2);
+    expect(result.value).toBe(4096.42);
     expect(result.name).toContain("PCR");
   });
 
-  it("aceita multiplicador customizado", () => {
-    const custom = new ItauCalculator(1.8);
+  it("aceita valor PCR customizado", () => {
+    const custom = new ItauCalculator(3908.05);
     const result = custom.calculateProgramaComplementar(5000);
-    expect(result.value).toBeCloseTo(1429.54 * 1.8, 2);
-    expect(result.name).toContain("1.8x");
+    expect(result.value).toBe(3908.05);
   });
 
-  it("herda regra basica Fenaban", () => {
+  it("herda regra basica Fenaban com majoracao", () => {
     const result = calc.calculateAntecipacao(5000);
-    expect(result.regraBasica).toBe(4217.72);
+    // Antecipacao nao e majorada: 54% * 5000 + 2119.75 = 4819.75
+    expect(result.regraBasica).toBe(4819.75);
+  });
+
+  it("exercicio usa majoracao", () => {
+    const result = calc.calculateExercicio(5000);
+    // majorada: min(2.2 * 5000, 41695.29) = 11000
+    expect(result.regraBasica).toBe(11000);
   });
 });
 
@@ -33,23 +39,41 @@ describe("SantanderCalculator", () => {
   it("inclui PPRS no programa complementar", () => {
     const calc = new SantanderCalculator();
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBeCloseTo(2614, 0);
+    expect(result.value).toBe(3880.84);
     expect(result.name).toContain("PPRS");
+  });
+
+  it("aceita valor PPRS customizado", () => {
+    const calc = new SantanderCalculator(4000);
+    const result = calc.calculateProgramaComplementar(5000);
+    expect(result.value).toBe(4000);
+  });
+
+  it("exercicio usa majoracao", () => {
+    const calc = new SantanderCalculator();
+    const result = calc.calculateExercicio(5000);
+    expect(result.regraBasica).toBe(11000);
   });
 });
 
 describe("BradescoCalculator", () => {
-  it("inclui PLR Social no programa complementar", () => {
+  it("inclui PRB no programa complementar", () => {
     const calc = new BradescoCalculator();
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(2800);
-    expect(result.name).toContain("PLR Social");
+    expect(result.value).toBe(2500);
+    expect(result.name).toContain("PRB");
   });
 
   it("aceita valor customizado em R$", () => {
-    const calc = new BradescoCalculator(3500);
+    const calc = new BradescoCalculator(1000);
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(3500);
+    expect(result.value).toBe(1000);
+  });
+
+  it("exercicio usa majoracao", () => {
+    const calc = new BradescoCalculator();
+    const result = calc.calculateExercicio(5000);
+    expect(result.regraBasica).toBe(11000);
   });
 });
 
@@ -60,6 +84,13 @@ describe("BbCalculator", () => {
     expect(result.value).toBe(3500);
     expect(result.name).toContain("Modulo BB");
   });
+
+  it("exercicio nao usa majoracao", () => {
+    const calc = new BbCalculator();
+    const result = calc.calculateExercicio(5000);
+    // Sem majoracao: min(0.9 * 5000 + 3532.92, 18952.40) = 8032.92
+    expect(result.regraBasica).toBe(8032.92);
+  });
 });
 
 describe("CaixaCalculator", () => {
@@ -68,6 +99,12 @@ describe("CaixaCalculator", () => {
   it("inclui PLR Social", () => {
     const result = calc.calculateProgramaComplementar(5000);
     expect(result.value).toBe(3200);
+  });
+
+  it("antecipacao usa formula Caixa (50% do exercicio)", () => {
+    const result = calc.calculateAntecipacao(5000);
+    // 45% * 5000 + 1766.46 = 4016.46
+    expect(result.regraBasica).toBe(4016.46);
   });
 
   it("aplica teto de 3 remuneracoes", () => {
