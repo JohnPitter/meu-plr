@@ -1,7 +1,6 @@
-import { DollarSign, TrendingUp, MinusCircle, Zap } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
+import { TrendingUp, TrendingDown, ArrowRight } from "lucide-react";
+import { Card, CardContent } from "./ui/card.tsx";
 import { Badge } from "./ui/badge.tsx";
-import { Separator } from "./ui/separator.tsx";
 import { formatCurrency } from "../lib/utils.ts";
 import type { PlrResult as PlrResultType } from "../../application/dtos/PlrResult.ts";
 
@@ -16,59 +15,56 @@ export function PlrResult({ result }: PlrResultProps) {
     : 0;
 
   return (
-    <Card className="border-primary/30">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span className="flex items-center gap-2">
-            <DollarSign className="h-5 w-5 text-primary" />
-            Resultado da PLR
-          </span>
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="flex items-center gap-1">
-              <Zap className="h-3 w-3" />
-              {multiplicador}x
-            </Badge>
-            <Badge>{calculation.bankName}</Badge>
+    <Card className="overflow-hidden">
+      <div className="bg-primary px-6 py-5 text-primary-foreground">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider opacity-80">Valor Liquido</p>
+            <p className="mt-1 text-3xl font-bold tracking-tight">{formatCurrency(calculation.totalLiquido)}</p>
+            <p className="mt-1 text-xs opacity-70">
+              {multiplicador}x o salario de {formatCurrency(calculation.salario)}
+              {calculation.mesesTrabalhados < 12 && (
+                <> — proporcional {calculation.mesesTrabalhados}/12</>
+              )}
+            </p>
           </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="rounded-lg bg-primary/5 p-4 text-center">
-          <p className="text-sm text-muted-foreground">Valor Liquido Total</p>
-          <p className="text-3xl font-bold text-primary">{formatCurrency(calculation.totalLiquido)}</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {multiplicador}x o salario de {formatCurrency(calculation.salario)}
-            {calculation.mesesTrabalhados < 12 && (
-              <> — proporcional {calculation.mesesTrabalhados}/12 avos</>
-            )}
-          </p>
+          <Badge variant="secondary" className="text-xs">
+            {calculation.bankName}
+          </Badge>
         </div>
-
-        <Separator />
-
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm">
-            <span className="flex items-center gap-1">
-              <TrendingUp className="h-3 w-3" /> Total Bruto
-            </span>
-            <span className="font-medium">{formatCurrency(calculation.totalBruto)}</span>
-          </div>
-
-          <div className="flex justify-between text-sm text-destructive">
-            <span className="flex items-center gap-1">
-              <MinusCircle className="h-3 w-3" /> IRRF ({tax.faixa})
-            </span>
-            <span>- {formatCurrency(calculation.irrf)}</span>
-          </div>
-
-          {calculation.contribuicaoSindical > 0 && (
-            <div className="flex justify-between text-sm text-destructive">
-              <span className="flex items-center gap-1">
-                <MinusCircle className="h-3 w-3" /> Contribuicao Sindical (1,5%)
-              </span>
-              <span>- {formatCurrency(calculation.contribuicaoSindical)}</span>
+      </div>
+      <CardContent className="p-0">
+        <div className="grid grid-cols-3 divide-x">
+          <div className="px-4 py-4 text-center sm:px-6">
+            <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+              <TrendingUp className="h-3 w-3" />
+              Bruto
             </div>
-          )}
+            <p className="mt-1 text-sm font-semibold">{formatCurrency(calculation.totalBruto)}</p>
+          </div>
+          <div className="px-4 py-4 text-center sm:px-6">
+            <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+              <TrendingDown className="h-3 w-3" />
+              IRRF
+            </div>
+            <p className="mt-1 text-sm font-semibold text-destructive">- {formatCurrency(calculation.irrf)}</p>
+            <p className="text-[10px] text-muted-foreground">{tax.faixa}</p>
+          </div>
+          <div className="px-4 py-4 text-center sm:px-6">
+            <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+              <ArrowRight className="h-3 w-3" />
+              {calculation.contribuicaoSindical > 0 ? "Sindical" : "Deducoes"}
+            </div>
+            <p className="mt-1 text-sm font-semibold text-destructive">
+              {calculation.contribuicaoSindical > 0
+                ? `- ${formatCurrency(calculation.contribuicaoSindical)}`
+                : "-"
+              }
+            </p>
+            {calculation.contribuicaoSindical > 0 && (
+              <p className="text-[10px] text-muted-foreground">1,5%</p>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>

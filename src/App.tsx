@@ -9,6 +9,7 @@ import { usePlrCalculation } from "./presentation/hooks/usePlrCalculation.ts";
 import { useHistory } from "./presentation/hooks/useHistory.ts";
 import { Card, CardContent } from "./presentation/components/ui/card.tsx";
 import type { PlrInput } from "./application/dtos/PlrInput.ts";
+import type { BankId } from "./domain/value-objects/Bank.ts";
 
 export function App() {
   const { result, error, calculate } = usePlrCalculation();
@@ -28,12 +29,22 @@ export function App() {
     }
   }
 
+  function handleHistorySelect(entry: { bankId: string; salario: number; meses: number }) {
+    handleCalculate({
+      bankId: entry.bankId as BankId,
+      salario: entry.salario,
+      mesesTrabalhados: entry.meses,
+      incluirContribuicaoSindical: true,
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <Layout>
-      <div className="space-y-6">
-        <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-bold tracking-tight">Calculadora PLR</h1>
-          <p className="text-muted-foreground">
+      <div className="space-y-8">
+        <div className="space-y-1 text-center">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Calculadora PLR</h1>
+          <p className="text-sm text-muted-foreground">
             Simule sua Participacao nos Lucros e Resultados
           </p>
         </div>
@@ -50,10 +61,10 @@ export function App() {
         )}
 
         {result && (
-          <>
+          <div className="space-y-4">
             <PlrResult result={result} />
             <PlrBreakdown breakdown={result.calculation.breakdown} />
-          </>
+          </div>
         )}
 
         <TaxTable />
@@ -62,6 +73,7 @@ export function App() {
           entries={history}
           onRemove={removeEntry}
           onClear={clearHistory}
+          onSelect={handleHistorySelect}
         />
       </div>
     </Layout>

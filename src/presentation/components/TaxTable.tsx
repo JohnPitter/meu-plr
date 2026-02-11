@@ -1,4 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "./ui/card.tsx";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 import { formatCurrency } from "../lib/utils.ts";
 
 const TAX_BRACKETS = [
@@ -10,40 +12,49 @@ const TAX_BRACKETS = [
 ];
 
 export function TaxTable() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="text-sm">Tabela IRRF sobre PLR</CardTitle>
-        <CardDescription>Tabela exclusiva de tributacao sobre PLR</CardDescription>
+      <CardHeader
+        className="cursor-pointer select-none"
+        onClick={() => setOpen(!open)}
+      >
+        <CardTitle className="flex items-center justify-between text-sm">
+          Tabela IRRF sobre PLR
+          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b text-left">
-                <th className="pb-2 font-medium text-muted-foreground">Faixa</th>
-                <th className="pb-2 font-medium text-muted-foreground">Aliquota</th>
-                <th className="pb-2 font-medium text-muted-foreground">Deducao</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {TAX_BRACKETS.map((bracket, i) => (
-                <tr key={i}>
-                  <td className="py-2">
-                    {bracket.to === Infinity
-                      ? `Acima de ${formatCurrency(bracket.from)}`
-                      : `${formatCurrency(bracket.from)} a ${formatCurrency(bracket.to)}`}
-                  </td>
-                  <td className="py-2">{bracket.rate}</td>
-                  <td className="py-2">
-                    {bracket.deduction > 0 ? formatCurrency(bracket.deduction) : "-"}
-                  </td>
+      {open && (
+        <CardContent className="pt-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b">
+                  <th className="pb-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Faixa</th>
+                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Aliquota</th>
+                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Deducao</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </CardContent>
+              </thead>
+              <tbody className="divide-y">
+                {TAX_BRACKETS.map((bracket, i) => (
+                  <tr key={i}>
+                    <td className="py-2.5">
+                      {bracket.to === Infinity
+                        ? `Acima de ${formatCurrency(bracket.from)}`
+                        : `${formatCurrency(bracket.from)} a ${formatCurrency(bracket.to)}`}
+                    </td>
+                    <td className="py-2.5 text-right font-medium">{bracket.rate}</td>
+                    <td className="py-2.5 text-right">
+                      {bracket.deduction > 0 ? formatCurrency(bracket.deduction) : "-"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      )}
     </Card>
   );
 }

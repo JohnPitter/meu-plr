@@ -53,52 +53,51 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Calculator className="h-5 w-5" />
-          Calcular PLR
-        </CardTitle>
+        <CardTitle className="text-base">Dados do Calculo</CardTitle>
         <CardDescription>
-          Simule a PLR conforme a CCT FENABAN 2024/2026 (exercicio 2025)
+          Informe os dados abaixo para simular sua PLR
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="bank">Banco</Label>
-            <Select id="bank" value={bankId} onChange={(e) => setBankId(e.target.value)}>
-              <option value="">Selecione o banco</option>
-              {BANK_LIST.map((bank) => (
-                <option key={bank.id} value={bank.id}>
-                  {bank.name}
-                </option>
-              ))}
-            </Select>
-            {errors.bankId && <p className="text-xs text-destructive">{errors.bankId}</p>}
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="bank">Banco</Label>
+              <Select id="bank" value={bankId} onChange={(e) => setBankId(e.target.value)}>
+                <option value="">Selecione o banco</option>
+                {BANK_LIST.map((bank) => (
+                  <option key={bank.id} value={bank.id}>
+                    {bank.name}
+                  </option>
+                ))}
+              </Select>
+              {errors.bankId && <p className="text-xs text-destructive">{errors.bankId}</p>}
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="salario">Salario Base (R$)</Label>
-            <Input
-              id="salario"
-              type="text"
-              inputMode="decimal"
-              placeholder="5.000,00"
-              value={salario}
-              onChange={handleSalarioChange}
-            />
-            {errors.salario && <p className="text-xs text-destructive">{errors.salario}</p>}
-          </div>
+            <div className="space-y-2">
+              <Label htmlFor="salario">Salario Base (R$)</Label>
+              <Input
+                id="salario"
+                type="text"
+                inputMode="decimal"
+                placeholder="5.000,00"
+                value={salario}
+                onChange={handleSalarioChange}
+              />
+              {errors.salario && <p className="text-xs text-destructive">{errors.salario}</p>}
+            </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="meses">Meses Trabalhados no Ano</Label>
-            <Select id="meses" value={meses} onChange={(e) => setMeses(e.target.value)}>
-              {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
-                <option key={m} value={m}>
-                  {m} {m === 1 ? "mes" : "meses"}
-                </option>
-              ))}
-            </Select>
-            {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
+            <div className="space-y-2">
+              <Label htmlFor="meses">Meses Trabalhados</Label>
+              <Select id="meses" value={meses} onChange={(e) => setMeses(e.target.value)}>
+                {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
+                  <option key={m} value={m}>
+                    {m} {m === 1 ? "mes" : "meses"}
+                  </option>
+                ))}
+              </Select>
+              {errors.meses && <p className="text-xs text-destructive">{errors.meses}</p>}
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -107,9 +106,11 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
               id="sindical"
               checked={sindical}
               onChange={(e) => setSindical(e.target.checked)}
-              className="h-4 w-4 rounded border-input"
+              className="h-4 w-4 rounded border-input accent-primary"
             />
-            <Label htmlFor="sindical">Descontar contribuicao sindical (1,5%)</Label>
+            <Label htmlFor="sindical" className="font-normal text-muted-foreground">
+              Descontar contribuicao sindical (1,5%)
+            </Label>
           </div>
 
           <Button type="submit" className="w-full">

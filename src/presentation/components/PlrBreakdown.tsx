@@ -1,12 +1,25 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
-import { Separator } from "./ui/separator.tsx";
 import { formatCurrency } from "../lib/utils.ts";
 import type { PlrBreakdown as BreakdownType } from "../../domain/entities/PlrCalculation.ts";
 
 interface PlrBreakdownProps {
   breakdown: BreakdownType;
+}
+
+function LineItem({ label, value, variant }: { label: string; value: string; variant?: "default" | "negative" | "bold" }) {
+  return (
+    <div className="flex justify-between py-1 text-sm">
+      <span className={variant === "bold" ? "font-medium" : "text-muted-foreground"}>{label}</span>
+      <span className={
+        variant === "negative" ? "text-destructive" :
+        variant === "bold" ? "font-semibold" : ""
+      }>
+        {value}
+      </span>
+    </div>
+  );
 }
 
 export function PlrBreakdown({ breakdown }: PlrBreakdownProps) {
@@ -15,74 +28,51 @@ export function PlrBreakdown({ breakdown }: PlrBreakdownProps) {
   return (
     <Card>
       <CardHeader
-        className="cursor-pointer"
+        className="cursor-pointer select-none"
         onClick={() => setOpen(!open)}
       >
         <CardTitle className="flex items-center justify-between text-sm">
           Detalhamento do Calculo
-          {open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
         </CardTitle>
       </CardHeader>
 
       {open && (
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-5 pt-0">
           <div>
-            <h4 className="mb-2 text-sm font-semibold">1a Parcela (Antecipacao - Setembro)</h4>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Regra Basica (54% salario + R$ 1.517,72)</span>
-                <span>{formatCurrency(breakdown.regraBasicaAntecipacao)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Parcela Adicional</span>
-                <span>{formatCurrency(breakdown.parcelaAdicionalAntecipacao)}</span>
-              </div>
-              <Separator />
-              <div className="flex justify-between font-medium">
-                <span>Total 1a Parcela</span>
-                <span>{formatCurrency(breakdown.totalAntecipacao)}</span>
-              </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              1a Parcela — Antecipacao (Setembro)
+            </p>
+            <div className="rounded-lg bg-muted/50 px-4 py-2">
+              <LineItem label="Regra Basica (54% salario + R$ 2.119,75)" value={formatCurrency(breakdown.regraBasicaAntecipacao)} />
+              <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalAntecipacao)} />
+              <div className="my-1 h-px bg-border" />
+              <LineItem label="Total 1a Parcela" value={formatCurrency(breakdown.totalAntecipacao)} variant="bold" />
             </div>
           </div>
 
-          <Separator />
-
           <div>
-            <h4 className="mb-2 text-sm font-semibold">2a Parcela (Exercicio - Marco)</h4>
-            <div className="space-y-1 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Regra Basica (90% salario + R$ 3.792,41)</span>
-                <span>{formatCurrency(breakdown.regraBasicaExercicio)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Parcela Adicional</span>
-                <span>{formatCurrency(breakdown.parcelaAdicionalExercicio)}</span>
-              </div>
-              <div className="flex justify-between text-destructive">
-                <span>(-) Desconto antecipacao</span>
-                <span>- {formatCurrency(breakdown.descontoAntecipacao)}</span>
-              </div>
-              <Separator />
-              <div className="flex justify-between font-medium">
-                <span>Total 2a Parcela</span>
-                <span>{formatCurrency(breakdown.totalExercicio)}</span>
-              </div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              2a Parcela — Exercicio (Marco)
+            </p>
+            <div className="rounded-lg bg-muted/50 px-4 py-2">
+              <LineItem label="Regra Basica (90% salario + R$ 3.532,92)" value={formatCurrency(breakdown.regraBasicaExercicio)} />
+              <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalExercicio)} />
+              <LineItem label="(-) Desconto antecipacao" value={`- ${formatCurrency(breakdown.descontoAntecipacao)}`} variant="negative" />
+              <div className="my-1 h-px bg-border" />
+              <LineItem label="Total 2a Parcela" value={formatCurrency(breakdown.totalExercicio)} variant="bold" />
             </div>
           </div>
 
           {breakdown.programaComplementar > 0 && breakdown.programaComplementarNome && (
-            <>
-              <Separator />
-              <div>
-                <h4 className="mb-2 text-sm font-semibold">Programa Complementar</h4>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">{breakdown.programaComplementarNome}</span>
-                    <span>{formatCurrency(breakdown.programaComplementar)}</span>
-                  </div>
-                </div>
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Programa Complementar
+              </p>
+              <div className="rounded-lg bg-muted/50 px-4 py-2">
+                <LineItem label={breakdown.programaComplementarNome} value={formatCurrency(breakdown.programaComplementar)} variant="bold" />
               </div>
-            </>
+            </div>
           )}
         </CardContent>
       )}
