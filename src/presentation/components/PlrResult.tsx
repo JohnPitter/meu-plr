@@ -1,4 +1,4 @@
-import { DollarSign, TrendingUp, MinusCircle } from "lucide-react";
+import { DollarSign, TrendingUp, MinusCircle, Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 import { Badge } from "./ui/badge.tsx";
 import { Separator } from "./ui/separator.tsx";
@@ -11,6 +11,9 @@ interface PlrResultProps {
 
 export function PlrResult({ result }: PlrResultProps) {
   const { calculation, tax } = result;
+  const multiplicador = calculation.salario > 0
+    ? Math.round((calculation.totalBruto / calculation.salario) * 10) / 10
+    : 0;
 
   return (
     <Card className="border-primary/30">
@@ -20,18 +23,25 @@ export function PlrResult({ result }: PlrResultProps) {
             <DollarSign className="h-5 w-5 text-primary" />
             Resultado da PLR
           </span>
-          <Badge>{calculation.bankName}</Badge>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary" className="flex items-center gap-1">
+              <Zap className="h-3 w-3" />
+              {multiplicador}x
+            </Badge>
+            <Badge>{calculation.bankName}</Badge>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="rounded-lg bg-primary/5 p-4 text-center">
           <p className="text-sm text-muted-foreground">Valor Liquido Total</p>
           <p className="text-3xl font-bold text-primary">{formatCurrency(calculation.totalLiquido)}</p>
-          {calculation.mesesTrabalhados < 12 && (
-            <p className="mt-1 text-xs text-muted-foreground">
-              Proporcional: {calculation.mesesTrabalhados}/12 avos
-            </p>
-          )}
+          <p className="mt-1 text-xs text-muted-foreground">
+            {multiplicador}x o salario de {formatCurrency(calculation.salario)}
+            {calculation.mesesTrabalhados < 12 && (
+              <> — proporcional {calculation.mesesTrabalhados}/12 avos</>
+            )}
+          </p>
         </div>
 
         <Separator />
