@@ -74,12 +74,12 @@
       "calculo": {
         "pcr_2025": {
           "roe_ate_22_1": "R$ 3.908,05 (1o patamar)",
-          "roe_acima_22_1": "R$ 4.096,42 (2o patamar)",
+          "roe_acima_22_1": "R$ 4.299,86 (2o patamar)",
           "roe_zero_ou_negativo": "R$ 0"
         },
         "pcr_2026": "Valores de 2025 reajustados conforme CCT",
         "reajuste_aplicado": "6,25% (INPC + 1% real) em 2025 sobre valores 2023-2024",
-        "pcr_historico": "2023: R$ 3.515,00 / R$ 3.684,42; 2024: corrigido pela CCT; 2025: R$ 3.908,05 / R$ 4.096,42",
+        "pcr_historico": "2023: R$ 3.515,00 / R$ 3.684,42; 2024: R$ 3.678,16 / R$ 4.045,98; 2025: R$ 3.908,05 / R$ 4.299,86",
         "programas_proprios": "Metodologias especificas por cargo/area (Anexo Unico do ACT). PLR nunca inferior a PLR CCT + PCR."
       },
       "elegibilidade": {

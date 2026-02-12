@@ -106,11 +106,11 @@ export function HowItWorks() {
                     </tr>
                   </thead>
                   <tbody className="divide-y">
-                    <tr><td className="py-1">&gt; 22,1%</td><td className="py-1 text-right font-medium">R$ 4.096,42</td></tr>
+                    <tr><td className="py-1">&gt; 22,1%</td><td className="py-1 text-right font-medium">R$ 4.299,86</td></tr>
                     <tr><td className="py-1">&le; 22,1%</td><td className="py-1 text-right font-medium">R$ 3.908,05</td></tr>
                   </tbody>
                 </table>
-                <p className="mt-1.5 text-[10px]">Default do calculador: 2o patamar (R$ 4.096,42). A PLR do Itau nunca e inferior a PLR CCT + PCR.</p>
+                <p className="mt-1.5 text-[10px]">Default do calculador: 2o patamar (R$ 4.299,86). A PLR do Itau nunca e inferior a PLR CCT + PCR.</p>
               </BankCard>
 
               <BankCard name="Santander — PPRS">
