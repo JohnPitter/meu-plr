@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { TrendingUp, TrendingDown, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "./ui/card.tsx";
 import { Badge } from "./ui/badge.tsx";
 import { formatCurrency } from "../lib/utils.ts";
+import { IrrfCalculator } from "../../infrastructure/tax/IrrfCalculator.ts";
 import type { PlrResult as PlrResultType } from "../../application/dtos/PlrResult.ts";
 
 interface PlrResultProps {
@@ -9,13 +11,22 @@ interface PlrResultProps {
 }
 
 const MULTIPLIER_LEVELS = [0.9, 1.2, 1.5, 1.8, 2.2];
+const taxCalc = new IrrfCalculator();
 
 function MultiplierScale({ salario, actualMultiplier }: { salario: number; actualMultiplier: number }) {
+  const [selected, setSelected] = useState<number | null>(null);
+
   if (salario <= 0) return null;
 
   const closest = MULTIPLIER_LEVELS.reduce((prev, curr) =>
     Math.abs(curr - actualMultiplier) < Math.abs(prev - actualMultiplier) ? curr : prev
   );
+
+  const selectedBruto = selected != null ? salario * selected : null;
+  const selectedTax = selectedBruto != null ? taxCalc.calculate(selectedBruto) : null;
+  const selectedLiquido = selectedBruto != null && selectedTax != null
+    ? Math.round((selectedBruto - selectedTax.irrf) * 100) / 100
+    : null;
 
   return (
     <div className="px-4 py-3 sm:px-6 border-t">
@@ -24,23 +35,50 @@ function MultiplierScale({ salario, actualMultiplier }: { salario: number; actua
         {MULTIPLIER_LEVELS.map((mult) => {
           const bruto = salario * mult;
           const isClosest = mult === closest;
+          const isSelected = mult === selected;
           return (
-            <div
+            <button
+              type="button"
               key={mult}
-              className={`rounded-md px-1 py-1.5 text-center ${
-                isClosest ? "bg-primary/10 ring-1 ring-primary/30" : "bg-muted/50"
+              onClick={() => setSelected(isSelected ? null : mult)}
+              className={`rounded-md px-1 py-1.5 text-center transition-colors ${
+                isSelected
+                  ? "bg-primary text-primary-foreground ring-1 ring-primary"
+                  : isClosest
+                    ? "bg-primary/10 ring-1 ring-primary/30"
+                    : "bg-muted/50 hover:bg-muted"
               }`}
             >
-              <p className={`text-[10px] font-medium ${isClosest ? "text-primary" : "text-muted-foreground"}`}>
+              <p className={`text-[10px] font-medium ${
+                isSelected ? "text-primary-foreground" : isClosest ? "text-primary" : "text-muted-foreground"
+              }`}>
                 {Math.round(mult * 100)}%
               </p>
-              <p className={`text-xs font-semibold truncate ${isClosest ? "" : "text-muted-foreground"}`}>
+              <p className={`text-xs font-semibold truncate ${
+                isSelected ? "text-primary-foreground" : isClosest ? "" : "text-muted-foreground"
+              }`}>
                 {formatCurrency(bruto)}
               </p>
-            </div>
+            </button>
           );
         })}
       </div>
+      {selected != null && selectedBruto != null && selectedTax != null && selectedLiquido != null && (
+        <div className="mt-2 grid grid-cols-3 gap-1.5 rounded-md bg-primary/5 px-3 py-2">
+          <div className="text-center">
+            <p className="text-[10px] text-muted-foreground">Bruto</p>
+            <p className="text-xs font-semibold">{formatCurrency(selectedBruto)}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-[10px] text-muted-foreground">IRRF</p>
+            <p className="text-xs font-semibold text-destructive">- {formatCurrency(selectedTax.irrf)}</p>
+          </div>
+          <div className="text-center">
+            <p className="text-[10px] text-muted-foreground">Liquido</p>
+            <p className="text-xs font-semibold text-primary">{formatCurrency(selectedLiquido)}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { PlrResult } from "./presentation/components/PlrResult.tsx";
 import { PlrBreakdown } from "./presentation/components/PlrBreakdown.tsx";
 import { TaxTable } from "./presentation/components/TaxTable.tsx";
 import { MultiplierDiscovery } from "./presentation/components/MultiplierDiscovery.tsx";
+import { HowItWorks } from "./presentation/components/HowItWorks.tsx";
 import { CalculationHistory } from "./presentation/components/CalculationHistory.tsx";
 import { usePlrCalculation } from "./presentation/hooks/usePlrCalculation.ts";
 import { useHistory } from "./presentation/hooks/useHistory.ts";
@@ -50,7 +51,10 @@ export function App() {
           </p>
         </div>
 
-        <PlrForm onSubmit={handleCalculate} />
+        <div className="grid items-start gap-8 lg:grid-cols-2">
+          <PlrForm onSubmit={handleCalculate} />
+          <MultiplierDiscovery />
+        </div>
 
         {error && (
           <Card className="border-destructive/50 bg-destructive/5">
@@ -68,7 +72,7 @@ export function App() {
           </div>
         )}
 
-        <MultiplierDiscovery />
+        <HowItWorks />
 
         <TaxTable />
 
