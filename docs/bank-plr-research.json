@@ -1,45 +1,56 @@
 {
   "meta": {
     "ultima_atualizacao": "2026-02-12",
-    "base_legal": "CCT FENABAN/CONTRAF 2024-2026 + ACTs especificos por banco",
+    "base_legal": "CCT FENABAN/CONTRAF 2024-2026 + ACTs especificos por banco. Lei 10.101/2000, Art. 7 XI da CF, Art. 611-A XV da CLT",
     "reajuste_2025": "5,68% (INPC 5,05% + 0,6% real) aplicado em 01/09/2025",
+    "reajuste_2024": "4,64% (INPC + 0,5% real) aplicado em 01/09/2024",
     "valores_base_2024": "R$ 3.343,04 (RB fixo), R$ 17.933,79 (RB teto), R$ 6.942,28 (PA teto), R$ 39.454,29 (majoracao teto)",
-    "valores_reajustados_2025": "R$ 3.532,92 (RB fixo), R$ 18.952,40 (RB teto), R$ 7.336,60 (PA teto), R$ 41.695,29 (majoracao teto)"
+    "valores_reajustados_2025": "R$ 3.532,92 (RB fixo), R$ 18.952,40 (RB teto), R$ 7.336,60 (PA teto), R$ 41.695,29 (majoracao teto)",
+    "irrf_plr": "Lei 14.663/2023 — tabela exclusiva PLR vigencia 2024+. Isento ate R$ 7.640,80; 7,5% (ded R$ 573,06); 15% (ded R$ 1.317,23); 22,5% (ded R$ 2.304,76); 27,5% (ded R$ 3.123,78)"
   },
   "bancos": [
     {
       "nome_do_banco": "Banco do Brasil",
       "estrutura": {
-        "periodo_de_apuracao": "Semestral (1o sem: 01/01 a 30/06; 2o sem: 01/07 a 31/12)",
-        "pagamento": "Adiantamento ate 30/09 + final ate 01/03 do ano seguinte",
-        "composicao": "Modulo FENABAN (Regra Basica + Parcela Adicional) + Modulo BB (4% lucro liquido linear + parcela variavel por desempenho Conexao)"
+        "periodo_de_apuracao": "Anual",
+        "pagamento": "1a parcela ate 30/09, 2a parcela ate 01/03 do ano seguinte",
+        "composicao": "Modulo FENABAN (Regra Basica + Parcela Adicional) + Modulo BB (quantidade de salarios paradigmas x Salario Paradigma/VR)"
       },
       "calculo": {
         "regra_basica": "90% x (salario-base + verbas fixas em 01/09) + R$ 3.343,04 (2024), limite R$ 17.933,79",
         "majoracao": "Ate 2,2 salarios (limite R$ 39.454,29) se total RB < 5% do lucro liquido",
         "parcela_adicional": "2,2% do lucro liquido / empregados elegiveis, limite R$ 6.942,28",
         "teto_global": "12,8% do lucro liquido; piso 5% do lucro liquido",
-        "modulo_bb": "4% lucro liquido (linear) + parcela variavel (desempenho Conexao, escala 0-1000 pts)",
-        "teto_modulo_bb": "7 salarios-paradigma por ano"
+        "modulo_bb": "Quantidade de salarios paradigmas x Salario Paradigma (VR para comissionados). Salario paradigma difere do salario real e varia por cargo",
+        "teto_modulo_bb": "7 salarios-paradigma por ano",
+        "peso_metas": "Modulo FENABAN (ate 15% lucro: min 5%, max 12,8%) + Modulo BB (quantidade de salarios paradigmas variavel conforme lucro)"
       },
       "elegibilidade": {
         "ativos": "Funcionarios da ativa, cedidos a empresas do grupo (BB Consorcios, BB Asset, BB Seguridade, etc.)",
-        "proporcionalidade": "1/12 por mes trabalhado ou fracao >= 15 dias",
-        "afastamentos_integrais": "Licenca-saude, acidente de trabalho, maternidade/paternidade/adocao",
-        "descontos": "Suspensao disciplinar, faltas nao justificadas, licencas sem amparo",
-        "exclusao": "Demissao por justa causa"
+        "criterio_admissao": "Admitido ate 31/12 do ano anterior e em efetivo exercicio em 31/12 do ano de apuracao",
+        "proporcionalidade": "1/12 por mes trabalhado ou fracao >= 15 dias. Desligados por aposentadoria, a pedido ou sem justa causa: pagamento proporcional aos dias trabalhados",
+        "afastamentos_integrais": "Licenca-saude (vedada deducao), acidente de trabalho, maternidade/paternidade/adocao",
+        "descontos": "Licenca-Interesse, Licenca para Mandato Eletivo, LAPEF, suspensao disciplinar, faltas nao abonadas/autorizadas",
+        "exclusao": "Demissao por justa causa",
+        "diferencas_cargos": "Diferenciacao entre comissionados (Valor de Referencia - VR) e Caixas-Executivos, Escriturarios e Continuos"
+      },
+      "historico_lucro": {
+        "2022": "R$ 31,8 bilhoes",
+        "2023": "R$ 35,56 bilhoes",
+        "2024": "R$ 37,9 bilhoes"
       },
       "fontes": [
         "https://spbancarios.com.br/sites/default/files/cct/arquivo/BB%20-%20ACT%20PLR%202024-2026%20sem%20assi.pdf",
-        "https://bancarios.com.br/wp-content/uploads/2022/10/bb-act-plr-2022-2023-1_final_11868.pdf"
+        "https://bancarios.com.br/wp-content/uploads/2022/10/bb-act-plr-2022-2023-1_final_11868.pdf",
+        "ACT BB PLR 2024-2026, CCT FENABAN PLR 2024-2025, www.bb.com.br/nc"
       ]
     },
     {
       "nome_do_banco": "Bradesco",
       "estrutura": {
-        "periodo_de_apuracao": "Semestral (1o sem: 01/01 a 30/06; 2o sem: 01/07 a 31/12)",
-        "pagamento": "1a parcela em setembro + 2a parcela entre fevereiro-marco do ano seguinte",
-        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + PPR Supera OU PRB"
+        "periodo_de_apuracao": "Semestral (1o e 2o semestres)",
+        "pagamento": "Max 2 pagamentos/ano, intervalo de 1 trimestre. 1a parcela em setembro, 2a parcela em fevereiro/marco",
+        "composicao": "PLR FENABAN (nao compensada, somada) + PPR Supera OU PRB (o que for maior)"
       },
       "calculo": {
         "regra_basica_antecipacao": "54% do salario + R$ 2.119,75 (reajustado 2025)",
@@ -50,26 +61,36 @@
           "roae_17_0": "R$ 2.000",
           "roae_18_5": "R$ 2.500"
         },
-        "ppr_supera": "Programa novo (2025) para forca de vendas. Metas a partir de 95% atingimento. Valores por cargo/segmento (Varejo, Prime, Empresas, Plataformas Digitais, Bradesco Expresso). Se PPR acumulado < PRB e ROAE atingido, complemento ate PRB.",
-        "nota": "PPR Supera nao modelado no calculador por ser variavel por cargo/area."
+        "prb_condicao": "Condicionado a ROAE >= 15,5% em 2025. Se PPR acumulado < PRB e ROAE atingido, paga-se complemento ate PRB",
+        "ppr_supera": "Programa novo (2025) para forca de vendas. Metas a partir de 95% atingimento. Valores por cargo/segmento (Varejo, Prime, Empresas, Plataformas Digitais, Bradesco Expresso)",
+        "nota": "PPR Supera nao modelado no calculador por ser variavel por cargo/area. PLR FENABAN nao e compensada, e somada aos programas proprios (PPR/PRB)"
       },
       "elegibilidade": {
-        "ppr_supera": "Cargos de forca de vendas, Gerente Executivo Comercial, Gerente de Atendimento e Operacoes",
+        "ppr_supera": "Cargos de forca de vendas: Gerente Executivo Comercial, Gerente de Atendimento e Operacoes, agencias Varejo/Prime/Empresas, plataformas digitais",
         "prb": "Demais empregados nao elegiveis ao PPR",
-        "proporcionalidade": "1/12 por mes trabalhado (fracao >= 15 dias = mes integral)"
+        "criterio_admissao": "Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
+        "proporcionalidade": "1/12 por mes trabalhado (fracao >= 15 dias = mes integral). Desligados sem justa causa: pagamento proporcional",
+        "afastamentos_integrais": "Doenca, acidente, licenca-maternidade nao deduzidos",
+        "descontos": "Licencas sem remuneracao e faltas nao justificadas"
+      },
+      "historico_lucro": {
+        "2022": "R$ 20,732 bilhoes",
+        "2023": "R$ 16,3 bilhoes",
+        "2024": "R$ 19,6 bilhoes (recorrente)"
       },
       "fontes": [
         "https://www.bancarios-es.org.br/wp-content/uploads/2025/08/COM16825-ACT-PPR-E-PRB-BRADESCO-2025.pdf",
         "https://spbancarios.com.br/08/2025/bancarios-do-bradesco-e-do-bradesco-financiamentos-aprovam-supera-e-prb",
-        "https://contrafcut.com.br/noticias/movimento-sindical-e-bradesco-assinam-acordo-de-ppr-supera-e-prb/"
+        "https://contrafcut.com.br/noticias/movimento-sindical-e-bradesco-assinam-acordo-de-ppr-supera-e-prb/",
+        "ACT PPR/PRB Bradesco 2025, CCT FENABAN 2024-2025"
       ]
     },
     {
       "nome_do_banco": "Itau Unibanco",
       "estrutura": {
         "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
-        "pagamento": "1a parcela (antecipacao) em setembro + 2a parcela em fevereiro. Para 2025: 25/09/2025 e 27/02/2026.",
-        "composicao": "PLR Programa Proprio OU (PLR CCT + PCR), o que for maior"
+        "pagamento": "1a parcela (antecipacao) em setembro + 2a parcela em fevereiro. Para 2025: 25/09/2025 e 27/02/2026",
+        "composicao": "PLR Programa Proprio OU (PLR CCT + PCR), o que for maior. PLR nunca inferior a PLR CCT + PCR"
       },
       "calculo": {
         "pcr_2025": {
@@ -78,28 +99,40 @@
           "roe_zero_ou_negativo": "R$ 0"
         },
         "pcr_2026": "Valores de 2025 reajustados conforme CCT",
-        "reajuste_aplicado": "6,25% (INPC + 1% real) em 2025 sobre valores 2023-2024",
+        "reajuste_pcr": "6,25% (INPC mar/25 5,25% + 1% real) em 2025 sobre valores 2024",
         "pcr_historico": "2023: R$ 3.515,00 / R$ 3.684,42; 2024: R$ 3.678,16 / R$ 4.045,98; 2025: R$ 3.908,05 / R$ 4.299,86",
-        "programas_proprios": "Metodologias especificas por cargo/area (Anexo Unico do ACT). PLR nunca inferior a PLR CCT + PCR."
+        "reajuste_plr": "4,64% (INPC + 0,5%) sobre valores da CCT FENABAN",
+        "regra_basica_majorada": "2,2 salarios para salario <= R$ 17.933,79, reduzindo gradativamente para salarios superiores. Limitado a R$ 39.454,29",
+        "parcela_adicional": "2,2% lucro/empregados ate R$ 6.942,28",
+        "teto_maximo": "R$ 39.454,29 (RB) + R$ 6.942,28 (PA) + R$ 4.299,86 (PCR max)",
+        "programas_proprios": "Metodologias especificas por cargo/area (Anexo Unico do ACT)"
       },
       "elegibilidade": {
         "pcr": "Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12 do ano de apuracao",
-        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias",
+        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
         "afastamentos_integrais": "Licenca-saude, acidente de trabalho, maternidade/paternidade/adocao, alistamento militar",
-        "exclusao": "Demissao por justa causa; afastados antes de 01/01 sem retorno ate 31/12"
+        "descontos": "Licencas sem remuneracao e faltas injustificadas descontadas proporcionalmente",
+        "exclusao": "Demissao por justa causa; afastados antes de 01/01 sem retorno ate 31/12",
+        "diferencas_cargos": "PCR: valores uniformes para todos os funcionarios elegiveis dentro de cada faixa de ROE"
+      },
+      "historico_lucro": {
+        "2022": "R$ 30,8 bilhoes (recorrente)",
+        "2023": "R$ 35,6 bilhoes (recorrente)",
+        "2024": "R$ 40,2 bilhoes (recorrente - recorde historico). ROE 18,6%"
       },
       "fontes": [
         "https://santosbancarios.com.br/wp-content/uploads/2023/06/Minuta-Acordo-PCR-Itau-com-anexo-FEEB-SP-MS_2023_2024_.pdf",
         "https://contrafcut.com.br/noticias/empregados-do-itau-aprovam-act-da-pcr-para-2025-e-2026/",
-        "https://spbancarios.com.br/05/2025/bancarios-do-itau-aprovam-acordo-coletivo-de-trabalho-sobre-pcr"
+        "https://spbancarios.com.br/05/2025/bancarios-do-itau-aprovam-acordo-coletivo-de-trabalho-sobre-pcr",
+        "ACT Itau PCR 2025-2026, CCT FENABAN 2024-2025"
       ]
     },
     {
       "nome_do_banco": "Santander Brasil",
       "estrutura": {
         "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
-        "pagamento": "Antecipacao PLR CCT em setembro + PPRS em fevereiro do ano seguinte",
-        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + PPRS + PPE/PPG (se elegivel)"
+        "pagamento": "Antecipacao PLR CCT em setembro + PPRS em fevereiro do ano seguinte (27 ou 28 de fevereiro)",
+        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + PPRS (Meta Geral + PPE ou PPG)"
       },
       "calculo": {
         "pprs_2024_faixas": {
@@ -115,20 +148,28 @@
         },
         "pprs_nao_compensavel": "PPRS e somado a PLR CCT, nunca compensado",
         "roae_formula": "(Lucro Liquido Gerencial / Patrimonio Liquido Medio) x 100, excluindo amortizacao de agio",
-        "ppe": "Programas Proprios Especificos por area (Agro, Corporate, GTB, Varejo PF/PJ, Select, Van Gogh, Empresas, Atacado). Indicadores de produtividade, receita, PDD por area.",
+        "ppe": "Programas Proprios Especificos por area (Agro, Corporate, GTB, Varejo PF/PJ, Select, Van Gogh, Empresas, Atacado). Indicadores de produtividade, receita, PDD por area",
         "ppg": "Programa para cargos de gestao e areas administrativas",
-        "nota": "PPE e PPG nao modelados no calculador. Default usa tier 2 (ROAE 13-15.5%)."
+        "nota": "PPE e PPG nao modelados no calculador. Default usa tier 2 (ROAE 13-15,5%)"
       },
       "elegibilidade": {
         "pprs": "Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
-        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias; minimo 90 dias de participacao",
-        "afastamentos_integrais": "Licenca-saude, acidente de trabalho, maternidade/paternidade/adocao (desde que contrato suspenso apos 01/01)",
-        "exclusao": "Demissao por justa causa"
+        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias; minimo 90 dias de participacao. Desligados sem justa causa: proporcional aos dias trabalhados",
+        "afastamentos_integrais": "Doenca, acidente do trabalho, licenca remunerada, licenca-maternidade: pagamento integral",
+        "descontos": "Licencas sem remuneracao: proporcional aos dias trabalhados",
+        "exclusao": "Demissao por justa causa",
+        "diferencas_cargos": "Distincao entre areas de negocios (PPE) e cargos de gestao/administrativos (PPG). Cada area possui regulamento especifico"
+      },
+      "historico_lucro": {
+        "2022": "R$ 12,9 bilhoes (gerencial)",
+        "2023": "R$ 9,383 bilhoes (recorrente)",
+        "2024": "R$ 13,872 bilhoes (gerencial). ROE 17,6%"
       },
       "fontes": [
         "https://contec.org.br/wp-content/uploads/2024/10/Acordo-P.P.R.S-Santander-2024.2025.pdf",
         "https://spbancarios.com.br/sites/default/files/arquivo_destaque/ACT_SANTANDER_2024_2026.pdf",
-        "https://contrafcut.com.br/noticias/santander-confirma-pagamento-da-plr-em-27-de-fevereiro-apos-oficio-da-contraf-cut/"
+        "https://contrafcut.com.br/noticias/santander-confirma-pagamento-da-plr-em-27-de-fevereiro-apos-oficio-da-contraf-cut/",
+        "ACT PPRS 2024-2025, ACT Geral Santander 2024-2026, CCT FENABAN 2024-2025"
       ]
     },
     {
@@ -147,44 +188,61 @@
         "garantia_minima": "1 Remuneracao-Base (se PLR FENABAN + PLR Social < 1 RB)",
         "teto_individual": "3 Remuneracoes-Base (proporcional a dias)",
         "teto_global": "15% do lucro liquido do exercicio",
-        "reducao": "Se extrapolar limites, redutor aplicado primeiro sobre Garantia de 1 RB, depois sobre Regra Basica"
+        "reducao": "Se extrapolar limites, redutor aplicado primeiro sobre Garantia de 1 RB, depois sobre Regra Basica",
+        "nota_divergencia": "Dados externos (extract-data fev/2026) afirmam 'Nao ha multiplicadores adicionais' e teto de R$ 24.876,07. Porem, ACT PLR Caixa 2024-2025 e MinhaPLR confirmam existencia da PLR Social (4% lucro) e teto de 3 RB. Mantida a modelagem com PLR Social conforme ACT."
       },
       "elegibilidade": {
-        "ativos": "Empregados da CAIXA, contratados a termo, requisitados, liberados para mandato sindical, cedidos",
+        "ativos": "Empregados da CAIXA, contratados a termo, requisitados, liberados para mandato sindical, cedidos da CAIXA (que nao recebam PLR no orgao cessionario) e cedidos para CAIXA (que nao recebam PLR no orgao de origem)",
+        "criterio_admissao": "Em efetivo exercicio no periodo de apuracao. Metas conforme Portaria SEDDM 1122/2021 e diretrizes CCE",
         "proporcionalidade": "Proporcional a dias de efetivo exercicio",
-        "afastamentos_integrais": "Art. 473 CLT, acidente de trabalho, licenca-saude (todos os dias), maternidade/paternidade/adocao, aleitamento, APIP, licenca-premio, mandato eletivo com onus, requisicao, cessao",
-        "descontos": "LIP, LAC, LPF, LEF, suspensao disciplinar, licenca estudos, prisoes, mandato sem onus, faltas nao justificadas",
-        "exclusao": "Demissao por justa causa",
+        "afastamentos_integrais": "Art. 473 CLT, acidente de trabalho, licenca-saude (todos os dias, inclusive pos-15o dia), maternidade/paternidade/adocao, aleitamento, APIP, licenca-premio, mandato eletivo com onus, campanha eleitoral, requisicao, cessao, liberacao sindical",
+        "descontos": "LIP, LAC, LPF, LEF, suspensao disciplinar, licenca estudos especializados, prisoes, mandato sem onus, faltas nao justificadas",
+        "exclusao": "Demissao por justa causa no periodo de apuracao",
         "nota_adiantamento": "Nao recebe adiantamento se: > 30 dias de faltas entre 01/01-31/08, admitido apos 01/09 (recebe parcela unica proporcional)"
+      },
+      "historico_lucro": {
+        "2022": "R$ 9,2 bilhoes (recorrente)",
+        "2023": "R$ 11,7 bilhoes",
+        "2024": "R$ 14,0 bilhoes (recorrente). ROE recorrente 10,4%"
       },
       "fontes": [
         "https://spbancarios.com.br/sites/default/files/cct/arquivo/Caixa%20-%20ACT%20PLR%202024-2025%20sem%20assi.pdf",
-        "https://contec.org.br/wp-content/uploads/2024/09/ACT-PLR-CAIXA_2024-2025.pdf"
+        "https://contec.org.br/wp-content/uploads/2024/09/ACT-PLR-CAIXA_2024-2025.pdf",
+        "ACT CAIXA PLR 2024-2025 (FENAE), CCT FENABAN PLR 2024-2025, Resolucao CCE 010/1995, Decreto 3.735/2001, Portaria SEDDM 1122/2021"
       ]
     },
     {
       "nome_do_banco": "BTG Pactual",
       "estrutura": {
         "periodo_de_apuracao": "Anual (CCT + bonus discricionario)",
-        "pagamento": "Antecipacao CCT em setembro + bonus final em janeiro/fevereiro",
-        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + Bonus de Performance discricionario"
+        "pagamento": "Antecipacao CCT em setembro + bonus final em janeiro/fevereiro (14 ou 27 de fevereiro). Atende pedidos de antecipacao do movimento sindical",
+        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + Bonus de Performance discricionario + eventuais programas complementares negociados com sindicatos"
       },
       "calculo": {
-        "plr_cct": "Conforme FENABAN com majoracao (banco lucrativo)",
+        "plr_cct": "Conforme FENABAN com majoracao (banco lucrativo, ROAE 27,6% em Q4/2024)",
         "bonus_performance": "5 a 8 salarios em media (relatos Glassdoor 2024), baseado em 'Profit Pool' da area",
-        "historico_bonus": "2012: bonus medio R$ 532 mil por colaborador (InfoMoney). BTG distribuiu 13,1% do lucro em PLR (BNDES).",
+        "historico_bonus": "2012: bonus medio R$ 532 mil por colaborador (InfoMoney). BTG distribuiu 13,1% do lucro em PLR (BNDES)",
         "lucro_2025": "R$ 16,7 bilhoes (crescimento 35%)",
-        "nota": "Bonus discricionario NAO modelado no calculador por ser variavel, especifico por cargo/area e nao publico. ACT PLR complementar aprovado em assembleia nov/2025 (59 participantes, 57 favoraveis)."
+        "nota": "Bonus discricionario NAO modelado no calculador por ser variavel, especifico por cargo/area e nao publico. ACT PLR complementar aprovado em assembleia nov/2025 (59 participantes, 57 favoraveis)"
       },
       "elegibilidade": {
-        "plr_cct": "Conforme CCT FENABAN",
+        "plr_cct": "Conforme CCT FENABAN. Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
+        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
+        "afastamentos_integrais": "Doenca, acidente, licenca-maternidade nao deduzidos",
+        "descontos": "Licencas sem remuneracao proporcionalizadas",
         "bonus": "Criterios internos, variam por cargo/senioridade/performance"
+      },
+      "historico_lucro": {
+        "2022": "R$ 8,3 bilhoes (ajustado - recorde a epoca)",
+        "2023": "R$ 10,4 bilhoes (ajustado)",
+        "2024": "R$ 12,3 bilhoes (ajustado - recorde). ROAE 27,6% no 4T24"
       },
       "fontes": [
         "https://www.bancariosrio.org.br/index.php/outros-bancos/item/14876-assembleia-do-btg-pactual-aprova-plr-complementar-a-da-cct",
         "https://carreiras.btgpactual.com/tecnologia",
         "https://www.glassdoor.com/Benefits/BTG-Pactual-PLR-Brasil-BNFT624_E411540_N36.htm",
-        "https://www.reddit.com/r/investimentos/comments/1fjcehm/plr_btg/"
+        "https://www.reddit.com/r/investimentos/comments/1fjcehm/plr_btg/",
+        "CCT FENABAN PLR 2024-2025, noticias de sindicatos bancarios"
       ]
     }
   ]
