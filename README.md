@@ -70,7 +70,7 @@ Calculadora completa de PLR (Participacao nos Lucros e Resultados) para bancario
 
 | Banco | Programa | Valor |
 |-------|----------|-------|
-| Itau Unibanco | PCR (Programa Complementar de Resultados) | R$ 4.096,42 |
+| Itau Unibanco | PCR (Programa Complementar de Resultados) | R$ 4.299,86 |
 | Santander | PPRS (Programa Proprio de Resultados) | R$ 3.880,84 |
 | Bradesco | PRB (Programa de Remuneracao Bradesco) | R$ 2.500,00 |
 | Banco do Brasil | Modulo BB | R$ 3.500,00 |

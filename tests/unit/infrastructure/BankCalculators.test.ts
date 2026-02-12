@@ -12,7 +12,7 @@ describe("ItauCalculator", () => {
 
   it("inclui PCR no programa complementar (2o patamar default)", () => {
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(4096.42);
+    expect(result.value).toBe(4299.86);
     expect(result.name).toContain("PCR");
   });
 
