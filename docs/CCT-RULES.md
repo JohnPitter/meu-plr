@@ -33,7 +33,7 @@ When total basic rule paid by bank < 5% of net profit, individual values increas
 
 | Bank | Program | Default Value |
 |------|---------|---------------|
-| Itau | PCR (Programa Complementar de Resultados) | R$ 4.096,42 (2o patamar) |
+| Itau | PCR (Programa Complementar de Resultados) | R$ 4.299,86 (2o patamar) |
 | Santander | PPRS (Programa Proprio de Resultados) | R$ 3.880,84 |
 | Bradesco | PRB (Programa de Remuneracao Bradesco) | R$ 2.500,00 |
 | Banco do Brasil | Modulo BB | R$ 3.500,00 (estimativa) |
@@ -45,7 +45,7 @@ When total basic rule paid by bank < 5% of net profit, individual values increas
 
 | ROE | Value |
 |-----|-------|
-| > 22,1% | R$ 4.096,42 (2o patamar) |
+| > 22,1% | R$ 4.299,86 (2o patamar) |
 | <= 22,1% | R$ 3.908,05 (1o patamar) |
 
 ### Santander PPRS tiers (ACT 2024/2025, reajustados 2025)
@@ -81,13 +81,15 @@ Note: Bradesco also has PPR Supera (2025) for sales roles, not modeled in calcul
 
 ## IRRF Tax Table (Exclusive for PLR)
 
+Lei 14.663/2023 (vigencia 2024+):
+
 | Bracket | Rate | Deduction |
 |---------|------|-----------|
-| Up to R$ 6.677,55 | Exempt | - |
-| R$ 6.677,56 to R$ 9.922,28 | 7,5% | R$ 500,82 |
-| R$ 9.922,29 to R$ 13.167,00 | 15% | R$ 1.244,99 |
-| R$ 13.167,01 to R$ 16.380,38 | 22,5% | R$ 2.232,51 |
-| Above R$ 16.380,38 | 27,5% | R$ 3.051,53 |
+| Up to R$ 7.640,80 | Exempt | - |
+| R$ 7.640,81 to R$ 9.922,28 | 7,5% | R$ 573,06 |
+| R$ 9.922,29 to R$ 13.167,00 | 15% | R$ 1.317,23 |
+| R$ 13.167,01 to R$ 16.380,38 | 22,5% | R$ 2.304,76 |
+| Above R$ 16.380,38 | 27,5% | R$ 3.123,78 |
 
 ## Union Contribution
 
