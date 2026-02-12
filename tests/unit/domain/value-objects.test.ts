@@ -56,8 +56,8 @@ describe("WorkPeriod", () => {
 });
 
 describe("Bank", () => {
-  it("lista 6 bancos", () => {
-    expect(BANK_LIST).toHaveLength(6);
+  it("lista 7 bancos", () => {
+    expect(BANK_LIST).toHaveLength(7);
   });
 
   it("retorna info do Itau", () => {

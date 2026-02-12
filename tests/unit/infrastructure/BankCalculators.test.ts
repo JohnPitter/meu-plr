@@ -115,6 +115,27 @@ describe("CaixaCalculator", () => {
   });
 });
 
+describe("BTG Pactual (Fenaban com majoracao)", () => {
+  it("cria calculadora via factory", () => {
+    const calc = createCalculator(BANKS.BTG);
+    expect(calc).toBeDefined();
+  });
+
+  it("exercicio usa majoracao", () => {
+    const calc = createCalculator(BANKS.BTG);
+    const result = calc.calculateExercicio(5000);
+    // majorada: min(2.2 * 5000, 41695.29) = 11000
+    expect(result.regraBasica).toBe(11000);
+  });
+
+  it("sem programa complementar", () => {
+    const calc = createCalculator(BANKS.BTG);
+    const result = calc.calculateProgramaComplementar(5000);
+    expect(result.value).toBe(0);
+    expect(result.name).toBeNull();
+  });
+});
+
 describe("CalculatorFactory", () => {
   it("cria calculadora para cada banco", () => {
     for (const bankId of Object.values(BANKS)) {

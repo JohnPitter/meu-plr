@@ -4,6 +4,7 @@ export const BANKS = {
   BRADESCO: "bradesco",
   BB: "bb",
   CAIXA: "caixa",
+  BTG: "btg",
   SAFRA: "safra",
 } as const;
 
@@ -22,6 +23,7 @@ export const BANK_LIST: BankInfo[] = [
   { id: BANKS.BRADESCO, name: "Bradesco", hasAdditionalProgram: true, additionalProgramName: "PRB" },
   { id: BANKS.BB, name: "Banco do Brasil", hasAdditionalProgram: true, additionalProgramName: "Modulo BB" },
   { id: BANKS.CAIXA, name: "Caixa Economica Federal", hasAdditionalProgram: true, additionalProgramName: "PLR Social" },
+  { id: BANKS.BTG, name: "BTG Pactual", hasAdditionalProgram: false },
   { id: BANKS.SAFRA, name: "Banco Safra", hasAdditionalProgram: false },
 ];
 

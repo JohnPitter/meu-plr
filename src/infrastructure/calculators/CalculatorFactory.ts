@@ -20,6 +20,8 @@ export function createCalculator(bankId: BankId): IPlrCalculator {
       return new BbCalculator();
     case BANKS.CAIXA:
       return new CaixaCalculator();
+    case BANKS.BTG:
+      return new FenabanCalculator(true); // majoracao habilitada (banco lucrativo)
     case BANKS.SAFRA:
       return new FenabanCalculator();
     default:

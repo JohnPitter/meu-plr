@@ -26,7 +26,7 @@ Source: Sindicato dos Bancarios de SP / FENABAN. Reajuste 5,68% (INPC 5,05% + 0,
 
 When total basic rule paid by bank < 5% of net profit, individual values increase:
 - Formula: min(2,2 x salary, R$ 41.695,29)
-- Applies to: Itau, Santander, Bradesco (profitable banks)
+- Applies to: Itau, Santander, Bradesco, BTG Pactual (profitable banks)
 - Does NOT apply to: BB, Caixa, Safra
 
 ## Bank-Specific Programs
@@ -38,6 +38,7 @@ When total basic rule paid by bank < 5% of net profit, individual values increas
 | Bradesco | PRB (Programa de Remuneracao Bradesco) | R$ 2.500,00 |
 | Banco do Brasil | Modulo BB | R$ 3.500,00 (estimativa) |
 | Caixa | PLR Social | R$ 3.200,00 (estimativa) |
+| BTG Pactual | FENABAN + majoracao | - (bonus discricionario nao modelado) |
 | Safra | Generic FENABAN only | - |
 
 ### Itau PCR tiers (ACT 2025/2026)
