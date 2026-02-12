@@ -63,7 +63,7 @@ export function App() {
         {result && (
           <div className="space-y-4">
             <PlrResult result={result} />
-            <PlrBreakdown breakdown={result.calculation.breakdown} />
+            <PlrBreakdown breakdown={result.calculation.breakdown} salario={result.calculation.salario} />
           </div>
         )}
 
