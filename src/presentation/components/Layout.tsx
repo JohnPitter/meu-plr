@@ -31,9 +31,13 @@ export function Layout({ children }: LayoutProps) {
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">{children}</main>
       <footer className="border-t">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-          <div className="flex flex-col items-center gap-2 text-xs text-muted-foreground sm:flex-row sm:justify-between">
+          <div className="flex flex-col items-center gap-2 text-center text-xs text-muted-foreground">
             <p>Baseado na CCT FENABAN 2024/2026 (exercicio 2025)</p>
             <p>Valores de referencia. Consulte seu holerite para valores exatos.</p>
+            <p>
+              Esta aplicacao nao armazena nenhum dado pessoal. Todos os calculos sao feitos localmente no seu navegador.
+              {" "}<a href="https://github.com/JohnPitter/meu-plr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Codigo fonte</a>
+            </p>
           </div>
         </div>
       </footer>
