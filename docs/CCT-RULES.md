@@ -48,6 +48,26 @@ When total basic rule paid by bank < 5% of net profit, individual values increas
 | > 22,1% | R$ 4.096,42 (2o patamar) |
 | <= 22,1% | R$ 3.908,05 (1o patamar) |
 
+### Santander PPRS tiers (ACT 2024/2025, reajustados 2025)
+
+| ROAE | Value (2024) | Value (2025) |
+|------|-------------|-------------|
+| < 13% | R$ 3.037,48 | R$ 3.210,04 |
+| 13% - 15,5% | R$ 3.672,26 | R$ 3.880,84 (default) |
+| > 15,5% | R$ 3.819,16 | R$ 4.036,10 |
+
+Note: Calculator default uses tier 2 (ROAE 13-15,5%). PPE and PPG (area-specific) not modeled.
+
+### Bradesco PRB tiers
+
+| ROAE | Value |
+|------|-------|
+| >= 15,5% | R$ 1.000 |
+| >= 17,0% | R$ 2.000 |
+| >= 18,5% | R$ 2.500 (default) |
+
+Note: Bradesco also has PPR Supera (2025) for sales roles, not modeled in calculator.
+
 ### Caixa specifics
 
 - Anticipation formula: 50% of full year (vs 60% for private banks)
