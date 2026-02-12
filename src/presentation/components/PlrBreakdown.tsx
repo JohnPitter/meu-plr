@@ -2,10 +2,11 @@ import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 import { formatCurrency } from "../lib/utils.ts";
-import type { PlrBreakdown as BreakdownType } from "../../domain/entities/PlrCalculation.ts";
+import type { PlrBreakdown as BreakdownType, Parcela } from "../../domain/entities/PlrCalculation.ts";
 
 interface PlrBreakdownProps {
   breakdown: BreakdownType;
+  parcela: Parcela;
 }
 
 function LineItem({ label, value, variant }: { label: string; value: string; variant?: "default" | "negative" | "bold" }) {
@@ -22,8 +23,12 @@ function LineItem({ label, value, variant }: { label: string; value: string; var
   );
 }
 
-export function PlrBreakdown({ breakdown }: PlrBreakdownProps) {
+export function PlrBreakdown({ breakdown, parcela }: PlrBreakdownProps) {
   const [open, setOpen] = useState(false);
+
+  const showAntecipacao = parcela === "total" || parcela === "primeira";
+  const showExercicio = parcela === "total" || parcela === "segunda";
+  const showPrograma = showExercicio && breakdown.programaComplementar > 0 && breakdown.programaComplementarNome;
 
   return (
     <Card>
@@ -39,38 +44,42 @@ export function PlrBreakdown({ breakdown }: PlrBreakdownProps) {
 
       {open && (
         <CardContent className="space-y-5 pt-0">
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              1a Parcela — Antecipacao (Setembro)
-            </p>
-            <div className="rounded-lg bg-muted/50 px-4 py-2">
-              <LineItem label="Regra Basica (54% salario + R$ 2.119,75)" value={formatCurrency(breakdown.regraBasicaAntecipacao)} />
-              <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalAntecipacao)} />
-              <div className="my-1 h-px bg-border" />
-              <LineItem label="Total 1a Parcela" value={formatCurrency(breakdown.totalAntecipacao)} variant="bold" />
+          {showAntecipacao && (
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                1a Parcela — Antecipacao (Setembro)
+              </p>
+              <div className="rounded-lg bg-muted/50 px-4 py-2">
+                <LineItem label="Regra Basica (54% salario + R$ 2.119,75)" value={formatCurrency(breakdown.regraBasicaAntecipacao)} />
+                <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalAntecipacao)} />
+                <div className="my-1 h-px bg-border" />
+                <LineItem label="Total 1a Parcela" value={formatCurrency(breakdown.totalAntecipacao)} variant="bold" />
+              </div>
             </div>
-          </div>
+          )}
 
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              2a Parcela — Exercicio (Marco)
-            </p>
-            <div className="rounded-lg bg-muted/50 px-4 py-2">
-              <LineItem label="Regra Basica (90% salario + R$ 3.532,92)" value={formatCurrency(breakdown.regraBasicaExercicio)} />
-              <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalExercicio)} />
-              <LineItem label="(-) Desconto antecipacao" value={`- ${formatCurrency(breakdown.descontoAntecipacao)}`} variant="negative" />
-              <div className="my-1 h-px bg-border" />
-              <LineItem label="Total 2a Parcela" value={formatCurrency(breakdown.totalExercicio)} variant="bold" />
+          {showExercicio && (
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                2a Parcela — Exercicio (Marco)
+              </p>
+              <div className="rounded-lg bg-muted/50 px-4 py-2">
+                <LineItem label="Regra Basica (90% salario + R$ 3.532,92)" value={formatCurrency(breakdown.regraBasicaExercicio)} />
+                <LineItem label="Parcela Adicional" value={formatCurrency(breakdown.parcelaAdicionalExercicio)} />
+                <LineItem label="(-) Desconto antecipacao" value={`- ${formatCurrency(breakdown.descontoAntecipacao)}`} variant="negative" />
+                <div className="my-1 h-px bg-border" />
+                <LineItem label="Total 2a Parcela" value={formatCurrency(breakdown.totalExercicio)} variant="bold" />
+              </div>
             </div>
-          </div>
+          )}
 
-          {breakdown.programaComplementar > 0 && breakdown.programaComplementarNome && (
+          {showPrograma && (
             <div>
               <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Programa Complementar
               </p>
               <div className="rounded-lg bg-muted/50 px-4 py-2">
-                <LineItem label={breakdown.programaComplementarNome} value={formatCurrency(breakdown.programaComplementar)} variant="bold" />
+                <LineItem label={breakdown.programaComplementarNome!} value={formatCurrency(breakdown.programaComplementar)} variant="bold" />
               </div>
             </div>
           )}

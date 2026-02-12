@@ -8,6 +8,12 @@ interface PlrResultProps {
   result: PlrResultType;
 }
 
+const PARCELA_LABELS: Record<string, string> = {
+  total: "Total Anual",
+  primeira: "1a Parcela — Setembro",
+  segunda: "2a Parcela — Marco",
+};
+
 export function PlrResult({ result }: PlrResultProps) {
   const { calculation, tax } = result;
   const multiplicador = calculation.salario > 0
@@ -19,7 +25,11 @@ export function PlrResult({ result }: PlrResultProps) {
       <div className="bg-primary px-6 py-5 text-primary-foreground">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-medium uppercase tracking-wider opacity-80">Valor Liquido</p>
+            <p className="text-xs font-medium uppercase tracking-wider opacity-80">
+              {calculation.parcela !== "total"
+                ? PARCELA_LABELS[calculation.parcela]
+                : "Valor Liquido"}
+            </p>
             <p className="mt-1 text-3xl font-bold tracking-tight">{formatCurrency(calculation.totalLiquido)}</p>
             <p className="mt-1 text-xs opacity-70">
               {multiplicador}x o salario de {formatCurrency(calculation.salario)}
@@ -28,9 +38,16 @@ export function PlrResult({ result }: PlrResultProps) {
               )}
             </p>
           </div>
-          <Badge variant="secondary" className="text-xs">
-            {calculation.bankName}
-          </Badge>
+          <div className="flex flex-col items-end gap-1">
+            <Badge variant="secondary" className="text-xs">
+              {calculation.bankName}
+            </Badge>
+            {calculation.parcela !== "total" && (
+              <Badge variant="outline" className="border-primary-foreground/30 text-[10px] text-primary-foreground/80">
+                {PARCELA_LABELS[calculation.parcela]}
+              </Badge>
+            )}
+          </div>
         </div>
       </div>
       <CardContent className="p-0">

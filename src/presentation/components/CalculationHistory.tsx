@@ -5,11 +5,17 @@ import { Badge } from "./ui/badge.tsx";
 import { formatCurrency } from "../lib/utils.ts";
 import type { HistoryEntry } from "../hooks/useHistory.ts";
 
+const PARCELA_SHORT: Record<string, string> = {
+  total: "Total",
+  primeira: "1a",
+  segunda: "2a",
+};
+
 interface CalculationHistoryProps {
   entries: HistoryEntry[];
   onRemove: (index: number) => void;
   onClear: () => void;
-  onSelect: (entry: { bankId: string; salario: number; meses: number }) => void;
+  onSelect: (entry: { bankId: string; salario: number; meses: number; parcela?: string }) => void;
 }
 
 function timeAgo(timestamp: number): string {
@@ -44,7 +50,7 @@ export function CalculationHistory({ entries, onRemove, onClear, onSelect }: Cal
             <div
               key={entry.calculatedAt}
               className="group flex items-center justify-between rounded-lg border bg-card p-3 text-sm transition-colors hover:bg-muted/50 cursor-pointer"
-              onClick={() => onSelect({ bankId: entry.bankId, salario: entry.salario, meses: entry.meses })}
+              onClick={() => onSelect({ bankId: entry.bankId, salario: entry.salario, meses: entry.meses, parcela: entry.parcela })}
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
@@ -52,6 +58,11 @@ export function CalculationHistory({ entries, onRemove, onClear, onSelect }: Cal
                   <Badge variant="outline" className="shrink-0 text-[10px] px-1.5 py-0">
                     {entry.meses}m
                   </Badge>
+                  {entry.parcela && entry.parcela !== "total" && (
+                    <Badge variant="outline" className="shrink-0 text-[10px] px-1.5 py-0">
+                      {PARCELA_SHORT[entry.parcela] ?? entry.parcela}
+                    </Badge>
+                  )}
                   <span className="text-[10px] text-muted-foreground">{timeAgo(entry.calculatedAt)}</span>
                 </div>
                 <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
