@@ -62,7 +62,7 @@ export function MultiplierDiscovery() {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="space-y-3">
             <div className="space-y-2">
               <Label htmlFor="disc-salario">Salario Base (R$)</Label>
               <Input
@@ -74,27 +74,29 @@ export function MultiplierDiscovery() {
                 onChange={(e) => setSalario(formatCurrencyInput(e.target.value))}
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="disc-bruto1a">Bruto 1a Parcela (R$)</Label>
-              <Input
-                id="disc-bruto1a"
-                type="text"
-                inputMode="decimal"
-                placeholder="0,00"
-                value={bruto1a}
-                onChange={(e) => setBruto1a(formatCurrencyInput(e.target.value))}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="disc-bruto2a">Bruto 2a Parcela (R$)</Label>
-              <Input
-                id="disc-bruto2a"
-                type="text"
-                inputMode="decimal"
-                placeholder="0,00"
-                value={bruto2a}
-                onChange={(e) => setBruto2a(formatCurrencyInput(e.target.value))}
-              />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="disc-bruto1a">Bruto 1a Parcela (R$)</Label>
+                <Input
+                  id="disc-bruto1a"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0,00"
+                  value={bruto1a}
+                  onChange={(e) => setBruto1a(formatCurrencyInput(e.target.value))}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="disc-bruto2a">Bruto 2a Parcela (R$)</Label>
+                <Input
+                  id="disc-bruto2a"
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0,00"
+                  value={bruto2a}
+                  onChange={(e) => setBruto2a(formatCurrencyInput(e.target.value))}
+                />
+              </div>
             </div>
           </div>
 

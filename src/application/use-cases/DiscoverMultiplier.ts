@@ -35,14 +35,16 @@ export class DiscoverMultiplier {
     const totalBruto = Math.round((brutoPrimeiraParcela + brutoSegundaParcela) * 100) / 100;
     const multiplicador = Math.round((totalBruto / salario) * 10) / 10;
 
-    // IRRF da 1a parcela (retido exclusivamente sobre a antecipacao)
-    const tax1a = this.taxCalculator.calculate(brutoPrimeiraParcela);
-    const irrfPrimeiraParcela = tax1a.irrf;
-    const liquidoPrimeiraParcela = Math.round((brutoPrimeiraParcela - irrfPrimeiraParcela) * 100) / 100;
-
-    // IRRF da 2a parcela = IRRF(total) - IRRF(1a), nunca negativo
+    // IRRF total sobre o PLR anual
     const taxTotal = this.taxCalculator.calculate(totalBruto);
+
+    // IRRF distribuido proporcionalmente entre parcelas (metodo usado pelos bancos)
+    const irrfPrimeiraParcela = totalBruto > 0
+      ? Math.round((taxTotal.irrf * (brutoPrimeiraParcela / totalBruto)) * 100) / 100
+      : 0;
     const irrfSegundaParcela = Math.max(0, Math.round((taxTotal.irrf - irrfPrimeiraParcela) * 100) / 100);
+
+    const liquidoPrimeiraParcela = Math.round((brutoPrimeiraParcela - irrfPrimeiraParcela) * 100) / 100;
     const liquidoSegundaParcela = Math.round((brutoSegundaParcela - irrfSegundaParcela) * 100) / 100;
 
     const totalLiquido = Math.round((liquidoPrimeiraParcela + liquidoSegundaParcela) * 100) / 100;

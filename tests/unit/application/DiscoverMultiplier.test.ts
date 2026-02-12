@@ -17,22 +17,22 @@ describe("DiscoverMultiplier", () => {
     expect(result.multiplicador).toBe(2.2);
   });
 
-  it("calcula IRRF por parcela corretamente", () => {
+  it("distribui IRRF proporcionalmente entre parcelas", () => {
     const result = useCase.execute({
       salario: 5000,
       brutoPrimeiraParcela: 8000,
       brutoSegundaParcela: 10000,
     });
 
-    // IRRF da 1a parcela = IRRF(8000) = 8000 * 7.5% - 500.82 = 99.18
-    expect(result.irrfPrimeiraParcela).toBeCloseTo(99.18, 1);
-    // IRRF total = IRRF(18000) = 18000 * 27.5% - 3051.53 = 1898.47
-    expect(result.irrfTotal).toBeCloseTo(1898.47, 1);
-    // IRRF 2a = IRRF(total) - IRRF(1a)
-    expect(result.irrfSegundaParcela).toBeCloseTo(1898.47 - 99.18, 1);
+    // IRRF total = IRRF(18000) = 18000 * 27.5% - 3123.78 = 1826.22
+    expect(result.irrfTotal).toBeCloseTo(1826.22, 1);
+    // IRRF 1a proporcional = 1826.22 * (8000/18000)
+    expect(result.irrfPrimeiraParcela).toBeCloseTo(1826.22 * (8000 / 18000), 0);
+    // IRRF 2a = total - 1a
+    expect(result.irrfPrimeiraParcela + result.irrfSegundaParcela).toBeCloseTo(result.irrfTotal, 1);
   });
 
-  it("liquido por parcela e bruto menos IRRF", () => {
+  it("liquido por parcela e bruto menos IRRF proporcional", () => {
     const result = useCase.execute({
       salario: 5000,
       brutoPrimeiraParcela: 4500,
@@ -64,6 +64,7 @@ describe("DiscoverMultiplier", () => {
     expect(result.totalBruto).toBe(5000);
     expect(result.multiplicador).toBe(1);
     expect(result.liquidoSegundaParcela).toBe(0);
+    expect(result.irrfSegundaParcela).toBe(0);
   });
 
   it("aceita apenas 2a parcela (1a = 0)", () => {
@@ -75,6 +76,7 @@ describe("DiscoverMultiplier", () => {
 
     expect(result.totalBruto).toBe(10000);
     expect(result.multiplicador).toBe(2);
+    expect(result.irrfPrimeiraParcela).toBe(0);
   });
 
   it("erro para salario zero", () => {

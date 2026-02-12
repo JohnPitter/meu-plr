@@ -4,11 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card.tsx";
 import { formatCurrency } from "../lib/utils.ts";
 
 const TAX_BRACKETS = [
-  { from: 0, to: 6677.55, rate: "Isento", deduction: 0 },
-  { from: 6677.56, to: 9922.28, rate: "7,5%", deduction: 500.82 },
-  { from: 9922.29, to: 13167.0, rate: "15%", deduction: 1244.99 },
-  { from: 13167.01, to: 16380.38, rate: "22,5%", deduction: 2232.51 },
-  { from: 16380.39, to: Infinity, rate: "27,5%", deduction: 3051.53 },
+  { from: 0, to: 7640.80, rate: "Isento", deduction: 0 },
+  { from: 7640.81, to: 9922.28, rate: "7,5%", deduction: 573.06 },
+  { from: 9922.29, to: 13167.0, rate: "15%", deduction: 1317.23 },
+  { from: 13167.01, to: 16380.38, rate: "22,5%", deduction: 2304.76 },
+  { from: 16380.39, to: Infinity, rate: "27,5%", deduction: 3123.78 },
 ];
 
 export function TaxTable() {

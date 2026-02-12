@@ -53,7 +53,10 @@ export class CalculatePlr {
     let liquidoSegundaParcela = 0;
 
     if (valorPrimeiraParcela != null && valorPrimeiraParcela > 0) {
-      irrfPrimeiraParcela = this.taxCalculator.calculate(valorPrimeiraParcela).irrf;
+      // IRRF distribuido proporcionalmente (metodo usado pelos bancos)
+      irrfPrimeiraParcela = totalBruto > 0
+        ? Math.min(tax.irrf, Math.round((tax.irrf * (valorPrimeiraParcela / totalBruto)) * 100) / 100)
+        : 0;
       brutoSegundaParcela = Math.round((totalBruto - valorPrimeiraParcela) * 100) / 100;
       irrfSegundaParcela = Math.max(0, Math.round((tax.irrf - irrfPrimeiraParcela) * 100) / 100);
       const sindical2a = input.incluirContribuicaoSindical
