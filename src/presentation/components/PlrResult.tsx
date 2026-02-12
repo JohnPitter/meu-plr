@@ -8,6 +8,43 @@ interface PlrResultProps {
   result: PlrResultType;
 }
 
+const MULTIPLIER_LEVELS = [0.9, 1.2, 1.5, 1.8, 2.2];
+
+function MultiplierScale({ salario, actualMultiplier }: { salario: number; actualMultiplier: number }) {
+  if (salario <= 0) return null;
+
+  const closest = MULTIPLIER_LEVELS.reduce((prev, curr) =>
+    Math.abs(curr - actualMultiplier) < Math.abs(prev - actualMultiplier) ? curr : prev
+  );
+
+  return (
+    <div className="px-4 py-3 sm:px-6 border-t">
+      <p className="text-[10px] text-muted-foreground mb-1.5">Referencia por multiplicador</p>
+      <div className="grid grid-cols-5 gap-1.5">
+        {MULTIPLIER_LEVELS.map((mult) => {
+          const bruto = salario * mult;
+          const isClosest = mult === closest;
+          return (
+            <div
+              key={mult}
+              className={`rounded-md px-1 py-1.5 text-center ${
+                isClosest ? "bg-primary/10 ring-1 ring-primary/30" : "bg-muted/50"
+              }`}
+            >
+              <p className={`text-[10px] font-medium ${isClosest ? "text-primary" : "text-muted-foreground"}`}>
+                {Math.round(mult * 100)}%
+              </p>
+              <p className={`text-xs font-semibold truncate ${isClosest ? "" : "text-muted-foreground"}`}>
+                {formatCurrency(bruto)}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function CompositionBar({ breakdown, salario }: { breakdown: PlrResultType["calculation"]["breakdown"]; salario: number }) {
   if (salario <= 0) return null;
 
@@ -158,6 +195,7 @@ export function PlrResult({ result }: PlrResultProps) {
             </div>
           </div>
           <CompositionBar breakdown={calculation.breakdown} salario={calculation.salario} />
+          <MultiplierScale salario={calculation.salario} actualMultiplier={multiplicador} />
         </CardContent>
       </Card>
     </div>
