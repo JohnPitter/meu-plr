@@ -32,9 +32,12 @@ export function PlrResult({ result }: PlrResultProps) {
                   Bruto 2a: {formatCurrency(calculation.brutoSegundaParcela)} — IRRF diferencial: {formatCurrency(calculation.irrfSegundaParcela)}
                 </p>
               </div>
-              <Badge variant="secondary" className="text-xs">
-                {calculation.bankName}
-              </Badge>
+              <div className="flex flex-col items-end gap-1.5">
+                <Badge variant="secondary" className="text-xs">
+                  {calculation.bankName}
+                </Badge>
+                <span className="text-2xl font-bold opacity-90">{multiplicador}x</span>
+              </div>
             </div>
           </div>
           <CardContent className="p-0">
@@ -67,17 +70,20 @@ export function PlrResult({ result }: PlrResultProps) {
                 {formatCurrency(calculation.totalLiquido)}
               </p>
               <p className={`mt-1 text-xs ${has2a ? "text-muted-foreground" : "opacity-70"}`}>
-                {multiplicador}x o salario de {formatCurrency(calculation.salario)}
+                {formatCurrency(calculation.salario)}
                 {calculation.mesesTrabalhados < 12 && (
                   <> — proporcional {calculation.mesesTrabalhados}/12</>
                 )}
               </p>
             </div>
-            {!has2a && (
-              <Badge variant="secondary" className="text-xs">
-                {calculation.bankName}
-              </Badge>
-            )}
+            <div className="flex flex-col items-end gap-1.5">
+              {!has2a && (
+                <Badge variant="secondary" className="text-xs">
+                  {calculation.bankName}
+                </Badge>
+              )}
+              <span className={`text-2xl font-bold ${has2a ? "" : "opacity-90"}`}>{multiplicador}x</span>
+            </div>
           </div>
         </div>
         <CardContent className="p-0">
