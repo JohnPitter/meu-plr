@@ -6,6 +6,7 @@ import { PlrBreakdown } from "./presentation/components/PlrBreakdown.tsx";
 import { TaxTable } from "./presentation/components/TaxTable.tsx";
 import { MultiplierDiscovery } from "./presentation/components/MultiplierDiscovery.tsx";
 import { HowItWorks } from "./presentation/components/HowItWorks.tsx";
+import { DataSources } from "./presentation/components/DataSources.tsx";
 import { CalculationHistory } from "./presentation/components/CalculationHistory.tsx";
 import { usePlrCalculation } from "./presentation/hooks/usePlrCalculation.ts";
 import { useHistory } from "./presentation/hooks/useHistory.ts";
@@ -73,6 +74,8 @@ export function App() {
         )}
 
         <HowItWorks />
+
+        <DataSources />
 
         <TaxTable />
 
