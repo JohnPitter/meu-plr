@@ -1,4 +1,4 @@
-import { Moon, Sun } from "lucide-react";
+import { DollarSign, Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button.tsx";
 import { useTheme } from "../hooks/useTheme.ts";
 import type { ReactNode } from "react";
@@ -16,10 +16,10 @@ export function Layout({ children }: LayoutProps) {
         <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:px-6">
           <div className="flex items-center gap-2.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <span className="text-sm font-bold">P</span>
+              <DollarSign className="h-4 w-4" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold leading-none">meu-plr</span>
+              <span className="text-sm font-semibold leading-none">Meu PLR</span>
               <span className="text-[10px] leading-none text-muted-foreground">CCT FENABAN 2024/2026</span>
             </div>
           </div>

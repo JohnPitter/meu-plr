@@ -30,7 +30,7 @@ export function App() {
   }
 
   function handleHistorySelect(entry: { bankId: string; salario: number; meses: number }) {
-    handleCalculate({
+    calculate({
       bankId: entry.bankId as BankId,
       salario: entry.salario,
       mesesTrabalhados: entry.meses,
