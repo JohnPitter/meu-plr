@@ -1,124 +1,11 @@
-import { useState } from "react";
 import { TrendingUp, TrendingDown, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "./ui/card.tsx";
 import { Badge } from "./ui/badge.tsx";
 import { formatCurrency } from "../lib/utils.ts";
-import { IrrfCalculator } from "../../infrastructure/tax/IrrfCalculator.ts";
 import type { PlrResult as PlrResultType } from "../../application/dtos/PlrResult.ts";
 
 interface PlrResultProps {
   result: PlrResultType;
-}
-
-const MULTIPLIER_LEVELS = [0.9, 1.2, 1.5, 1.8, 2.2];
-const taxCalc = new IrrfCalculator();
-
-function MultiplierScale({ salario, actualMultiplier }: { salario: number; actualMultiplier: number }) {
-  const [selected, setSelected] = useState<number | null>(null);
-
-  if (salario <= 0) return null;
-
-  const closest = MULTIPLIER_LEVELS.reduce((prev, curr) =>
-    Math.abs(curr - actualMultiplier) < Math.abs(prev - actualMultiplier) ? curr : prev
-  );
-
-  const selectedBruto = selected != null ? salario * selected : null;
-  const selectedTax = selectedBruto != null ? taxCalc.calculate(selectedBruto) : null;
-  const selectedLiquido = selectedBruto != null && selectedTax != null
-    ? Math.round((selectedBruto - selectedTax.irrf) * 100) / 100
-    : null;
-
-  return (
-    <div className="px-4 py-3 sm:px-6 border-t">
-      <p className="text-[10px] text-muted-foreground mb-1.5">Referencia por multiplicador</p>
-      <div className="grid grid-cols-5 gap-1.5">
-        {MULTIPLIER_LEVELS.map((mult) => {
-          const bruto = salario * mult;
-          const isClosest = mult === closest;
-          const isSelected = mult === selected;
-          return (
-            <button
-              type="button"
-              key={mult}
-              onClick={() => setSelected(isSelected ? null : mult)}
-              className={`rounded-md px-1 py-1.5 text-center transition-colors ${
-                isSelected
-                  ? "bg-primary text-primary-foreground ring-1 ring-primary"
-                  : isClosest
-                    ? "bg-primary/10 ring-1 ring-primary/30"
-                    : "bg-muted/50 hover:bg-muted"
-              }`}
-            >
-              <p className={`text-[10px] font-medium ${
-                isSelected ? "text-primary-foreground" : isClosest ? "text-primary" : "text-muted-foreground"
-              }`}>
-                {Math.round(mult * 100)}%
-              </p>
-              <p className={`text-xs font-semibold truncate ${
-                isSelected ? "text-primary-foreground" : isClosest ? "" : "text-muted-foreground"
-              }`}>
-                {formatCurrency(bruto)}
-              </p>
-            </button>
-          );
-        })}
-      </div>
-      {selected != null && selectedBruto != null && selectedTax != null && selectedLiquido != null && (
-        <div className="mt-2 grid grid-cols-3 gap-1.5 rounded-md bg-primary/5 px-3 py-2">
-          <div className="text-center">
-            <p className="text-[10px] text-muted-foreground">Bruto</p>
-            <p className="text-xs font-semibold">{formatCurrency(selectedBruto)}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[10px] text-muted-foreground">IRRF</p>
-            <p className="text-xs font-semibold text-destructive">- {formatCurrency(selectedTax.irrf)}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-[10px] text-muted-foreground">Liquido</p>
-            <p className="text-xs font-semibold text-primary">{formatCurrency(selectedLiquido)}</p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function CompositionBar({ breakdown, salario }: { breakdown: PlrResultType["calculation"]["breakdown"]; salario: number }) {
-  if (salario <= 0) return null;
-
-  const rbMult = Math.round((breakdown.regraBasicaExercicio / salario) * 10) / 10;
-  const paMult = Math.round((breakdown.parcelaAdicionalExercicio / salario) * 10) / 10;
-  const pcMult = breakdown.programaComplementar > 0
-    ? Math.round((breakdown.programaComplementar / salario) * 10) / 10
-    : 0;
-  const total = Math.round((rbMult + paMult + pcMult) * 10) / 10;
-
-  const segments = [
-    { label: "Regra Basica", mult: rbMult, pct: (rbMult / total) * 100, color: "bg-primary" },
-    { label: "Parc. Adicional", mult: paMult, pct: (paMult / total) * 100, color: "bg-primary/60" },
-    ...(pcMult > 0
-      ? [{ label: breakdown.programaComplementarNome?.split("(")[0]?.trim() ?? "Programa", mult: pcMult, pct: (pcMult / total) * 100, color: "bg-primary/30" }]
-      : []),
-  ];
-
-  return (
-    <div className="px-4 py-3 sm:px-6 border-t">
-      <p className="text-[10px] text-muted-foreground mb-1.5">Composicao do bruto</p>
-      <div className="flex h-2 w-full overflow-hidden rounded-full bg-muted">
-        {segments.map((s) => (
-          <div key={s.label} className={`${s.color} h-full`} style={{ width: `${s.pct}%` }} />
-        ))}
-      </div>
-      <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5">
-        {segments.map((s) => (
-          <span key={s.label} className="flex items-center gap-1 text-[10px] text-muted-foreground">
-            <span className={`inline-block h-1.5 w-1.5 rounded-full ${s.color}`} />
-            {s.label} {s.mult}x
-          </span>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 export function PlrResult({ result }: PlrResultProps) {
@@ -129,7 +16,7 @@ export function PlrResult({ result }: PlrResultProps) {
     : 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {has2a && (
         <Card className="overflow-hidden">
           <div className="bg-primary px-6 py-5 text-primary-foreground">
@@ -141,9 +28,6 @@ export function PlrResult({ result }: PlrResultProps) {
                 <p className="mt-1 text-3xl font-bold tracking-tight">
                   {formatCurrency(calculation.liquidoSegundaParcela)}
                 </p>
-                <p className="mt-1 text-xs opacity-70">
-                  Bruto 2a: {formatCurrency(calculation.brutoSegundaParcela)} — IRRF diferencial: {formatCurrency(calculation.irrfSegundaParcela)}
-                </p>
               </div>
               <div className="flex flex-col items-end gap-1.5">
                 <Badge variant="secondary" className="text-xs">
@@ -154,17 +38,17 @@ export function PlrResult({ result }: PlrResultProps) {
             </div>
           </div>
           <CardContent className="p-0">
-            <div className="grid grid-cols-3 divide-x">
-              <div className="px-4 py-3 text-center sm:px-6">
+            <div className="grid grid-cols-3 divide-x text-center">
+              <div className="px-4 py-3 sm:px-6">
                 <p className="text-[10px] text-muted-foreground">Bruto 2a</p>
                 <p className="mt-0.5 text-sm font-semibold">{formatCurrency(calculation.brutoSegundaParcela)}</p>
               </div>
-              <div className="px-4 py-3 text-center sm:px-6">
-                <p className="text-[10px] text-muted-foreground">IRRF 2a</p>
+              <div className="px-4 py-3 sm:px-6">
+                <p className="text-[10px] text-muted-foreground">IRRF diferencial</p>
                 <p className="mt-0.5 text-sm font-semibold text-destructive">- {formatCurrency(calculation.irrfSegundaParcela)}</p>
               </div>
-              <div className="px-4 py-3 text-center sm:px-6">
-                <p className="text-[10px] text-muted-foreground">1a Parcela (informada)</p>
+              <div className="px-4 py-3 sm:px-6">
+                <p className="text-[10px] text-muted-foreground">1a parcela (informada)</p>
                 <p className="mt-0.5 text-sm font-semibold">{formatCurrency(calculation.valorPrimeiraParcela!)}</p>
               </div>
             </div>
@@ -179,7 +63,7 @@ export function PlrResult({ result }: PlrResultProps) {
               <p className={`text-xs font-medium uppercase tracking-wider ${has2a ? "text-muted-foreground" : "opacity-80"}`}>
                 {has2a ? "PLR Total Anual" : "Valor Liquido"}
               </p>
-              <p className={`mt-1 text-3xl font-bold tracking-tight ${has2a ? "" : ""}`}>
+              <p className="mt-1 text-3xl font-bold tracking-tight">
                 {formatCurrency(calculation.totalLiquido)}
               </p>
               <p className={`mt-1 text-xs ${has2a ? "text-muted-foreground" : "opacity-70"}`}>
@@ -200,15 +84,15 @@ export function PlrResult({ result }: PlrResultProps) {
           </div>
         </div>
         <CardContent className="p-0">
-          <div className="grid grid-cols-3 divide-x">
-            <div className="px-4 py-4 text-center sm:px-6">
+          <div className="grid grid-cols-3 divide-x text-center">
+            <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
                 <TrendingUp className="h-3 w-3" />
                 Bruto
               </div>
               <p className="mt-1 text-sm font-semibold">{formatCurrency(calculation.totalBruto)}</p>
             </div>
-            <div className="px-4 py-4 text-center sm:px-6">
+            <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
                 <TrendingDown className="h-3 w-3" />
                 IRRF
@@ -216,7 +100,7 @@ export function PlrResult({ result }: PlrResultProps) {
               <p className="mt-1 text-sm font-semibold text-destructive">- {formatCurrency(calculation.irrf)}</p>
               <p className="text-[10px] text-muted-foreground">{tax.faixa}</p>
             </div>
-            <div className="px-4 py-4 text-center sm:px-6">
+            <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
                 <ArrowRight className="h-3 w-3" />
                 {calculation.contribuicaoSindical > 0 ? "Sindical" : "Deducoes"}
@@ -232,8 +116,6 @@ export function PlrResult({ result }: PlrResultProps) {
               )}
             </div>
           </div>
-          <CompositionBar breakdown={calculation.breakdown} salario={calculation.salario} />
-          <MultiplierScale salario={calculation.salario} actualMultiplier={multiplicador} />
         </CardContent>
       </Card>
     </div>
