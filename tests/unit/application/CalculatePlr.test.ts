@@ -16,7 +16,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     expect(result.calculation.bankName).toBe("Banco Safra");
@@ -32,7 +31,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     const comSindical = useCase.execute({
@@ -40,7 +38,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: true,
-      parcela: "total",
     });
 
     expect(comSindical.calculation.contribuicaoSindical).toBeGreaterThan(0);
@@ -55,7 +52,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     const safra = useCase.execute({
@@ -63,7 +59,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     expect(itau.calculation.totalBruto).toBeGreaterThan(safra.calculation.totalBruto);
@@ -75,7 +70,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     const half = useCase.execute({
@@ -83,7 +77,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 6,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     expect(half.calculation.totalBruto).toBeLessThan(full.calculation.totalBruto);
@@ -96,7 +89,6 @@ describe("CalculatePlr", () => {
       salario: 5000,
       mesesTrabalhados: 12,
       incluirContribuicaoSindical: false,
-      parcela: "total",
     });
 
     expect(result.tax.faixa).toBeDefined();
@@ -110,7 +102,6 @@ describe("CalculatePlr", () => {
         salario: -1000,
         mesesTrabalhados: 12,
         incluirContribuicaoSindical: false,
-        parcela: "total",
       }),
     ).toThrow();
   });
@@ -122,75 +113,84 @@ describe("CalculatePlr", () => {
         salario: 5000,
         mesesTrabalhados: 0,
         incluirContribuicaoSindical: false,
-        parcela: "total",
       }),
     ).toThrow();
   });
 
-  describe("selecao de parcela", () => {
-    const input = {
-      bankId: BANKS.ITAU as const,
-      salario: 8000,
-      mesesTrabalhados: 12,
-      incluirContribuicaoSindical: false,
-    };
+  describe("valor da 1a parcela informado", () => {
+    it("sem valor da 1a parcela, campos da 2a ficam zerados", () => {
+      const result = useCase.execute({
+        bankId: BANKS.ITAU,
+        salario: 8000,
+        mesesTrabalhados: 12,
+        incluirContribuicaoSindical: false,
+      });
 
-    it("1a parcela retorna apenas antecipacao como bruto", () => {
-      const result = useCase.execute({ ...input, parcela: "primeira" as const });
-
-      expect(result.calculation.parcela).toBe("primeira");
-      expect(result.calculation.totalBruto).toBe(result.calculation.breakdown.totalAntecipacao);
+      expect(result.calculation.valorPrimeiraParcela).toBeNull();
+      expect(result.calculation.brutoSegundaParcela).toBe(0);
+      expect(result.calculation.irrfSegundaParcela).toBe(0);
+      expect(result.calculation.liquidoSegundaParcela).toBe(0);
     });
 
-    it("2a parcela retorna exercicio + programa como bruto", () => {
-      const result = useCase.execute({ ...input, parcela: "segunda" as const });
-      const expectedBruto = result.calculation.breakdown.totalExercicio + result.calculation.breakdown.programaComplementar;
+    it("com valor da 1a parcela, calcula bruto da 2a como total - 1a", () => {
+      const valor1a = 10000;
+      const result = useCase.execute({
+        bankId: BANKS.ITAU,
+        salario: 8000,
+        mesesTrabalhados: 12,
+        incluirContribuicaoSindical: false,
+        valorPrimeiraParcela: valor1a,
+      });
 
-      expect(result.calculation.parcela).toBe("segunda");
-      expect(result.calculation.totalBruto).toBe(expectedBruto);
+      expect(result.calculation.valorPrimeiraParcela).toBe(valor1a);
+      expect(result.calculation.brutoSegundaParcela).toBeCloseTo(
+        result.calculation.totalBruto - valor1a, 2,
+      );
     });
 
-    it("total retorna soma de tudo como bruto", () => {
-      const result = useCase.execute({ ...input, parcela: "total" as const });
-      const breakdown = result.calculation.breakdown;
-      const expectedBruto = breakdown.totalAntecipacao + breakdown.totalExercicio + breakdown.programaComplementar;
+    it("IRRF da 2a = IRRF(total) - IRRF(1a parcela informada)", () => {
+      const valor1a = 10000;
+      const result = useCase.execute({
+        bankId: BANKS.ITAU,
+        salario: 8000,
+        mesesTrabalhados: 12,
+        incluirContribuicaoSindical: false,
+        valorPrimeiraParcela: valor1a,
+      });
 
-      expect(result.calculation.parcela).toBe("total");
-      expect(result.calculation.totalBruto).toBe(expectedBruto);
+      const irrfTotal = result.calculation.irrf;
+      const irrf1a = result.calculation.irrfPrimeiraParcela;
+      const irrf2a = result.calculation.irrfSegundaParcela;
+
+      expect(irrf1a + irrf2a).toBeCloseTo(irrfTotal, 2);
     });
 
-    it("soma dos brutos 1a + 2a = total", () => {
-      const primeira = useCase.execute({ ...input, parcela: "primeira" as const });
-      const segunda = useCase.execute({ ...input, parcela: "segunda" as const });
-      const total = useCase.execute({ ...input, parcela: "total" as const });
+    it("liquido da 2a parcela e bruto - irrf diferencial", () => {
+      const valor1a = 10000;
+      const result = useCase.execute({
+        bankId: BANKS.ITAU,
+        salario: 8000,
+        mesesTrabalhados: 12,
+        incluirContribuicaoSindical: false,
+        valorPrimeiraParcela: valor1a,
+      });
 
-      expect(primeira.calculation.totalBruto + segunda.calculation.totalBruto)
-        .toBeCloseTo(total.calculation.totalBruto, 2);
+      expect(result.calculation.liquidoSegundaParcela).toBeCloseTo(
+        result.calculation.brutoSegundaParcela - result.calculation.irrfSegundaParcela, 2,
+      );
     });
 
-    it("IRRF da 2a parcela = IRRF(total) - IRRF(1a)", () => {
-      const primeira = useCase.execute({ ...input, parcela: "primeira" as const });
-      const segunda = useCase.execute({ ...input, parcela: "segunda" as const });
-      const total = useCase.execute({ ...input, parcela: "total" as const });
+    it("IRRF da 2a parcela nunca e negativo", () => {
+      // Caso extremo: valor da 1a parcela maior que a antecipacao calculada
+      const result = useCase.execute({
+        bankId: BANKS.SAFRA,
+        salario: 3000,
+        mesesTrabalhados: 12,
+        incluirContribuicaoSindical: false,
+        valorPrimeiraParcela: 15000,
+      });
 
-      expect(primeira.calculation.irrf + segunda.calculation.irrf)
-        .toBeCloseTo(total.calculation.irrf, 2);
-    });
-
-    it("liquido da 1a + 2a = liquido total (sem sindical)", () => {
-      const primeira = useCase.execute({ ...input, parcela: "primeira" as const });
-      const segunda = useCase.execute({ ...input, parcela: "segunda" as const });
-      const total = useCase.execute({ ...input, parcela: "total" as const });
-
-      expect(primeira.calculation.totalLiquido + segunda.calculation.totalLiquido)
-        .toBeCloseTo(total.calculation.totalLiquido, 2);
-    });
-
-    it("1a parcela tem IRRF menor que o total", () => {
-      const primeira = useCase.execute({ ...input, parcela: "primeira" as const });
-      const total = useCase.execute({ ...input, parcela: "total" as const });
-
-      expect(primeira.calculation.irrf).toBeLessThan(total.calculation.irrf);
+      expect(result.calculation.irrfSegundaParcela).toBeGreaterThanOrEqual(0);
     });
   });
 });

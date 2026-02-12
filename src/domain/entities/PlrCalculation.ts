@@ -1,7 +1,5 @@
 import type { BankId } from "../value-objects/Bank.ts";
 
-export type Parcela = "total" | "primeira" | "segunda";
-
 export interface PlrBreakdown {
   regraBasicaAntecipacao: number;
   parcelaAdicionalAntecipacao: number;
@@ -20,10 +18,14 @@ export interface PlrCalculation {
   bankName: string;
   salario: number;
   mesesTrabalhados: number;
-  parcela: Parcela;
+  valorPrimeiraParcela: number | null;
   totalBruto: number;
   irrf: number;
+  irrfPrimeiraParcela: number;
   contribuicaoSindical: number;
   totalLiquido: number;
+  brutoSegundaParcela: number;
+  irrfSegundaParcela: number;
+  liquidoSegundaParcela: number;
   breakdown: PlrBreakdown;
 }

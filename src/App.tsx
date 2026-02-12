@@ -23,20 +23,18 @@ export function App() {
         bankName: plrResult.calculation.bankName,
         salario: plrResult.calculation.salario,
         meses: plrResult.calculation.mesesTrabalhados,
-        parcela: plrResult.calculation.parcela,
         totalBruto: plrResult.calculation.totalBruto,
         totalLiquido: plrResult.calculation.totalLiquido,
       });
     }
   }
 
-  function handleHistorySelect(entry: { bankId: string; salario: number; meses: number; parcela?: string }) {
+  function handleHistorySelect(entry: { bankId: string; salario: number; meses: number }) {
     handleCalculate({
       bankId: entry.bankId as BankId,
       salario: entry.salario,
       mesesTrabalhados: entry.meses,
       incluirContribuicaoSindical: true,
-      parcela: (entry.parcela as "total" | "primeira" | "segunda") ?? "total",
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -65,7 +63,7 @@ export function App() {
         {result && (
           <div className="space-y-4">
             <PlrResult result={result} />
-            <PlrBreakdown breakdown={result.calculation.breakdown} parcela={result.calculation.parcela} />
+            <PlrBreakdown breakdown={result.calculation.breakdown} />
           </div>
         )}
 

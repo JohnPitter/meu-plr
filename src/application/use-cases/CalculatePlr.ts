@@ -25,60 +25,65 @@ export class CalculatePlr {
   }
 
   execute(input: PlrInput): PlrResult {
-    this.logger.info("Iniciando calculo PLR", { bankId: input.bankId, salario: input.salario, parcela: input.parcela });
+    this.logger.info("Iniciando calculo PLR", { bankId: input.bankId, salario: input.salario });
 
     const salary = new Salary(input.salario);
     const period = new WorkPeriod(input.mesesTrabalhados);
     const bankInfo = getBankInfo(input.bankId);
     const calculator = this.calculatorFactory(input.bankId);
-    const parcela = input.parcela ?? "total";
 
     const breakdown = calculator.getBreakdown(salary.value, period.months);
 
-    const plrAnual = breakdown.totalAntecipacao + breakdown.totalExercicio + breakdown.programaComplementar;
+    const totalBruto = breakdown.totalAntecipacao + breakdown.totalExercicio + breakdown.programaComplementar;
 
-    let totalBruto: number;
-    let irrf: number;
-
-    if (parcela === "primeira") {
-      totalBruto = breakdown.totalAntecipacao;
-      irrf = this.taxCalculator.calculate(totalBruto).irrf;
-    } else if (parcela === "segunda") {
-      totalBruto = breakdown.totalExercicio + breakdown.programaComplementar;
-      const irrfAnual = this.taxCalculator.calculate(plrAnual).irrf;
-      const irrfPrimeira = this.taxCalculator.calculate(breakdown.totalAntecipacao).irrf;
-      irrf = Math.max(0, Math.round((irrfAnual - irrfPrimeira) * 100) / 100);
-    } else {
-      totalBruto = plrAnual;
-      irrf = this.taxCalculator.calculate(totalBruto).irrf;
-    }
-
-    const tax = this.taxCalculator.calculate(parcela === "segunda" ? plrAnual : totalBruto);
+    const tax = this.taxCalculator.calculate(totalBruto);
 
     const contribuicaoSindical = input.incluirContribuicaoSindical
       ? Math.round(totalBruto * CONTRIBUICAO_SINDICAL_RATE * 100) / 100
       : 0;
 
-    const totalLiquido = Math.round((totalBruto - irrf - contribuicaoSindical) * 100) / 100;
+    const totalLiquido = Math.round((totalBruto - tax.irrf - contribuicaoSindical) * 100) / 100;
+
+    // Calculo por parcela: se o usuario informou o bruto da 1a parcela,
+    // calcula o IRRF diferencial para a 2a parcela
+    const valorPrimeiraParcela = input.valorPrimeiraParcela ?? null;
+    let irrfPrimeiraParcela = 0;
+    let brutoSegundaParcela = 0;
+    let irrfSegundaParcela = 0;
+    let liquidoSegundaParcela = 0;
+
+    if (valorPrimeiraParcela != null && valorPrimeiraParcela > 0) {
+      irrfPrimeiraParcela = this.taxCalculator.calculate(valorPrimeiraParcela).irrf;
+      brutoSegundaParcela = Math.round((totalBruto - valorPrimeiraParcela) * 100) / 100;
+      irrfSegundaParcela = Math.max(0, Math.round((tax.irrf - irrfPrimeiraParcela) * 100) / 100);
+      const sindical2a = input.incluirContribuicaoSindical
+        ? Math.round(brutoSegundaParcela * CONTRIBUICAO_SINDICAL_RATE * 100) / 100
+        : 0;
+      liquidoSegundaParcela = Math.round((brutoSegundaParcela - irrfSegundaParcela - sindical2a) * 100) / 100;
+    }
 
     const calculation: PlrCalculation = {
       bankId: input.bankId,
       bankName: bankInfo.name,
       salario: salary.value,
       mesesTrabalhados: period.months,
-      parcela,
+      valorPrimeiraParcela,
       totalBruto,
-      irrf,
+      irrf: tax.irrf,
+      irrfPrimeiraParcela,
       contribuicaoSindical,
       totalLiquido,
+      brutoSegundaParcela,
+      irrfSegundaParcela,
+      liquidoSegundaParcela,
       breakdown,
     };
 
     this.logger.info("Calculo PLR concluido", {
       bankId: input.bankId,
-      parcela,
       totalBruto,
       totalLiquido,
+      ...(valorPrimeiraParcela != null && { liquidoSegundaParcela }),
     });
 
     return { calculation, tax };

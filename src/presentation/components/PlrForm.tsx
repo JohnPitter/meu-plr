@@ -9,7 +9,6 @@ import { BANK_LIST } from "../../domain/value-objects/Bank.ts";
 import { formatCurrencyInput, parseCurrencyInput } from "../lib/utils.ts";
 import type { PlrInput } from "../../application/dtos/PlrInput.ts";
 import type { BankId } from "../../domain/value-objects/Bank.ts";
-import type { Parcela } from "../../domain/entities/PlrCalculation.ts";
 
 interface PlrFormProps {
   onSubmit: (input: PlrInput) => void;
@@ -19,13 +18,18 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   const [bankId, setBankId] = useState<string>("");
   const [salario, setSalario] = useState<string>("");
   const [meses, setMeses] = useState<string>("12");
-  const [parcela, setParcela] = useState<Parcela>("total");
+  const [primeiraParcela, setPrimeiraParcela] = useState<string>("");
   const [sindical, setSindical] = useState(true);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function handleSalarioChange(e: React.ChangeEvent<HTMLInputElement>) {
     const raw = e.target.value;
     setSalario(formatCurrencyInput(raw));
+  }
+
+  function handlePrimeiraParcelaChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value;
+    setPrimeiraParcela(formatCurrencyInput(raw));
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -38,6 +42,11 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
     const mesesNum = parseInt(meses, 10);
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
 
+    const primeiraParcelaNum = parseCurrencyInput(primeiraParcela);
+    if (primeiraParcela && primeiraParcelaNum < 0) {
+      newErrors.primeiraParcela = "Valor invalido";
+    }
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
@@ -49,7 +58,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
       salario: salarioNum,
       mesesTrabalhados: mesesNum,
       incluirContribuicaoSindical: sindical,
-      parcela,
+      ...(primeiraParcelaNum > 0 && { valorPrimeiraParcela: primeiraParcelaNum }),
     });
   }
 
@@ -104,32 +113,19 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label>Parcela</Label>
-            <div className="grid grid-cols-3 gap-1 rounded-lg border bg-muted/50 p-1">
-              {([
-                { value: "total", label: "Total Anual" },
-                { value: "primeira", label: "1a Parcela" },
-                { value: "segunda", label: "2a Parcela" },
-              ] as const).map((opt) => (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => setParcela(opt.value)}
-                  className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
-                    parcela === opt.value
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
+            <Label htmlFor="primeiraParcela">Valor bruto da 1a parcela (opcional)</Label>
+            <Input
+              id="primeiraParcela"
+              type="text"
+              inputMode="decimal"
+              placeholder="0,00"
+              value={primeiraParcela}
+              onChange={handlePrimeiraParcelaChange}
+            />
             <p className="text-[10px] text-muted-foreground">
-              {parcela === "primeira" && "Antecipacao paga em setembro"}
-              {parcela === "segunda" && "Exercicio pago em marco (desconta IRRF da 1a)"}
-              {parcela === "total" && "Soma das duas parcelas"}
+              Informe o bruto recebido em setembro para calcular o IRRF correto da 2a parcela
             </p>
+            {errors.primeiraParcela && <p className="text-xs text-destructive">{errors.primeiraParcela}</p>}
           </div>
 
           <div className="flex items-center gap-2">
