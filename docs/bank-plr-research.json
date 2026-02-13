@@ -89,7 +89,7 @@
       "nome_do_banco": "Bradesco",
       "estrutura": {
         "periodo_de_apuracao": "Semestral (1o e 2o semestres)",
-        "pagamento": "Max 2 pagamentos/ano, intervalo de 1 trimestre. 1a parcela em setembro, 2a parcela em fevereiro/marco",
+        "pagamento": "1a parcela em setembro, 2a parcela em 27 de fevereiro de 2026. Tradicionalmente pago na sexta antes do carnaval",
         "composicao": "PLR FENABAN (nao compensada, somada) + PPR Supera OU PRB (o que for maior)"
       },
       "calculo": {
