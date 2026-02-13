@@ -1,4 +1,4 @@
-import { DollarSign, Moon, Sun } from "lucide-react";
+import { DollarSign, Moon, ShieldCheck, Sun } from "lucide-react";
 import { Button } from "./ui/button.tsx";
 import { useTheme } from "../hooks/useTheme.ts";
 import type { ReactNode } from "react";
@@ -31,12 +31,17 @@ export function Layout({ children }: LayoutProps) {
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">{children}</main>
       <footer className="border-t">
         <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-          <div className="flex flex-col items-center gap-2 text-center text-xs text-muted-foreground">
+          <div className="flex flex-col items-center gap-3 text-center text-xs text-muted-foreground">
             <p>Baseado na CCT FENABAN 2024/2026 (exercício 2025)</p>
             <p>Valores de referência. Consulte seu holerite para valores exatos.</p>
+            <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-700 dark:text-emerald-400">
+              <ShieldCheck className="h-4 w-4 shrink-0" />
+              <p className="text-[11px] font-medium">
+                100% privado — nenhum dado sai do seu navegador. Sem servidor, sem coleta, sem rastreamento.
+              </p>
+            </div>
             <p>
-              Esta aplicação não armazena nenhum dado pessoal. Todos os cálculos são feitos localmente no seu navegador.
-              {" "}<a href="https://github.com/JohnPitter/meu-plr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Código fonte</a>
+              <a href="https://github.com/JohnPitter/meu-plr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Código fonte</a>
             </p>
           </div>
         </div>
