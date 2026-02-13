@@ -51,23 +51,26 @@
       "nome_do_banco": "Banco Safra",
       "estrutura": {
         "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
-        "pagamento": "1a parcela (antecipacao) ate 30/09 + 2a parcela ate 01/03 do ano seguinte",
-        "composicao": "PLR CCT FENABAN generica (Regra Basica + Parcela Adicional). Sem programa complementar proprio e sem majoracao"
+        "pagamento": "1a parcela (antecipacao) em setembro + 2a parcela em 25 de fevereiro do ano seguinte",
+        "composicao": "Regra Basica (90% do salario + valor fixo) + Parcela Adicional (2,2% do lucro liquido). Bonus extra de 20% sobre parcela adicional para cargos tecnicos (Suporte Administrativo e Comercial), elevando teto de 2,2 para 2,64 salarios"
       },
       "calculo": {
         "regra_basica_antecipacao": "54% do salario + R$ 2.119,75 (reajustado 2025), limite R$ 11.371,44",
         "regra_basica_exercicio": "90% do salario + R$ 3.532,92 (reajustado 2025), limite R$ 18.952,40",
         "majoracao": "Nao se aplica. Safra nao atinge criterio de majoracao (total RB >= 5% do lucro liquido) ou nao possui acordo especifico",
         "parcela_adicional": "2,2% do lucro liquido / empregados elegiveis, limite R$ 7.336,60 (reajustado 2025)",
+        "bonus_parcela_adicional": "20% extra sobre parcela adicional para Suporte Administrativo e Comercial (teto de 2,64 salarios)",
         "programa_complementar": "Nenhum. Segue apenas a PLR CCT FENABAN sem programas adicionais",
-        "nota": "O Banco Safra segue estritamente a CCT FENABAN sem acordos coletivos proprios para PLR complementar. Nao ha programas tipo PCR, PPRS ou PRB"
+        "reajuste_2025": "INPC + 0,5% de aumento real",
+        "nota": "O Banco Safra segue a CCT FENABAN com bonus negociado pelo sindicato para cargos tecnicos. Nao ha programas tipo PCR, PPRS ou PRB"
       },
       "elegibilidade": {
         "criterio_admissao": "Conforme CCT FENABAN. Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
         "proporcionalidade": "1/12 por mes trabalhado ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
         "afastamentos_integrais": "Doenca, acidente de trabalho, licenca-maternidade nao deduzidos",
         "descontos": "Licencas sem remuneracao e faltas nao justificadas",
-        "exclusao": "Demissao por justa causa"
+        "exclusao": "Demissao por justa causa",
+        "bonus_extra": "Cargos tecnicos de Suporte Administrativo e Comercial recebem bonus de 20% sobre parcela adicional"
       },
       "historico_lucro": {
         "2022": "R$ 2,7 bilhoes",
@@ -77,8 +80,9 @@
       },
       "fontes": [
         "CCT FENABAN/CONTRAF 2024-2026 (aplicavel a todos os bancos signatarios, incluindo Safra)",
-        "https://www.safra.com.br/institucional/relatorio-anual.htm",
-        "https://spbancarios.com.br/tags/safra"
+        "https://www.safra.com.br/sobre/relacoes-com-investidores/informacoes-financeiras.htm",
+        "https://spbancarios.com.br/tag/plr-do-safra",
+        "https://spbancarios.com.br/02/2026/plr-safra-sindicato-garante-pagamento-para-dia-25-de-fevereiro-com-bonus-extra"
       ]
     },
     {
