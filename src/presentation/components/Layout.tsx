@@ -30,19 +30,14 @@ export function Layout({ children }: LayoutProps) {
       </header>
       <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">{children}</main>
       <footer className="border-t">
-        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
-          <div className="flex flex-col items-center gap-3 text-center text-xs text-muted-foreground">
-            <p>Baseado na CCT FENABAN 2024/2026 (exercício 2025)</p>
-            <p>Valores de referência. Consulte seu holerite para valores exatos.</p>
-            <div className="flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-emerald-700 dark:text-emerald-400">
-              <ShieldCheck className="h-4 w-4 shrink-0" />
-              <p className="text-[11px] font-medium">
-                100% privado — nenhum dado sai do seu navegador. Sem servidor, sem coleta, sem rastreamento.
-              </p>
-            </div>
-            <p>
-              <a href="https://github.com/JohnPitter/meu-plr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Código fonte</a>
+        <div className="mx-auto max-w-5xl px-4 py-4 sm:px-6">
+          <div className="flex flex-col items-center gap-1.5 text-center text-[11px] text-muted-foreground">
+            <p>CCT FENABAN 2024/2026 — Valores de referência. Consulte seu holerite para valores exatos.</p>
+            <p className="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
+              <ShieldCheck className="h-3 w-3" />
+              100% privado — nenhum dado sai do seu navegador.
             </p>
+            <a href="https://github.com/JohnPitter/meu-plr" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">Código fonte</a>
           </div>
         </div>
       </footer>

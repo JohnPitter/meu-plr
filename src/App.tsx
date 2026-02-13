@@ -47,7 +47,7 @@ export function App() {
     <Layout>
       <div className="space-y-8">
         <div className="space-y-1 text-center">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Calculadora PLR</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Calculadora de PLR</h1>
           <p className="text-sm text-muted-foreground">
             Simule sua Participação nos Lucros e Resultados
           </p>
