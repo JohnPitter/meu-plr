@@ -1,0 +1,57 @@
+# Meu PLR - Calculadora de PLR para Bancários
+
+> Calculadora gratuita de PLR (Participação nos Lucros e Resultados) para bancários brasileiros.
+
+## O que é
+
+Meu PLR é uma aplicação web que calcula a PLR de bancários com base na CCT FENABAN 2024/2026 (exercício 2025). A ferramenta é 100% gratuita, open-source, e todos os cálculos são feitos localmente no navegador — nenhum dado pessoal é armazenado.
+
+## Bancos suportados
+
+- Banco do Brasil (Módulo BB)
+- Banco Safra (FENABAN genérica)
+- Bradesco (PRB)
+- BTG Pactual (majoração)
+- Caixa Econômica Federal (PLR Social)
+- Itaú Unibanco (PCR)
+- Santander (PPRS)
+
+## Como funciona o cálculo
+
+### Regra Básica (CCT FENABAN)
+- Antecipação (1a parcela, setembro): min(54% x salário + R$ 2.119,75 , R$ 11.371,44)
+- Exercício (2a parcela, março): min(90% x salário + R$ 3.532,92 , R$ 18.952,40)
+
+### Parcela Adicional
+- 2,2% do lucro líquido distribuído por empregado elegível
+- Antecipação: R$ 3.668,29 | Exercício: R$ 7.336,60
+
+### Majoração
+Em bancos lucrativos (total RB < 5% do lucro líquido), a regra básica é substituída por:
+- min(2,2 x salário , R$ 41.695,29)
+- Aplica-se a: Itaú, Santander, Bradesco, BTG Pactual
+- Não se aplica a: BB, Caixa, Safra
+
+### Programas Complementares
+- Itaú: PCR (R$ 3.908,05 ou R$ 4.299,86 conforme ROE)
+- Santander: PPRS (R$ 3.210,04 a R$ 4.036,10 conforme ROAE)
+- Bradesco: PRB (R$ 1.000 a R$ 2.500 conforme ROAE)
+- Banco do Brasil: Módulo BB (4% do lucro líquido + variável)
+- Caixa: PLR Social (4% do lucro líquido)
+
+### IRRF
+Tabela exclusiva para PLR (Lei 14.663/2023):
+- Isento até R$ 7.640,80
+- 7,5% (dedução R$ 573,06)
+- 15% (dedução R$ 1.317,23)
+- 22,5% (dedução R$ 2.304,76)
+- 27,5% (dedução R$ 3.123,78)
+
+### Proporcionalidade
+1/12 por mês trabalhado (fração >= 15 dias = 1 mês integral).
+
+## URL
+https://johnpitter.github.io/meu-plr/
+
+## Código fonte
+https://github.com/JohnPitter/meu-plr
