@@ -37,11 +37,13 @@
       "historico_lucro": {
         "2022": "R$ 31,8 bilhoes",
         "2023": "R$ 35,56 bilhoes",
-        "2024": "R$ 37,9 bilhoes"
+        "2024": "R$ 37,9 bilhoes",
+        "2025": "R$ 20,68 bilhoes (ajustado, queda de 45% — impacto da inadimplencia no agro e novas regras contabeis)"
       },
       "fontes": [
         "https://spbancarios.com.br/sites/default/files/cct/arquivo/BB%20-%20ACT%20PLR%202024-2026%20sem%20assi.pdf",
         "https://bancarios.com.br/wp-content/uploads/2022/10/bb-act-plr-2022-2023-1_final_11868.pdf",
+        "https://agenciabrasil.ebc.com.br/economia/noticia/2026-02/banco-do-brasil-tem-lucro-de-r-2068-bilhoes-em-2025",
         "ACT BB PLR 2024-2026, CCT FENABAN PLR 2024-2025, www.bb.com.br/nc"
       ]
     },
@@ -70,7 +72,8 @@
       "historico_lucro": {
         "2022": "R$ 2,7 bilhoes",
         "2023": "R$ 2,5 bilhoes",
-        "2024": "R$ 2,8 bilhoes (estimativa)"
+        "2024": "R$ 2,8 bilhoes (estimativa)",
+        "2025": "Nao divulgado publicamente (banco de capital fechado)"
       },
       "fontes": [
         "CCT FENABAN/CONTRAF 2024-2026 (aplicavel a todos os bancos signatarios, incluindo Safra)",
@@ -109,7 +112,8 @@
       "historico_lucro": {
         "2022": "R$ 20,732 bilhoes",
         "2023": "R$ 16,3 bilhoes",
-        "2024": "R$ 19,6 bilhoes (recorrente)"
+        "2024": "R$ 19,6 bilhoes (recorrente)",
+        "2025": "R$ 24,65 bilhoes (recorrente, alta de 26%)"
       },
       "fontes": [
         "https://www.bancarios-es.org.br/wp-content/uploads/2025/08/COM16825-ACT-PPR-E-PRB-BRADESCO-2025.pdf",
@@ -142,7 +146,8 @@
       "historico_lucro": {
         "2022": "R$ 8,3 bilhoes (ajustado - recorde a epoca)",
         "2023": "R$ 10,4 bilhoes (ajustado)",
-        "2024": "R$ 12,3 bilhoes (ajustado - recorde). ROAE 27,6% no 4T24"
+        "2024": "R$ 12,3 bilhoes (ajustado - recorde). ROAE 27,6% no 4T24",
+        "2025": "R$ 16,68 bilhoes (ajustado - recorde historico, alta de 35%). ROAE 27,6%"
       },
       "fontes": [
         "https://www.bancariosrio.org.br/index.php/outros-bancos/item/14876-assembleia-do-btg-pactual-aprova-plr-complementar-a-da-cct",
@@ -183,7 +188,8 @@
       "historico_lucro": {
         "2022": "R$ 9,2 bilhoes (recorrente)",
         "2023": "R$ 11,7 bilhoes",
-        "2024": "R$ 14,0 bilhoes (recorrente). ROE recorrente 10,4%"
+        "2024": "R$ 14,0 bilhoes (recorrente). ROE recorrente 10,4%",
+        "2025": "R$ 17,3 bilhoes (estimativa — 9M25: R$ 13,5 bi contabil, 4T25 ainda nao divulgado)"
       },
       "fontes": [
         "https://spbancarios.com.br/sites/default/files/cct/arquivo/Caixa%20-%20ACT%20PLR%202024-2025%20sem%20assi.pdf",
@@ -224,7 +230,8 @@
       "historico_lucro": {
         "2022": "R$ 30,8 bilhoes (recorrente)",
         "2023": "R$ 35,6 bilhoes (recorrente)",
-        "2024": "R$ 40,2 bilhoes (recorrente - recorde historico). ROE 18,6%"
+        "2024": "R$ 40,2 bilhoes (recorrente - recorde historico). ROE 18,6%",
+        "2025": "R$ 46,8 bilhoes (recorrente - maior lucro da historia de um banco brasileiro, alta de 13,1%). ROE 24,4%"
       },
       "fontes": [
         "https://santosbancarios.com.br/wp-content/uploads/2023/06/Minuta-Acordo-PCR-Itau-com-anexo-FEEB-SP-MS_2023_2024_.pdf",
@@ -269,7 +276,8 @@
       "historico_lucro": {
         "2022": "R$ 12,9 bilhoes (gerencial)",
         "2023": "R$ 9,383 bilhoes (recorrente)",
-        "2024": "R$ 13,872 bilhoes (gerencial). ROE 17,6%"
+        "2024": "R$ 13,872 bilhoes (gerencial). ROE 17,6%",
+        "2025": "R$ 15,6 bilhoes (gerencial, alta de 12,6%). ROAE 17,2%"
       },
       "fontes": [
         "https://contec.org.br/wp-content/uploads/2024/10/Acordo-P.P.R.S-Santander-2024.2025.pdf",

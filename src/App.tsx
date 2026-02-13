@@ -26,18 +26,19 @@ export function App() {
         bankName: plrResult.calculation.bankName,
         salario: plrResult.calculation.salario,
         meses: plrResult.calculation.mesesTrabalhados,
+        incluirContribuicaoSindical: input.incluirContribuicaoSindical,
         totalBruto: plrResult.calculation.totalBruto,
         totalLiquido: plrResult.calculation.totalLiquido,
       });
     }
   }
 
-  function handleHistorySelect(entry: { bankId: string; salario: number; meses: number }) {
+  function handleHistorySelect(entry: { bankId: string; salario: number; meses: number; incluirContribuicaoSindical?: boolean }) {
     calculate({
       bankId: entry.bankId as BankId,
       salario: entry.salario,
       mesesTrabalhados: entry.meses,
-      incluirContribuicaoSindical: true,
+      incluirContribuicaoSindical: entry.incluirContribuicaoSindical ?? true,
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }

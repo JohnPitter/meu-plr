@@ -5,6 +5,7 @@ export interface HistoryEntry {
   bankName: string;
   salario: number;
   meses: number;
+  incluirContribuicaoSindical: boolean;
   totalBruto: number;
   totalLiquido: number;
   calculatedAt: number;

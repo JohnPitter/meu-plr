@@ -9,7 +9,7 @@ interface CalculationHistoryProps {
   entries: HistoryEntry[];
   onRemove: (index: number) => void;
   onClear: () => void;
-  onSelect: (entry: { bankId: string; salario: number; meses: number }) => void;
+  onSelect: (entry: { bankId: string; salario: number; meses: number; incluirContribuicaoSindical?: boolean }) => void;
 }
 
 function timeAgo(timestamp: number): string {
@@ -44,7 +44,7 @@ export function CalculationHistory({ entries, onRemove, onClear, onSelect }: Cal
             <div
               key={entry.calculatedAt}
               className="group flex items-center justify-between rounded-lg border bg-card p-3 text-sm transition-colors hover:bg-muted/50 cursor-pointer"
-              onClick={() => onSelect({ bankId: entry.bankId, salario: entry.salario, meses: entry.meses })}
+              onClick={() => onSelect({ bankId: entry.bankId, salario: entry.salario, meses: entry.meses, incluirContribuicaoSindical: entry.incluirContribuicaoSindical })}
             >
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
