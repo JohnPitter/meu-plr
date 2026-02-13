@@ -37,7 +37,7 @@ export class CaixaCalculator extends FenabanCalculator {
   }
 
   override calculateProgramaComplementar(_salario: number): { value: number; name: string | null } {
-    return { value: this.valorPLRSocial, name: "PLR Social (4% do lucro liquido)" };
+    return { value: this.valorPLRSocial, name: "PLR Social (4% do lucro líquido)" };
   }
 
   override getBreakdown(salario: number, meses: number): PlrBreakdown {

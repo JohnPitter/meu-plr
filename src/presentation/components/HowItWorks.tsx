@@ -40,7 +40,7 @@ export function HowItWorks() {
         <CardTitle className="flex items-center justify-between text-sm">
           <span className="flex items-center gap-2">
             <HelpCircle className="h-4 w-4 text-muted-foreground" />
-            Como funciona o calculo?
+            Como funciona o cálculo?
           </span>
           <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
         </CardTitle>
@@ -50,47 +50,47 @@ export function HowItWorks() {
         <CardContent className="space-y-6 pt-0">
           <Section title="Base Legal">
             <p>
-              O calculo segue a <strong>CCT FENABAN 2024/2026</strong> (exercicio 2025),
+              O cálculo segue a <strong>CCT FENABAN 2024/2026</strong> (exercício 2025),
               com reajuste de <strong>5,68%</strong> (INPC 5,05% + 0,6% de ganho real)
               aplicado em 01/09/2025.
             </p>
           </Section>
 
-          <Section title="1a Parcela — Antecipacao (Setembro)">
-            <p>Paga ate 30 de setembro. Formula:</p>
+          <Section title="1a Parcela — Antecipação (Setembro)">
+            <p>Paga até 30 de setembro. Fórmula:</p>
             <div className="rounded-md bg-muted/50 px-3 py-2 font-mono text-xs">
-              Regra Basica = min(54% x salario + R$ 2.119,75 , R$ 11.371,44)<br />
+              Regra Básica = min(54% x salário + R$ 2.119,75 , R$ 11.371,44)<br />
               Parcela Adicional = R$ 3.668,29<br />
-              Total 1a = (Regra Basica + Parcela Adicional) x (meses / 12)
+              Total 1a = (Regra Básica + Parcela Adicional) x (meses / 12)
             </div>
           </Section>
 
-          <Section title="2a Parcela — Exercicio (Marco)">
-            <p>Paga ate 1o de marco do ano seguinte. Formula:</p>
+          <Section title="2a Parcela — Exercício (Março)">
+            <p>Paga até 1o de março do ano seguinte. Fórmula:</p>
             <div className="rounded-md bg-muted/50 px-3 py-2 font-mono text-xs">
-              Regra Basica = min(90% x salario + R$ 3.532,92 , R$ 18.952,40)<br />
+              Regra Básica = min(90% x salário + R$ 3.532,92 , R$ 18.952,40)<br />
               Parcela Adicional = R$ 7.336,60<br />
-              Total Exercicio = (Regra Basica + Parcela Adicional) x (meses / 12)<br />
-              Total 2a = Total Exercicio - Total 1a (desconto da antecipacao)
+              Total Exercício = (Regra Básica + Parcela Adicional) x (meses / 12)<br />
+              Total 2a = Total Exercício - Total 1a (desconto da antecipação)
             </div>
           </Section>
 
-          <Section title="Majoracao">
+          <Section title="Majoração">
             <p>
-              Em bancos lucrativos (quando o total de regra basica pago e menor que 5% do lucro liquido),
-              a regra basica do exercicio e substituida por:
+              Em bancos lucrativos (quando o total de regra básica pago é menor que 5% do lucro líquido),
+              a regra básica do exercício é substituída por:
             </p>
             <div className="rounded-md bg-muted/50 px-3 py-2 font-mono text-xs">
-              Regra Basica Majorada = min(2,2 x salario , R$ 41.695,29)
+              Regra Básica Majorada = min(2,2 x salário , R$ 41.695,29)
             </div>
             <p>
-              Aplica-se a: <strong>Itau, Santander, Bradesco, BTG Pactual</strong>. Nao se aplica a: BB, Caixa, Safra.
+              Aplica-se a: <strong>Itaú, Santander, Bradesco, BTG Pactual</strong>. Não se aplica a: BB, Caixa, Safra.
             </p>
           </Section>
 
           <Section title="Programas Complementares por Banco">
             <p>
-              Alem da PLR FENABAN, cada banco pode ter um programa proprio que e somado ao total.
+              Além da PLR FENABAN, cada banco pode ter um programa próprio que é somado ao total.
               Clique em cada banco para ver os detalhes:
             </p>
             <div className="space-y-1.5">
@@ -110,12 +110,12 @@ export function HowItWorks() {
                     <tr><td className="py-1">&le; 22,1%</td><td className="py-1 text-right font-medium">R$ 3.908,05</td></tr>
                   </tbody>
                 </table>
-                <p className="mt-1.5 text-[10px]">Default do calculador: 2o patamar (R$ 4.299,86). A PLR do Itau nunca e inferior a PLR CCT + PCR.</p>
+                <p className="mt-1.5 text-[10px]">Default do calculador: 2o patamar (R$ 4.299,86). A PLR do Itaú nunca é inferior a PLR CCT + PCR.</p>
               </BankCard>
 
               <BankCard name="Santander — PPRS">
                 <p className="mb-1.5">
-                  <strong>Programa Proprio de Resultados Santander (PPRS)</strong> — valor baseado no ROAE:
+                  <strong>Programa Próprio de Resultados Santander (PPRS)</strong> — valor baseado no ROAE:
                 </p>
                 <table className="w-full text-xs">
                   <thead>
@@ -131,14 +131,14 @@ export function HowItWorks() {
                   </tbody>
                 </table>
                 <p className="mt-1.5 text-[10px]">
-                  Default do calculador: faixa 2 (ROAE 13-15,5%). PPRS e somado a PLR CCT, nunca compensado.
-                  PPE e PPG (programas por area) nao sao modelados.
+                  Default do calculador: faixa 2 (ROAE 13-15,5%). PPRS é somado à PLR CCT, nunca compensado.
+                  PPE e PPG (programas por área) não são modelados.
                 </p>
               </BankCard>
 
               <BankCard name="Bradesco — PRB">
                 <p className="mb-1.5">
-                  <strong>Programa de Remuneracao Bradesco (PRB)</strong> — valor baseado no ROAE:
+                  <strong>Programa de Remuneração Bradesco (PRB)</strong> — valor baseado no ROAE:
                 </p>
                 <table className="w-full text-xs">
                   <thead>
@@ -155,45 +155,45 @@ export function HowItWorks() {
                 </table>
                 <p className="mt-1.5 text-[10px]">
                   Default do calculador: R$ 2.500 (ROAE &ge; 18,5%).
-                  PPR Supera (2025) para cargos de vendas nao e modelado.
+                  PPR Supera (2025) para cargos de vendas não é modelado.
                 </p>
               </BankCard>
 
-              <BankCard name="Banco do Brasil — Modulo BB">
+              <BankCard name="Banco do Brasil — Módulo BB">
                 <p>
-                  <strong>Modulo BB</strong>: 4% do lucro liquido distribuido linearmente + parcela variavel por desempenho (sistema Conexao).
-                  Teto: 7 salarios-paradigma por ano.
+                  <strong>Módulo BB</strong>: 4% do lucro líquido distribuído linearmente + parcela variável por desempenho (sistema Conexão).
+                  Teto: 7 salários-paradigma por ano.
                 </p>
                 <p className="mt-1.5">
                   Default do calculador: <strong>R$ 3.500,00</strong> (estimativa).
-                  Nao aplica majoracao (banco publico).
+                  Não aplica majoração (banco público).
                 </p>
               </BankCard>
 
-              <BankCard name="Caixa Economica Federal — PLR Social">
+              <BankCard name="Caixa Econômica Federal — PLR Social">
                 <p>
-                  <strong>PLR Social</strong>: 4% do lucro liquido distribuido linearmente, proporcional a dias trabalhados.
+                  <strong>PLR Social</strong>: 4% do lucro líquido distribuído linearmente, proporcional a dias trabalhados.
                 </p>
-                <p className="mt-1.5">Formula de antecipacao diferente dos bancos privados:</p>
+                <p className="mt-1.5">Fórmula de antecipação diferente dos bancos privados:</p>
                 <div className="rounded-md bg-muted/50 px-3 py-1.5 font-mono text-xs my-1.5">
-                  Antecipacao = min(45% x salario + R$ 1.766,46 , R$ 9.476,20)
+                  Antecipação = min(45% x salário + R$ 1.766,46 , R$ 9.476,20)
                 </div>
                 <p>
-                  Teto individual: <strong>3x salario base</strong>. Garantia minima: 1 remuneracao base.
-                  Default do calculador: R$ 3.200,00 (estimativa). Nao aplica majoracao.
+                  Teto individual: <strong>3x salário base</strong>. Garantia mínima: 1 remuneração base.
+                  Default do calculador: R$ 3.200,00 (estimativa). Não aplica majoração.
                 </p>
               </BankCard>
 
               <BankCard name="BTG Pactual">
                 <p>
-                  Segue a <strong>PLR FENABAN com majoracao</strong> (banco lucrativo).
-                  Bonus de performance discricionario (5 a 8 salarios em media) nao e modelado por ser variavel e nao publico.
+                  Segue a <strong>PLR FENABAN com majoração</strong> (banco lucrativo).
+                  Bônus de performance discricionário (5 a 8 salários em média) não é modelado por ser variável e não público.
                 </p>
               </BankCard>
 
               <BankCard name="Banco Safra">
                 <p>
-                  Segue apenas a <strong>PLR FENABAN generica</strong>, sem majoracao e sem programa complementar.
+                  Segue apenas a <strong>PLR FENABAN genérica</strong>, sem majoração e sem programa complementar.
                 </p>
               </BankCard>
             </div>
@@ -201,22 +201,22 @@ export function HowItWorks() {
 
           <Section title="Proporcionalidade">
             <p>
-              A PLR e proporcional aos meses trabalhados: <strong>1/12 por mes</strong> (fracao &ge; 15 dias = 1 mes integral).
+              A PLR é proporcional aos meses trabalhados: <strong>1/12 por mês</strong> (fração &ge; 15 dias = 1 mês integral).
             </p>
           </Section>
 
           <Section title="IRRF sobre PLR">
             <p>
-              O Imposto de Renda e calculado com tabela exclusiva para PLR (separada do salario).
-              A <strong>1a parcela</strong> tem IRRF retido sobre o valor da antecipacao.
-              A <strong>2a parcela</strong> recalcula o IRRF sobre o total anual e desconta o que ja foi retido na 1a.
+              O Imposto de Renda é calculado com tabela exclusiva para PLR (separada do salário).
+              A <strong>1a parcela</strong> tem IRRF retido sobre o valor da antecipação.
+              A <strong>2a parcela</strong> recalcula o IRRF sobre o total anual e desconta o que já foi retido na 1a.
             </p>
             <div className="rounded-md bg-muted/50 px-3 py-2 font-mono text-xs">
               IRRF 2a parcela = IRRF(PLR total) - IRRF(1a parcela)
             </div>
           </Section>
 
-          <Section title="Contribuicao Sindical">
+          <Section title="Contribuição Sindical">
             <p>
               Desconto opcional de <strong>1,5%</strong> sobre o total bruto da PLR, conforme CCT FENABAN.
             </p>
@@ -224,9 +224,9 @@ export function HowItWorks() {
 
           <div className="rounded-lg bg-muted/50 px-4 py-3">
             <p className="text-xs text-muted-foreground">
-              <strong>Importante:</strong> Esta calculadora utiliza valores de referencia da CCT FENABAN 2024/2026
-              e dos ACTs (Acordos Coletivos de Trabalho) especificos de cada banco. Os valores reais podem variar
-              conforme politicas internas, desempenho individual e decisoes do banco. Consulte seu holerite e o
+              <strong>Importante:</strong> Esta calculadora utiliza valores de referência da CCT FENABAN 2024/2026
+              e dos ACTs (Acordos Coletivos de Trabalho) específicos de cada banco. Os valores reais podem variar
+              conforme políticas internas, desempenho individual e decisões do banco. Consulte seu holerite e o
               sindicato da sua categoria para valores exatos.
             </p>
           </div>

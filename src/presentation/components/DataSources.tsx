@@ -41,7 +41,7 @@ export function DataSources() {
         <CardTitle className="flex items-center justify-between text-sm">
           <span className="flex items-center gap-2">
             <FileText className="h-4 w-4 text-muted-foreground" />
-            De onde vieram essas informacoes?
+            De onde vieram essas informações?
           </span>
           <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
         </CardTitle>
@@ -51,15 +51,15 @@ export function DataSources() {
         <CardContent className="space-y-5 pt-0">
           <div className="space-y-1 text-sm text-muted-foreground leading-relaxed">
             <p>
-              Os valores e regras utilizados nesta calculadora foram extraidos de
+              Os valores e regras utilizados nesta calculadora foram extraídos de
               <strong> documentos oficiais</strong> (CCTs, ACTs e acordos sindicais) e
-              cruzados com multiplas fontes publicas.
+              cruzados com múltiplas fontes públicas.
             </p>
             <p>
               Base legal: <strong>{researchData.meta.base_legal}</strong>
             </p>
             <p>
-              Ultima atualizacao dos dados: <strong>{researchData.meta.ultima_atualizacao}</strong>
+              Última atualização dos dados: <strong>{researchData.meta.ultima_atualizacao}</strong>
             </p>
           </div>
 
@@ -75,15 +75,15 @@ export function DataSources() {
 
           <div className="rounded-lg bg-muted/50 px-4 py-3">
             <p className="text-xs text-muted-foreground">
-              <strong>Transparencia:</strong> O arquivo completo de pesquisa com todos os
-              dados brutos, historico de lucros e regras detalhadas esta disponivel no{" "}
+              <strong>Transparência:</strong> O arquivo completo de pesquisa com todos os
+              dados brutos, histórico de lucros e regras detalhadas está disponível no{" "}
               <a
                 href="https://github.com/JohnPitter/meu-plr/blob/main/docs/bank-plr-research.json"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary underline underline-offset-2"
               >
-                repositorio do projeto
+                repositório do projeto
               </a>.
             </p>
           </div>

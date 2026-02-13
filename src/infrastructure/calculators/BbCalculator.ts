@@ -17,6 +17,6 @@ export class BbCalculator extends FenabanCalculator {
   }
 
   override calculateProgramaComplementar(_salario: number): { value: number; name: string | null } {
-    return { value: this.valorModuloBB, name: "Modulo BB (4% do lucro liquido + variavel)" };
+    return { value: this.valorModuloBB, name: "Módulo BB (4% do lucro líquido + variável)" };
   }
 }

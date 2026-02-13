@@ -46,6 +46,39 @@
       ]
     },
     {
+      "nome_do_banco": "Banco Safra",
+      "estrutura": {
+        "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
+        "pagamento": "1a parcela (antecipacao) ate 30/09 + 2a parcela ate 01/03 do ano seguinte",
+        "composicao": "PLR CCT FENABAN generica (Regra Basica + Parcela Adicional). Sem programa complementar proprio e sem majoracao"
+      },
+      "calculo": {
+        "regra_basica_antecipacao": "54% do salario + R$ 2.119,75 (reajustado 2025), limite R$ 11.371,44",
+        "regra_basica_exercicio": "90% do salario + R$ 3.532,92 (reajustado 2025), limite R$ 18.952,40",
+        "majoracao": "Nao se aplica. Safra nao atinge criterio de majoracao (total RB >= 5% do lucro liquido) ou nao possui acordo especifico",
+        "parcela_adicional": "2,2% do lucro liquido / empregados elegiveis, limite R$ 7.336,60 (reajustado 2025)",
+        "programa_complementar": "Nenhum. Segue apenas a PLR CCT FENABAN sem programas adicionais",
+        "nota": "O Banco Safra segue estritamente a CCT FENABAN sem acordos coletivos proprios para PLR complementar. Nao ha programas tipo PCR, PPRS ou PRB"
+      },
+      "elegibilidade": {
+        "criterio_admissao": "Conforme CCT FENABAN. Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
+        "proporcionalidade": "1/12 por mes trabalhado ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
+        "afastamentos_integrais": "Doenca, acidente de trabalho, licenca-maternidade nao deduzidos",
+        "descontos": "Licencas sem remuneracao e faltas nao justificadas",
+        "exclusao": "Demissao por justa causa"
+      },
+      "historico_lucro": {
+        "2022": "R$ 2,7 bilhoes",
+        "2023": "R$ 2,5 bilhoes",
+        "2024": "R$ 2,8 bilhoes (estimativa)"
+      },
+      "fontes": [
+        "CCT FENABAN/CONTRAF 2024-2026 (aplicavel a todos os bancos signatarios, incluindo Safra)",
+        "https://www.safra.com.br/institucional/relatorio-anual.htm",
+        "https://spbancarios.com.br/tags/safra"
+      ]
+    },
+    {
       "nome_do_banco": "Bradesco",
       "estrutura": {
         "periodo_de_apuracao": "Semestral (1o e 2o semestres)",
@@ -86,7 +119,80 @@
       ]
     },
     {
-      "nome_do_banco": "Itau Unibanco",
+      "nome_do_banco": "BTG Pactual",
+      "estrutura": {
+        "periodo_de_apuracao": "Anual (CCT + bonus discricionario)",
+        "pagamento": "Antecipacao CCT em setembro + bonus final em janeiro/fevereiro (14 ou 27 de fevereiro). Atende pedidos de antecipacao do movimento sindical",
+        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + Bonus de Performance discricionario + eventuais programas complementares negociados com sindicatos"
+      },
+      "calculo": {
+        "plr_cct": "Conforme FENABAN com majoracao (banco lucrativo, ROAE 27,6% em Q4/2024)",
+        "bonus_performance": "5 a 8 salarios em media (relatos Glassdoor 2024), baseado em 'Profit Pool' da area",
+        "historico_bonus": "2012: bonus medio R$ 532 mil por colaborador (InfoMoney). BTG distribuiu 13,1% do lucro em PLR (BNDES)",
+        "lucro_2025": "R$ 16,7 bilhoes (crescimento 35%)",
+        "nota": "Bonus discricionario NAO modelado no calculador por ser variavel, especifico por cargo/area e nao publico. ACT PLR complementar aprovado em assembleia nov/2025 (59 participantes, 57 favoraveis)"
+      },
+      "elegibilidade": {
+        "plr_cct": "Conforme CCT FENABAN. Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
+        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
+        "afastamentos_integrais": "Doenca, acidente, licenca-maternidade nao deduzidos",
+        "descontos": "Licencas sem remuneracao proporcionalizadas",
+        "bonus": "Criterios internos, variam por cargo/senioridade/performance"
+      },
+      "historico_lucro": {
+        "2022": "R$ 8,3 bilhoes (ajustado - recorde a epoca)",
+        "2023": "R$ 10,4 bilhoes (ajustado)",
+        "2024": "R$ 12,3 bilhoes (ajustado - recorde). ROAE 27,6% no 4T24"
+      },
+      "fontes": [
+        "https://www.bancariosrio.org.br/index.php/outros-bancos/item/14876-assembleia-do-btg-pactual-aprova-plr-complementar-a-da-cct",
+        "https://carreiras.btgpactual.com/tecnologia",
+        "https://www.glassdoor.com/Benefits/BTG-Pactual-PLR-Brasil-BNFT624_E411540_N36.htm",
+        "https://www.reddit.com/r/investimentos/comments/1fjcehm/plr_btg/",
+        "CCT FENABAN PLR 2024-2025, noticias de sindicatos bancarios"
+      ]
+    },
+    {
+      "nome_do_banco": "Caixa Econômica Federal",
+      "estrutura": {
+        "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
+        "pagamento": "Adiantamento ate 50% ate 30/09 + final ate 31/03 do ano seguinte",
+        "composicao": "PLR FENABAN (Regra Basica + Parcela Adicional) + PLR CAIXA Social (4% lucro liquido)"
+      },
+      "calculo": {
+        "regra_basica": "90% da Remuneracao-Base vigente em 01/09 + R$ 3.343,04 (2024, reajustado 4,64% em 01/09/2024), limite R$ 17.933,79",
+        "majoracao": "Ate 2,2 RB (limite R$ 39.454,29) se total RB < 5% do lucro liquido",
+        "parcela_adicional": "2,2% do lucro liquido / empregados elegiveis (proporcional a dias), limite R$ 6.942,28",
+        "plr_social": "4% do lucro liquido distribuido linearmente, proporcional a dias trabalhados",
+        "antecipacao_formula": "45% salario + R$ 1.766,46 (teto R$ 9.476,20) — diferente dos 60% dos privados",
+        "garantia_minima": "1 Remuneracao-Base (se PLR FENABAN + PLR Social < 1 RB)",
+        "teto_individual": "3 Remuneracoes-Base (proporcional a dias)",
+        "teto_global": "15% do lucro liquido do exercicio",
+        "reducao": "Se extrapolar limites, redutor aplicado primeiro sobre Garantia de 1 RB, depois sobre Regra Basica",
+        "nota_divergencia": "Dados externos (extract-data fev/2026) afirmam 'Nao ha multiplicadores adicionais' e teto de R$ 24.876,07. Porem, ACT PLR Caixa 2024-2025 e MinhaPLR confirmam existencia da PLR Social (4% lucro) e teto de 3 RB. Mantida a modelagem com PLR Social conforme ACT."
+      },
+      "elegibilidade": {
+        "ativos": "Empregados da CAIXA, contratados a termo, requisitados, liberados para mandato sindical, cedidos da CAIXA (que nao recebam PLR no orgao cessionario) e cedidos para CAIXA (que nao recebam PLR no orgao de origem)",
+        "criterio_admissao": "Em efetivo exercicio no periodo de apuracao. Metas conforme Portaria SEDDM 1122/2021 e diretrizes CCE",
+        "proporcionalidade": "Proporcional a dias de efetivo exercicio",
+        "afastamentos_integrais": "Art. 473 CLT, acidente de trabalho, licenca-saude (todos os dias, inclusive pos-15o dia), maternidade/paternidade/adocao, aleitamento, APIP, licenca-premio, mandato eletivo com onus, campanha eleitoral, requisicao, cessao, liberacao sindical",
+        "descontos": "LIP, LAC, LPF, LEF, suspensao disciplinar, licenca estudos especializados, prisoes, mandato sem onus, faltas nao justificadas",
+        "exclusao": "Demissao por justa causa no periodo de apuracao",
+        "nota_adiantamento": "Nao recebe adiantamento se: > 30 dias de faltas entre 01/01-31/08, admitido apos 01/09 (recebe parcela unica proporcional)"
+      },
+      "historico_lucro": {
+        "2022": "R$ 9,2 bilhoes (recorrente)",
+        "2023": "R$ 11,7 bilhoes",
+        "2024": "R$ 14,0 bilhoes (recorrente). ROE recorrente 10,4%"
+      },
+      "fontes": [
+        "https://spbancarios.com.br/sites/default/files/cct/arquivo/Caixa%20-%20ACT%20PLR%202024-2025%20sem%20assi.pdf",
+        "https://contec.org.br/wp-content/uploads/2024/09/ACT-PLR-CAIXA_2024-2025.pdf",
+        "ACT CAIXA PLR 2024-2025 (FENAE), CCT FENABAN PLR 2024-2025, Resolucao CCE 010/1995, Decreto 3.735/2001, Portaria SEDDM 1122/2021"
+      ]
+    },
+    {
+      "nome_do_banco": "Itaú Unibanco",
       "estrutura": {
         "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
         "pagamento": "1a parcela (antecipacao) em setembro + 2a parcela em fevereiro. Para 2025: 25/09/2025 e 27/02/2026",
@@ -170,79 +276,6 @@
         "https://spbancarios.com.br/sites/default/files/arquivo_destaque/ACT_SANTANDER_2024_2026.pdf",
         "https://contrafcut.com.br/noticias/santander-confirma-pagamento-da-plr-em-27-de-fevereiro-apos-oficio-da-contraf-cut/",
         "ACT PPRS 2024-2025, ACT Geral Santander 2024-2026, CCT FENABAN 2024-2025"
-      ]
-    },
-    {
-      "nome_do_banco": "Caixa Economica Federal",
-      "estrutura": {
-        "periodo_de_apuracao": "Anual (exercicio 01/01 a 31/12)",
-        "pagamento": "Adiantamento ate 50% ate 30/09 + final ate 31/03 do ano seguinte",
-        "composicao": "PLR FENABAN (Regra Basica + Parcela Adicional) + PLR CAIXA Social (4% lucro liquido)"
-      },
-      "calculo": {
-        "regra_basica": "90% da Remuneracao-Base vigente em 01/09 + R$ 3.343,04 (2024, reajustado 4,64% em 01/09/2024), limite R$ 17.933,79",
-        "majoracao": "Ate 2,2 RB (limite R$ 39.454,29) se total RB < 5% do lucro liquido",
-        "parcela_adicional": "2,2% do lucro liquido / empregados elegiveis (proporcional a dias), limite R$ 6.942,28",
-        "plr_social": "4% do lucro liquido distribuido linearmente, proporcional a dias trabalhados",
-        "antecipacao_formula": "45% salario + R$ 1.766,46 (teto R$ 9.476,20) — diferente dos 60% dos privados",
-        "garantia_minima": "1 Remuneracao-Base (se PLR FENABAN + PLR Social < 1 RB)",
-        "teto_individual": "3 Remuneracoes-Base (proporcional a dias)",
-        "teto_global": "15% do lucro liquido do exercicio",
-        "reducao": "Se extrapolar limites, redutor aplicado primeiro sobre Garantia de 1 RB, depois sobre Regra Basica",
-        "nota_divergencia": "Dados externos (extract-data fev/2026) afirmam 'Nao ha multiplicadores adicionais' e teto de R$ 24.876,07. Porem, ACT PLR Caixa 2024-2025 e MinhaPLR confirmam existencia da PLR Social (4% lucro) e teto de 3 RB. Mantida a modelagem com PLR Social conforme ACT."
-      },
-      "elegibilidade": {
-        "ativos": "Empregados da CAIXA, contratados a termo, requisitados, liberados para mandato sindical, cedidos da CAIXA (que nao recebam PLR no orgao cessionario) e cedidos para CAIXA (que nao recebam PLR no orgao de origem)",
-        "criterio_admissao": "Em efetivo exercicio no periodo de apuracao. Metas conforme Portaria SEDDM 1122/2021 e diretrizes CCE",
-        "proporcionalidade": "Proporcional a dias de efetivo exercicio",
-        "afastamentos_integrais": "Art. 473 CLT, acidente de trabalho, licenca-saude (todos os dias, inclusive pos-15o dia), maternidade/paternidade/adocao, aleitamento, APIP, licenca-premio, mandato eletivo com onus, campanha eleitoral, requisicao, cessao, liberacao sindical",
-        "descontos": "LIP, LAC, LPF, LEF, suspensao disciplinar, licenca estudos especializados, prisoes, mandato sem onus, faltas nao justificadas",
-        "exclusao": "Demissao por justa causa no periodo de apuracao",
-        "nota_adiantamento": "Nao recebe adiantamento se: > 30 dias de faltas entre 01/01-31/08, admitido apos 01/09 (recebe parcela unica proporcional)"
-      },
-      "historico_lucro": {
-        "2022": "R$ 9,2 bilhoes (recorrente)",
-        "2023": "R$ 11,7 bilhoes",
-        "2024": "R$ 14,0 bilhoes (recorrente). ROE recorrente 10,4%"
-      },
-      "fontes": [
-        "https://spbancarios.com.br/sites/default/files/cct/arquivo/Caixa%20-%20ACT%20PLR%202024-2025%20sem%20assi.pdf",
-        "https://contec.org.br/wp-content/uploads/2024/09/ACT-PLR-CAIXA_2024-2025.pdf",
-        "ACT CAIXA PLR 2024-2025 (FENAE), CCT FENABAN PLR 2024-2025, Resolucao CCE 010/1995, Decreto 3.735/2001, Portaria SEDDM 1122/2021"
-      ]
-    },
-    {
-      "nome_do_banco": "BTG Pactual",
-      "estrutura": {
-        "periodo_de_apuracao": "Anual (CCT + bonus discricionario)",
-        "pagamento": "Antecipacao CCT em setembro + bonus final em janeiro/fevereiro (14 ou 27 de fevereiro). Atende pedidos de antecipacao do movimento sindical",
-        "composicao": "PLR CCT (Regra Basica + Parcela Adicional) + Bonus de Performance discricionario + eventuais programas complementares negociados com sindicatos"
-      },
-      "calculo": {
-        "plr_cct": "Conforme FENABAN com majoracao (banco lucrativo, ROAE 27,6% em Q4/2024)",
-        "bonus_performance": "5 a 8 salarios em media (relatos Glassdoor 2024), baseado em 'Profit Pool' da area",
-        "historico_bonus": "2012: bonus medio R$ 532 mil por colaborador (InfoMoney). BTG distribuiu 13,1% do lucro em PLR (BNDES)",
-        "lucro_2025": "R$ 16,7 bilhoes (crescimento 35%)",
-        "nota": "Bonus discricionario NAO modelado no calculador por ser variavel, especifico por cargo/area e nao publico. ACT PLR complementar aprovado em assembleia nov/2025 (59 participantes, 57 favoraveis)"
-      },
-      "elegibilidade": {
-        "plr_cct": "Conforme CCT FENABAN. Admitidos ate 31/12 do ano anterior e em efetivo exercicio em 31/12",
-        "proporcionalidade": "1/12 por mes ou fracao >= 15 dias. Desligados sem justa causa: pagamento proporcional",
-        "afastamentos_integrais": "Doenca, acidente, licenca-maternidade nao deduzidos",
-        "descontos": "Licencas sem remuneracao proporcionalizadas",
-        "bonus": "Criterios internos, variam por cargo/senioridade/performance"
-      },
-      "historico_lucro": {
-        "2022": "R$ 8,3 bilhoes (ajustado - recorde a epoca)",
-        "2023": "R$ 10,4 bilhoes (ajustado)",
-        "2024": "R$ 12,3 bilhoes (ajustado - recorde). ROAE 27,6% no 4T24"
-      },
-      "fontes": [
-        "https://www.bancariosrio.org.br/index.php/outros-bancos/item/14876-assembleia-do-btg-pactual-aprova-plr-complementar-a-da-cct",
-        "https://carreiras.btgpactual.com/tecnologia",
-        "https://www.glassdoor.com/Benefits/BTG-Pactual-PLR-Brasil-BNFT624_E411540_N36.htm",
-        "https://www.reddit.com/r/investimentos/comments/1fjcehm/plr_btg/",
-        "CCT FENABAN PLR 2024-2025, noticias de sindicatos bancarios"
       ]
     }
   ]

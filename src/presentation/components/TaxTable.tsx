@@ -32,8 +32,8 @@ export function TaxTable() {
               <thead>
                 <tr className="border-b">
                   <th className="pb-2 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">Faixa</th>
-                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Aliquota</th>
-                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Deducao</th>
+                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Alíquota</th>
+                  <th className="pb-2 text-right text-xs font-medium uppercase tracking-wider text-muted-foreground">Dedução</th>
                 </tr>
               </thead>
               <tbody className="divide-y">

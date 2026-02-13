@@ -16,11 +16,11 @@ function timeAgo(timestamp: number): string {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
   if (seconds < 60) return "agora";
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}min atras`;
+  if (minutes < 60) return `${minutes}min atrás`;
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours}h atras`;
+  if (hours < 24) return `${hours}h atrás`;
   const days = Math.floor(hours / 24);
-  return `${days}d atras`;
+  return `${days}d atrás`;
 }
 
 export function CalculationHistory({ entries, onRemove, onClear, onSelect }: CalculationHistoryProps) {
@@ -31,7 +31,7 @@ export function CalculationHistory({ entries, onRemove, onClear, onSelect }: Cal
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <CardTitle className="flex items-center gap-2 text-sm">
           <History className="h-4 w-4 text-muted-foreground" />
-          Historico
+          Histórico
         </CardTitle>
         <Button variant="ghost" size="sm" onClick={onClear} className="h-7 text-xs text-muted-foreground">
           <Trash2 className="mr-1 h-3 w-3" />
@@ -55,7 +55,7 @@ export function CalculationHistory({ entries, onRemove, onClear, onSelect }: Cal
                   <span className="text-[10px] text-muted-foreground">{timeAgo(entry.calculatedAt)}</span>
                 </div>
                 <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
-                  <span>Salario: {formatCurrency(entry.salario)}</span>
+                  <span>Salário: {formatCurrency(entry.salario)}</span>
                   <span className="font-medium text-foreground">{formatCurrency(entry.totalLiquido)}</span>
                 </div>
               </div>

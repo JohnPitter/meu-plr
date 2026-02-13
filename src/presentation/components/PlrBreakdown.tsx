@@ -29,8 +29,8 @@ export function PlrBreakdown({ breakdown, salario }: PlrBreakdownProps) {
   const standardRB = salario * 0.90 + 3532.92;
   const isMajorada = breakdown.regraBasicaExercicio > standardRB * 1.01;
   const exercicioRBLabel = isMajorada
-    ? "Regra Basica majorada (2,2x salario)"
-    : "Regra Basica (90% salario + R$ 3.532,92)";
+    ? "Regra Básica majorada (2,2x salário)"
+    : "Regra Básica (90% salário + R$ 3.532,92)";
 
   return (
     <Card>
@@ -39,7 +39,7 @@ export function PlrBreakdown({ breakdown, salario }: PlrBreakdownProps) {
         onClick={() => setOpen(!open)}
       >
         <CardTitle className="flex items-center justify-between text-sm">
-          Detalhamento do Calculo
+          Detalhamento do Cálculo
           <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
         </CardTitle>
       </CardHeader>
@@ -48,11 +48,11 @@ export function PlrBreakdown({ breakdown, salario }: PlrBreakdownProps) {
         <CardContent className="space-y-5 pt-0">
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              1a Parcela — Antecipacao (Setembro)
+              1a Parcela — Antecipação (Setembro)
             </p>
             <div className="rounded-lg bg-muted/50 px-4 py-2">
-              <LineItem label="Regra Basica (54% salario + R$ 2.119,75)" value={formatCurrency(breakdown.regraBasicaAntecipacao)} />
-              <LineItem label="Parcela Adicional (2,2% lucro liquido)" value={formatCurrency(breakdown.parcelaAdicionalAntecipacao)} />
+              <LineItem label="Regra Básica (54% salário + R$ 2.119,75)" value={formatCurrency(breakdown.regraBasicaAntecipacao)} />
+              <LineItem label="Parcela Adicional (2,2% lucro líquido)" value={formatCurrency(breakdown.parcelaAdicionalAntecipacao)} />
               <div className="my-1 h-px bg-border" />
               <LineItem label="Total 1a Parcela" value={formatCurrency(breakdown.totalAntecipacao)} variant="bold" />
             </div>
@@ -60,18 +60,18 @@ export function PlrBreakdown({ breakdown, salario }: PlrBreakdownProps) {
 
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              2a Parcela — Exercicio (Marco)
+              2a Parcela — Exercício (Março)
             </p>
             <div className="rounded-lg bg-muted/50 px-4 py-2">
               <LineItem label={exercicioRBLabel} value={formatCurrency(breakdown.regraBasicaExercicio)} />
-              <LineItem label="Parcela Adicional (2,2% lucro liquido)" value={formatCurrency(breakdown.parcelaAdicionalExercicio)} />
-              <LineItem label="(-) Desconto antecipacao" value={`- ${formatCurrency(breakdown.descontoAntecipacao)}`} variant="negative" />
+              <LineItem label="Parcela Adicional (2,2% lucro líquido)" value={formatCurrency(breakdown.parcelaAdicionalExercicio)} />
+              <LineItem label="(-) Desconto antecipação" value={`- ${formatCurrency(breakdown.descontoAntecipacao)}`} variant="negative" />
               <div className="my-1 h-px bg-border" />
               <LineItem label="Total 2a Parcela" value={formatCurrency(breakdown.totalExercicio)} variant="bold" />
             </div>
             {isMajorada && (
               <p className="mt-1.5 text-[10px] text-muted-foreground">
-                A regra basica foi majorada de {formatCurrency(Math.min(standardRB, 18952.40))} para {formatCurrency(breakdown.regraBasicaExercicio)} (limite 2,2 salarios conforme CCT FENABAN)
+                A regra básica foi majorada de {formatCurrency(Math.min(standardRB, 18952.40))} para {formatCurrency(breakdown.regraBasicaExercicio)} (limite 2,2 salários conforme CCT FENABAN)
               </p>
             )}
           </div>

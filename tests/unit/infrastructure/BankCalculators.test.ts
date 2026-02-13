@@ -78,11 +78,11 @@ describe("BradescoCalculator", () => {
 });
 
 describe("BbCalculator", () => {
-  it("inclui Modulo BB no programa complementar", () => {
+  it("inclui Módulo BB no programa complementar", () => {
     const calc = new BbCalculator();
     const result = calc.calculateProgramaComplementar(5000);
     expect(result.value).toBe(3500);
-    expect(result.name).toContain("Modulo BB");
+    expect(result.name).toContain("Módulo BB");
   });
 
   it("exercicio nao usa majoracao", () => {

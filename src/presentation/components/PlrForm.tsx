@@ -38,13 +38,13 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
 
     if (!bankId) newErrors.bankId = "Selecione um banco";
     const salarioNum = parseCurrencyInput(salario);
-    if (!salarioNum || salarioNum <= 0) newErrors.salario = "Informe um salario valido";
+    if (!salarioNum || salarioNum <= 0) newErrors.salario = "Informe um salário válido";
     const mesesNum = parseInt(meses, 10);
     if (!mesesNum || mesesNum < 1 || mesesNum > 12) newErrors.meses = "Entre 1 e 12 meses";
 
     const primeiraParcelaNum = parseCurrencyInput(primeiraParcela);
     if (primeiraParcela && primeiraParcelaNum < 0) {
-      newErrors.primeiraParcela = "Valor invalido";
+      newErrors.primeiraParcela = "Valor inválido";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -65,7 +65,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Dados do Calculo</CardTitle>
+        <CardTitle className="text-base">Dados do Cálculo</CardTitle>
         <CardDescription>
           Informe os dados abaixo para simular sua PLR
         </CardDescription>
@@ -87,7 +87,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="salario">Salario Base (R$)</Label>
+              <Label htmlFor="salario">Salário Base (R$)</Label>
               <Input
                 id="salario"
                 type="text"
@@ -104,7 +104,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
               <Select id="meses" value={meses} onChange={(e) => setMeses(e.target.value)}>
                 {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
                   <option key={m} value={m}>
-                    {m} {m === 1 ? "mes" : "meses"}
+                    {m} {m === 1 ? "mês" : "meses"}
                   </option>
                 ))}
               </Select>
@@ -137,7 +137,7 @@ export function PlrForm({ onSubmit }: PlrFormProps) {
               className="h-4 w-4 rounded border-input accent-primary"
             />
             <Label htmlFor="sindical" className="font-normal text-muted-foreground">
-              Descontar contribuicao sindical (1,5%)
+              Descontar contribuição sindical (1,5%)
             </Label>
           </div>
 

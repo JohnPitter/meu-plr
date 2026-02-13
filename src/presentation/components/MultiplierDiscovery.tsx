@@ -27,11 +27,11 @@ export function MultiplierDiscovery() {
     const bruto2aNum = parseCurrencyInput(bruto2a);
 
     if (!salarioNum || salarioNum <= 0) {
-      setError("Informe um salario valido");
+      setError("Informe um salário válido");
       return;
     }
     if (bruto1aNum < 0 || bruto2aNum < 0) {
-      setError("Valores invalidos");
+      setError("Valores inválidos");
       return;
     }
     if (bruto1aNum === 0 && bruto2aNum === 0) {
@@ -64,7 +64,7 @@ export function MultiplierDiscovery() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-3">
             <div className="space-y-2">
-              <Label htmlFor="disc-salario">Salario Base (R$)</Label>
+              <Label htmlFor="disc-salario">Salário Base (R$)</Label>
               <Input
                 id="disc-salario"
                 type="text"
@@ -121,19 +121,19 @@ export function MultiplierDiscovery() {
                 <p className="text-sm font-semibold">{formatCurrency(result.totalBruto)}</p>
               </div>
               <div className="rounded-md bg-muted/50 px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">Total Liquido</p>
+                <p className="text-[10px] text-muted-foreground">Total Líquido</p>
                 <p className="text-sm font-semibold">{formatCurrency(result.totalLiquido)}</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
               <div className="rounded-md bg-muted/50 px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">Liquido 1a Parcela</p>
+                <p className="text-[10px] text-muted-foreground">Líquido 1a Parcela</p>
                 <p className="text-sm font-semibold">{formatCurrency(result.liquidoPrimeiraParcela)}</p>
                 <p className="text-[10px] text-muted-foreground">IRRF: {formatCurrency(result.irrfPrimeiraParcela)}</p>
               </div>
               <div className="rounded-md bg-muted/50 px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">Liquido 2a Parcela</p>
+                <p className="text-[10px] text-muted-foreground">Líquido 2a Parcela</p>
                 <p className="text-sm font-semibold">{formatCurrency(result.liquidoSegundaParcela)}</p>
                 <p className="text-[10px] text-muted-foreground">IRRF: {formatCurrency(result.irrfSegundaParcela)}</p>
               </div>

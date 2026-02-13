@@ -26,7 +26,7 @@ function MultiplierScale({ salario }: { salario: number }) {
 
   return (
     <div className="border-t px-4 py-3 sm:px-6">
-      <p className="text-[10px] text-muted-foreground mb-2">Referencia por multiplicador</p>
+      <p className="text-[10px] text-muted-foreground mb-2">Referência por multiplicador</p>
       <div className="flex gap-1.5">
         {MULTIPLIER_LEVELS.map((mult) => {
           const bruto = salario * mult;
@@ -67,7 +67,7 @@ function MultiplierScale({ salario }: { salario: number }) {
             <p className="text-xs font-semibold text-destructive">- {formatCurrency(selectedTax.irrf)}</p>
           </div>
           <div>
-            <p className="text-[10px] text-muted-foreground">Liquido</p>
+            <p className="text-[10px] text-muted-foreground">Líquido</p>
             <p className="text-xs font-semibold text-primary">{formatCurrency(selectedLiquido)}</p>
           </div>
         </div>
@@ -88,7 +88,7 @@ export function PlrResult({ result }: PlrResultProps) {
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-xs font-medium uppercase tracking-wider opacity-80">
-                  2a Parcela — Liquido em Marco
+                  2a Parcela — Líquido em Março
                 </p>
                 <p className="mt-1 text-3xl font-bold tracking-tight">
                   {formatCurrency(calculation.liquidoSegundaParcela)}
@@ -123,7 +123,7 @@ export function PlrResult({ result }: PlrResultProps) {
           <div className="flex items-start justify-between">
             <div>
               <p className={`text-xs font-medium uppercase tracking-wider ${has2a ? "text-muted-foreground" : "opacity-80"}`}>
-                {has2a ? "PLR Total Anual" : "Valor Liquido"}
+                {has2a ? "PLR Total Anual" : "Valor Líquido"}
               </p>
               <p className="mt-1 text-3xl font-bold tracking-tight">
                 {formatCurrency(calculation.totalLiquido)}
@@ -162,7 +162,7 @@ export function PlrResult({ result }: PlrResultProps) {
             <div className="px-4 py-4 sm:px-6">
               <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
                 <ArrowRight className="h-3 w-3" />
-                {calculation.contribuicaoSindical > 0 ? "Sindical" : "Deducoes"}
+                {calculation.contribuicaoSindical > 0 ? "Sindical" : "Deduções"}
               </div>
               <p className="mt-1 text-sm font-semibold text-destructive">
                 {calculation.contribuicaoSindical > 0
