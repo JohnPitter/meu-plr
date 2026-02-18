@@ -8,6 +8,8 @@ import { MultiplierDiscovery } from "./presentation/components/MultiplierDiscove
 import { HowItWorks } from "./presentation/components/HowItWorks.tsx";
 import { DataSources } from "./presentation/components/DataSources.tsx";
 import { CalculationHistory } from "./presentation/components/CalculationHistory.tsx";
+import { JavaJobsReport } from "./presentation/components/JavaJobsReport.tsx";
+import { BradescoPlrReport } from "./presentation/components/BradescoPlrReport.tsx";
 import { usePlrCalculation } from "./presentation/hooks/usePlrCalculation.ts";
 import { useHistory } from "./presentation/hooks/useHistory.ts";
 import { Card, CardContent } from "./presentation/components/ui/card.tsx";
@@ -86,6 +88,10 @@ export function App() {
           onClear={clearHistory}
           onSelect={handleHistorySelect}
         />
+
+        <JavaJobsReport />
+
+        <BradescoPlrReport />
       </div>
     </Layout>
   );
