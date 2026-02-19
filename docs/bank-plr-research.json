@@ -101,7 +101,7 @@
           "roae_17_0": "R$ 2.000",
           "roae_18_5": "R$ 2.500"
         },
-        "prb_condicao": "Condicionado a ROAE >= 15,5% em 2025. Se PPR acumulado < PRB e ROAE atingido, paga-se complemento ate PRB",
+        "prb_condicao": "Condicionado a ROAE >= 15,5%. Exercicio 2025: ROAE = 14,8% (abaixo do minimo). Sindicato solicitou PRB e Bradesco negou. PRB = R$ 0 para 2025",
         "ppr_supera": "Programa novo (2025) para forca de vendas. Metas a partir de 95% atingimento. Valores por cargo/segmento (Varejo, Prime, Empresas, Plataformas Digitais, Bradesco Expresso)",
         "nota": "PPR Supera nao modelado no calculador por ser variavel por cargo/area. PLR FENABAN nao e compensada, e somada aos programas proprios (PPR/PRB)"
       },

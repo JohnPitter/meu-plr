@@ -57,23 +57,32 @@ describe("SantanderCalculator", () => {
 });
 
 describe("BradescoCalculator", () => {
-  it("inclui PRB no programa complementar", () => {
+  it("PRB default = 0 (ROAE 2025 = 14,8%, abaixo do minimo 15,5%)", () => {
     const calc = new BradescoCalculator();
     const result = calc.calculateProgramaComplementar(5000);
-    expect(result.value).toBe(2500);
-    expect(result.name).toContain("PRB");
+    expect(result.value).toBe(0);
+    expect(result.name).toBeNull();
   });
 
-  it("aceita valor customizado em R$", () => {
+  it("aceita valor PRB customizado em R$", () => {
     const calc = new BradescoCalculator(1000);
     const result = calc.calculateProgramaComplementar(5000);
     expect(result.value).toBe(1000);
+    expect(result.name).toContain("PRB");
   });
 
-  it("exercicio usa majoracao", () => {
+  it("exercicio usa majoracao com teto efetivo", () => {
     const calc = new BradescoCalculator();
     const result = calc.calculateExercicio(5000);
+    // Salario baixo: min(2.2 * 5000, 22620.16) = 11000 (abaixo do teto efetivo)
     expect(result.regraBasica).toBe(11000);
+  });
+
+  it("exercicio com salario alto respeita teto efetivo R$ 22.620,16", () => {
+    const calc = new BradescoCalculator();
+    const result = calc.calculateExercicio(12172);
+    // min(2.2 * 12172, 22620.16) = min(26778.40, 22620.16) = 22620.16
+    expect(result.regraBasica).toBe(22620.16);
   });
 });
 

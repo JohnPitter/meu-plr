@@ -25,9 +25,21 @@ Source: Sindicato dos Bancarios de SP / FENABAN. Reajuste 5,68% (INPC 5,05% + 0,
 ## Majoracao
 
 When total basic rule paid by bank < 5% of net profit, individual values increase:
-- Formula: min(2,2 x salary, R$ 41.695,29)
+- Formula: min(2,2 x salary, effective per-capita ceiling)
+- Absolute ceiling: R$ 41.695,29
+- The effective ceiling depends on each bank's net profit and employee count:
+  individual values increase up to 2,2 salaries OR until aggregate reaches 5% of net profit, whichever comes first
 - Applies to: Itau, Santander, Bradesco, BTG Pactual (profitable banks)
 - Does NOT apply to: BB, Caixa, Safra
+
+### Effective majoracao ceilings (exercicio 2025)
+
+| Bank | Effective Ceiling | Notes |
+|------|-------------------|-------|
+| Itau | R$ 41.695,29 | Aggregate well under 5% cap |
+| Santander | R$ 41.695,29 | Aggregate well under 5% cap |
+| Bradesco | R$ 22.620,16 | 5% aggregate cap reached (profit ~R$ 24,6B, ~86K employees) |
+| BTG Pactual | R$ 41.695,29 | Estimated (bonus-heavy bank) |
 
 ## Bank-Specific Programs
 
@@ -35,7 +47,7 @@ When total basic rule paid by bank < 5% of net profit, individual values increas
 |------|---------|---------------|
 | Itau | PCR (Programa Complementar de Resultados) | R$ 4.299,86 (2o patamar) |
 | Santander | PPRS (Programa Proprio de Resultados) | R$ 3.880,84 |
-| Bradesco | PRB (Programa de Remuneracao Bradesco) | R$ 2.500,00 |
+| Bradesco | PRB (Programa de Remuneracao Bradesco) | R$ 0 (ROAE 2025 < 15,5%) |
 | Banco do Brasil | Modulo BB | R$ 3.500,00 (estimativa) |
 | Caixa | PLR Social | R$ 3.200,00 (estimativa) |
 | BTG Pactual | FENABAN + majoracao | - (bonus discricionario nao modelado) |
@@ -64,7 +76,10 @@ Note: Calculator default uses tier 2 (ROAE 13-15,5%). PPE and PPG (area-specific
 |------|-------|
 | >= 15,5% | R$ 1.000 |
 | >= 17,0% | R$ 2.000 |
-| >= 18,5% | R$ 2.500 (default) |
+| >= 18,5% | R$ 2.500 |
+
+**Exercicio 2025**: Bradesco ROAE = 14,8% (below 15,5% minimum). PRB not paid.
+Sindicato requested PRB payment and Bradesco denied, citing "inseguranca fiscal e juridica".
 
 Note: Bradesco also has PPR Supera (2025) for sales roles, not modeled in calculator.
 

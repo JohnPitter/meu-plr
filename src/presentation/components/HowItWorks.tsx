@@ -81,8 +81,13 @@ export function HowItWorks() {
               a regra básica do exercício é substituída por:
             </p>
             <div className="rounded-md bg-muted/50 px-3 py-2 font-mono text-xs">
-              Regra Básica Majorada = min(2,2 x salário , R$ 41.695,29)
+              Regra Básica Majorada = min(2,2 x salário , teto efetivo per capita)
             </div>
+            <p>
+              O teto efetivo depende do lucro e número de funcionários de cada banco — a majoração vai
+              até <strong>2,2 salários</strong> ou até que o total de regra básica atinja <strong>5% do lucro líquido</strong>,
+              o que ocorrer primeiro. Para o Bradesco, o teto efetivo é R$ 22.620,16.
+            </p>
             <p>
               Aplica-se a: <strong>Itaú, Santander, Bradesco, BTG Pactual</strong>. Não se aplica a: BB, Caixa, Safra.
             </p>
@@ -154,7 +159,7 @@ export function HowItWorks() {
                   </tbody>
                 </table>
                 <p className="mt-1.5 text-[10px]">
-                  Default do calculador: R$ 2.500 (ROAE &ge; 18,5%).
+                  <strong>Exercício 2025: ROAE = 14,8% (abaixo do mínimo de 15,5%) — PRB não pago.</strong>{" "}
                   PPR Supera (2025) para cargos de vendas não é modelado.
                 </p>
               </BankCard>

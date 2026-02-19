@@ -76,22 +76,41 @@ describe("Santander — PPRS e majoracao", () => {
   });
 });
 
-describe("Bradesco — PRB e majoracao", () => {
-  it("PRB default = R$ 2.500 (ROAE 18,5%)", () => {
+describe("Bradesco — PRB e majoracao (exercicio 2025)", () => {
+  it("PRB default = R$ 0 (ROAE 2025 = 14,8%, abaixo do minimo 15,5%)", () => {
     const calc = new BradescoCalculator();
     const r = calc.calculateProgramaComplementar(5000);
-    expect(r.value).toBe(2500);
-    expect(r.name).toContain("PRB");
+    expect(r.value).toBe(0);
+    expect(r.name).toBeNull();
   });
 
-  it("PRB minimo R$ 1.000", () => {
+  it("PRB customizado R$ 1.000 (override explicito)", () => {
     const calc = new BradescoCalculator(1000);
     expect(calc.calculateProgramaComplementar(5000).value).toBe(1000);
   });
 
-  it("majoracao habilitada", () => {
+  it("majoracao habilitada com teto efetivo per capita", () => {
     const calc = new BradescoCalculator();
     expect(calc.majoracao).toBe(true);
+    expect(calc.majoracaoTetoEfetivo).toBe(22620.16);
+  });
+
+  it("majoracao: salario baixo nao atinge teto efetivo", () => {
+    const calc = new BradescoCalculator();
+    // 2.2 * 5000 = 11000 < 22620.16
+    expect(calc.calculateExercicio(5000).regraBasica).toBe(11000);
+  });
+
+  it("majoracao: salario alto limitado pelo teto efetivo R$ 22.620,16", () => {
+    const calc = new BradescoCalculator();
+    // 2.2 * 12172 = 26778.40 > 22620.16 → aplica teto efetivo
+    expect(calc.calculateExercicio(12172).regraBasica).toBe(22620.16);
+  });
+
+  it("majoracao: teto efetivo customizado", () => {
+    const calc = new BradescoCalculator(0, 30000);
+    // 2.2 * 12172 = 26778.40 < 30000 → nao aplica teto
+    expect(calc.calculateExercicio(12172).regraBasica).toBe(26778.40);
   });
 });
 

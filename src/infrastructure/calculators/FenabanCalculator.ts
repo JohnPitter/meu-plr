@@ -21,9 +21,11 @@ const PARCELA_ADICIONAL_EXERCICIO_TETO = 7336.60;
 
 export class FenabanCalculator implements IPlrCalculator {
   readonly majoracao: boolean;
+  readonly majoracaoTetoEfetivo: number;
 
-  constructor(majoracao = false) {
+  constructor(majoracao = false, majoracaoTetoEfetivo = MAJORACAO_TETO) {
     this.majoracao = majoracao;
+    this.majoracaoTetoEfetivo = majoracaoTetoEfetivo;
   }
 
   calculateAntecipacao(salario: number): { regraBasica: number; parcelaAdicional: number } {
@@ -46,7 +48,7 @@ export class FenabanCalculator implements IPlrCalculator {
     let regraBasica = regraBasicaPadrao;
 
     if (this.majoracao) {
-      const majorada = Math.min(salario * MAJORACAO_MULTIPLICADOR, MAJORACAO_TETO);
+      const majorada = Math.min(salario * MAJORACAO_MULTIPLICADOR, this.majoracaoTetoEfetivo);
       regraBasica = Math.max(regraBasicaPadrao, majorada);
     }
 

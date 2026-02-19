@@ -245,4 +245,43 @@ describe("CalculatePlr — regras de negocio completas", () => {
       expect(bb).toBeGreaterThan(safra);
     });
   });
+
+  describe("validacao Bradesco vs simulador sindicato (salario R$ 12.172)", () => {
+    // Fonte: https://spbancarios.com.br/02/2026/plr-bradesco-2026-use-simulador-e-saiba-o-valor-receber
+    // Salario: R$ 12.172,00 | 12 meses | sem sindical
+    const r = calc(BANKS.BRADESCO, 12172);
+
+    it("Total Regra Basica = R$ 22.620,16 (teto efetivo 5% lucro liquido)", () => {
+      expect(r.calculation.breakdown.regraBasicaExercicio).toBe(22620.16);
+    });
+
+    it("Parcela Adicional exercicio = R$ 7.336,60", () => {
+      expect(r.calculation.breakdown.parcelaAdicionalExercicio).toBe(7336.60);
+    });
+
+    it("Total PLR bruto = R$ 29.956,76", () => {
+      expect(r.calculation.totalBruto).toBeCloseTo(29956.76, 2);
+    });
+
+    it("1a Parcela (antecipacao) = R$ 12.360,92", () => {
+      expect(r.calculation.breakdown.totalAntecipacao).toBeCloseTo(12360.92, 2);
+    });
+
+    it("2a Parcela = R$ 17.595,84", () => {
+      const segundaParcela = r.calculation.breakdown.totalExercicio + r.calculation.breakdown.programaComplementar;
+      expect(segundaParcela).toBeCloseTo(17595.84, 2);
+    });
+
+    it("PRB = R$ 0 (ROAE 2025 = 14,8%)", () => {
+      expect(r.calculation.breakdown.programaComplementar).toBe(0);
+    });
+
+    it("antecipacao RB = min(54% x 12172 + 2119,75 , 11371,44) = R$ 8.692,63", () => {
+      expect(r.calculation.breakdown.regraBasicaAntecipacao).toBeCloseTo(8692.63, 2);
+    });
+
+    it("antecipacao PA = R$ 3.668,29", () => {
+      expect(r.calculation.breakdown.parcelaAdicionalAntecipacao).toBe(3668.29);
+    });
+  });
 });
